@@ -1,0 +1,47 @@
+.pages {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.cat3ml{
+  font-size: larger;
+}
+
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
+}
+
+.navbar-brand-img {
+  padding-bottom: 0px;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 10px;
+}
+.navbar-brand > img {
+  height: 100%;
+  width: auto;
+}
+
+.subcatalog {
+  font-weight: bold;
+}
+
+.row {
+  margin-bottom: 5px;
+}
