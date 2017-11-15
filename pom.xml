@@ -8,7 +8,8 @@
   <packaging>apk</packaging>
   <name>Beigesoft ™ Accountion All In One on embedded A-Jetty for Android</name>
   
-  <description>This is Android version of Beige-Accounting plus Beige-WebStore on embedded A-Jetty.</description>
+  <description>This is Android version of Beige-Accounting plus Beige-WebStore on embedded A-Jetty.
+    Web-Store is included for study and tests purposes and you are also able to make full DB copy from cloud version.</description>
   <url>http://www.beigesoft.org</url>
   <inceptionYear>2017</inceptionYear>
 
@@ -361,6 +362,31 @@
     <license>
       <name>GNU General Public License version 2</name>
       <url>http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</url>
+      <distribution>repo</distribution>
+    </license>
+    <license>
+      <name>The Eclipse Public License, Version 1.0</name>
+      <url>http://www.eclipse.org/legal/epl-v10.html</url>
+      <distribution>repo</distribution>
+    </license>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+    <license>
+      <name>Common Development and Distribution License (CDDL) v1.0</name>
+      <url>https://glassfish.dev.java.net/public/CDDLv1.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+    <license>
+      <name>MIT License</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+    <license>
+      <name>DejaVu fonts License</name>
+      <url>https://dejavu-fonts.github.io/License.html</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
