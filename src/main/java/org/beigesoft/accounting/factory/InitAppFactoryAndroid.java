@@ -12,8 +12,6 @@ package org.beigesoft.accounting.factory;
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
-import java.io.File;
-
 import android.database.Cursor;
 
 import org.beigesoft.exception.ExceptionWithCode;
@@ -82,13 +80,6 @@ public class InitAppFactoryAndroid implements IDelegateExc<FactoryAndServlet> {
           "Servlet context attribute android.content.Context is null!!!");
     }
     factoryAppBeans.setContext(aContext);
-    File uploadDirectory = new File(aContext.getFilesDir().getAbsolutePath()
-     + "/uploads");
-    if (!uploadDirectory.exists() && !uploadDirectory.mkdirs()) {
-      throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG,
-        "Can't create dir " + uploadDirectory);
-    }
-    factoryAppBeans.setUploadDirectory(uploadDirectory.getAbsolutePath());
     pFactoryAndServlet.getHttpServlet().getServletContext()
       .setAttribute("srvI18n", factoryAppBeans.lazyGet("ISrvI18n"));
     //to create/initialize database if need:

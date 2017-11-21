@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 Beigesoft ™
+ * Copyright (c) 2016 Beigesoft ™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -30,29 +30,22 @@ function submitGoodsSpecificByAjax(pIdFrm) {
   }
 };
 
-function setCostUom(cost, uomId, uomName, idDomBasePicker) {
+//set UOM and known cost (if exist)  for picked item
+function setCostUom(pKnownCost, uomId, uomName, idDomBasePicker, costPrecision, totalPrecision) {
   var whoPicking = cnvState["Who Picking"][idDomBasePicker];
-  if (cost != null) {
-    var itsPriceVisible = document.getElementById(whoPicking["pickingEntity"] + "itsPriceVisible");
-    if(itsPriceVisible == null) {
-      itsPriceVisible = document.getElementById(whoPicking["pickingEntity"] + "itsCostVisible");
-    }
-    if(itsPriceVisible != null) {
-      itsPriceVisible.value = cost;
-    }
-    var itsPrice = document.getElementById(whoPicking["pickingEntity"] + "itsPrice");
-    if(itsPrice == null) {
-      itsPrice = document.getElementById(whoPicking["pickingEntity"] + "itsCost");
-    }
-    if(itsPrice != null) {
-      itsPrice.value = cost;
-    }
-  }
   document.getElementById(whoPicking["pickingEntity"] + "unitOfMeasureId").value = uomId;
   var unitOfMeasureAppearanceVisible = document.getElementById(whoPicking["pickingEntity"] + "unitOfMeasureAppearanceVisible");
   unitOfMeasureAppearanceVisible.value = uomName;
   unitOfMeasureAppearanceVisible.onchange();
-  calculateTotal(whoPicking["pickingEntity"]);
+  if (pKnownCost != null) {
+    var itsCostVisible = document.getElementById(whoPicking["pickingEntity"] + "itsCostVisible");
+    var itsCost = document.getElementById(whoPicking["pickingEntity"] + "itsCost");
+    if (itsCost.value != pKnownCost) {
+      itsCostVisible.value = pKnownCost;
+      itsCost.value = pKnownCost;
+      calculateTotalForCost(whoPicking["pickingEntity"], costPrecision, totalPrecision);
+    }
+  }
 };
 
 function openPickerSubacc(entitySimpleName, accName, subaccName, paramsAdd) {
@@ -60,8 +53,8 @@ function openPickerSubacc(entitySimpleName, accName, subaccName, paramsAdd) {
   if (inpAccId.value == "") {
     showError(MSGS['choose_account_first']);
   } else {
-    openEntityPicker('SubaccountLine', entitySimpleName, subaccName, "&fltordPitsOwnerValId='"
-      + inpAccId.value + "'&fltordPitsOwnerOpr=eq&fltordPforcedFor=itsOwner" + paramsAdd);
+    openEntityPicker('SubaccountLine', entitySimpleName, subaccName, "&fltordPitsOwnerValId="
+      + inpAccId.value + "&fltordPitsOwnerOpr=eq&fltordPforcedFor=itsOwner" + paramsAdd);
   }
 };
 

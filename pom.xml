@@ -9,7 +9,8 @@
   <name>Beigesoft ™ Accountion All In One on embedded A-Jetty for Android</name>
   
   <description>This is Android version of Beige-Accounting plus Beige-WebStore on embedded A-Jetty.
-    Web-Store is included for study and tests purposes and you are also able to make full DB copy from cloud version.</description>
+    Web-Store is included for study and tests purposes and you are also able to make full DB copy from cloud version.
+    Web-Store is draft yet.</description>
   <url>http://www.beigesoft.org</url>
   <inceptionYear>2017</inceptionYear>
 
