@@ -12,8 +12,6 @@ package org.beigesoft.accounting.factory;
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
-import android.database.Cursor;
-
 import org.beigesoft.exception.ExceptionWithCode;
 import org.beigesoft.delegate.IDelegateExc;
 import org.beigesoft.web.model.FactoryAndServlet;
@@ -39,16 +37,6 @@ public class InitAppFactoryAndroid implements IDelegateExc<FactoryAndServlet> {
       (FactoryAppBeansAndroid) pFactoryAndServlet.getFactoryAppBeans();
     factoryAppBeans.setWebAppPath(pFactoryAndServlet.getHttpServlet()
       .getServletContext().getRealPath(""));
-    FactoryBldAccServices<Cursor> factoryBldAccServices =
-      new FactoryBldAccServices<Cursor>();
-    factoryBldAccServices.setFactoryAppBeans(factoryAppBeans);
-    factoryAppBeans.setFactoryBldServices(factoryBldAccServices);
-    FactoryAccServices<Cursor> factoryAccServices =
-      new FactoryAccServices<Cursor>();
-    factoryAccServices.setFactoryAppBeans(factoryAppBeans);
-    factoryAccServices.setFactoryBldAccServices(factoryBldAccServices);
-    factoryBldAccServices.setFactoryAccServices(factoryAccServices);
-    factoryAppBeans.setFactoryOverBeans(factoryAccServices);
     String isShowDebugMessagesStr = pFactoryAndServlet.getHttpServlet()
       .getInitParameter("isShowDebugMessages");
     factoryAppBeans.setIsShowDebugMessages(Boolean

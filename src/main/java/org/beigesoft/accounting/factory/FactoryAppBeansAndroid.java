@@ -49,6 +49,41 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
   private Context context;
 
   /**
+   * <p>Invoke complex inner factories initialization.</p>
+   * @throws Exception - an exception
+   **/
+  public FactoryAppBeansAndroid() throws Exception {
+    init();
+  }
+
+  //To override:
+  /**
+   * <p>Initialize inner factories after clear beans or on startup.</p>
+   * @throws Exception - an exception
+   */
+  @Override
+  public final synchronized void init() throws Exception {
+    FactoryBldAccServices<Cursor> factoryBldAccServices =
+      new FactoryBldAccServices<Cursor>();
+    factoryBldAccServices.setFactoryAppBeans(this);
+    setFactoryBldServices(factoryBldAccServices);
+    FactoryAccServices<Cursor> factoryAccServices =
+      new FactoryAccServices<Cursor>();
+    factoryAccServices.setFactoryAppBeans(this);
+    factoryAccServices.setFactoryBldAccServices(factoryBldAccServices);
+    factoryBldAccServices.setFactoryAccServices(factoryAccServices);
+    setFactoryOverBeans(factoryAccServices);
+    FactoryAccReplicatorXmlHttp<Cursor> factoryReplicatorXmlHttp =
+      new FactoryAccReplicatorXmlHttp<Cursor>();
+    factoryReplicatorXmlHttp.setFactoryAppBeans(this);
+    setFactoryReplicatorXmlHttp(factoryReplicatorXmlHttp);
+    FactoryAccDatabaseWriterXml<Cursor> factoryDatabaseWriterXml =
+      new FactoryAccDatabaseWriterXml<Cursor>();
+    factoryDatabaseWriterXml.setFactoryAppBeans(this);
+    setFactoryDatabaseWriterXml(factoryDatabaseWriterXml);
+  }
+
+  /**
    * <p>Get other bean in lazy mode (if bean is null then initialize it).</p>
    * @param pBeanName - bean name
    * @return Object - requested bean
