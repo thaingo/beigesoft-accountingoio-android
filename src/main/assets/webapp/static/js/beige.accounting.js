@@ -48,6 +48,15 @@ function setCostUom(pKnownCost, uomId, uomName, idDomBasePicker, costPrecision, 
   }
 };
 
+//set UOM for picked item (goods)
+function setUom(uomId, uomName, idDomBasePicker) {
+  var whoPicking = cnvState["Who Picking"][idDomBasePicker];
+  document.getElementById(whoPicking["pickingEntity"] + "unitOfMeasureId").value = uomId;
+  var unitOfMeasureAppearanceVisible = document.getElementById(whoPicking["pickingEntity"] + "unitOfMeasureAppearanceVisible");
+  unitOfMeasureAppearanceVisible.value = uomName;
+  unitOfMeasureAppearanceVisible.onchange();
+};
+
 function openPickerSubacc(entitySimpleName, accName, subaccName, paramsAdd) {
   var inpAccId = document.getElementById(entitySimpleName + accName + "Id");
   if (inpAccId.value == "") {

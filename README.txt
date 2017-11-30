@@ -51,3 +51,11 @@ https://dejavu-fonts.github.io/License.html
 
 site: http://www.beigesoft.org
 or https://sites.google.com/site/beigesoftware
+
+Working with source:
+Android SDK for Fedora 64bit requires libraries (for AVD):
+dnf install glibc.i686 glibc-devel.i686 libstdc++.i686 zlib-devel.i686 ncurses-devel.i686 zlib.i686 ncurses-libs.i686 bzip2-libs.i686
+for using OS AVD rendering install:
+dnf install  libX11-devel.i686 libXrender.i686 libXrandr.i686
+then start AVD:
+emulator -avd [AVD_NAME] -use-system-libs
