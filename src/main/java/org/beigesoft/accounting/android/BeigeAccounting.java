@@ -281,7 +281,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
         this.btnStop.setEnabled(true);
         this.tvStatus.setText(getResources().getString(R.string.started));
         this.btnStartBrowser.setEnabled(true);
-        String text = "http://" + bootStrap.getHostAddress() + ":"
+        String text = "http://localhost:"
           + String.valueOf(bootStrap.getPort());
         this.btnStartBrowser.setText(text);
       } else {
