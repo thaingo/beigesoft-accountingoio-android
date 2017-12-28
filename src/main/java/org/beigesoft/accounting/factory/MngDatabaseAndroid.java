@@ -1,7 +1,7 @@
 package org.beigesoft.accounting.factory;
 
 /*
- * Copyright (c) 2015-2017 Beigesoft ™
+ * Copyright (c) 2016 Beigesoft ™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -182,6 +182,10 @@ public class MngDatabaseAndroid implements IMngDatabaseExt {
    **/
   @Override
   public final void backupDatabase(final String pDbName) throws Exception {
+    //byte[] encKey =
+    //X509EncodedKeySpec pubKeySpec = new X509EncodedKeySpec(encKey);
+    //KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+    //PublicKey pubKey = keyFactory.generatePublic(pubKeySpec);
     String dbNm = pDbName + ".sqlite";
     File dbFile = new File(this.databaseDir + "/" + dbNm);
     if (dbFile.exists()) {

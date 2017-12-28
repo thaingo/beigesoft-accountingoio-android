@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Beigesoft ™
+ * Copyright (c) 2017 Beigesoft ™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -11,13 +11,7 @@
  */
 
 /**
- * <pre>
- * Instantiate a bean inside of another bean
- * by constructor (new) is bad practice.
- * This is delegators that instantiate beans for a client.
- * Cause don't use CDI.
- * </pre>
- *
+ * <p>Consist of crypto logic for HTTPS and files (sqlite) exchange.</p>
  * @author Yury Demidenko
  */
-package org.beigesoft.accounting.factory;
+package org.beigesoft.ajetty.crypto;

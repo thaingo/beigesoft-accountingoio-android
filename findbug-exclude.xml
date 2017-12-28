@@ -4,4 +4,8 @@
   <Match>
     <Class name="~.*R\$.*"/>
   </Match>
+  <Match>
+    <Class name="org.beigesoft.accounting.android.BeigeAccounting"/>
+    <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
+  </Match>
 </FindBugsFilter>

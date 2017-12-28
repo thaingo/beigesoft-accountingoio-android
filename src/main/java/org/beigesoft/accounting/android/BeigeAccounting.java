@@ -1,7 +1,7 @@
 package org.beigesoft.accounting.android;
 
 /*
- * Copyright (c) 2015-2017 Beigesoft ™
+ * Copyright (c) 2016 Beigesoft ™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -13,12 +13,18 @@ package org.beigesoft.accounting.android;
  */
 
 import java.io.File;
+import java.io.OutputStreamWriter;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.util.Map;
 import java.lang.reflect.Method;
+import java.security.KeyStore;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
+import java.nio.charset.Charset;
 
 import android.content.ContextWrapper;
 import android.app.Activity;
@@ -27,6 +33,7 @@ import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Build;
 import android.os.AsyncTask;
 import android.view.View;
@@ -34,15 +41,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.net.Uri;
 import android.Manifest;
 import android.util.Log;
 
+import org.spongycastle.openssl.jcajce.JcaPEMWriter;
+
 import org.beigesoft.exception.ExceptionWithCode;
 import org.beigesoft.ajetty.FactoryAppBeansEmbedded;
-import org.beigesoft.ajetty.BootStrapEmbedded;
+import org.beigesoft.ajetty.BootStrapEmbeddedHttps;
+import org.beigesoft.ajetty.crypto.CryptoServiceSc;
 
 /**
  * <p>Beige Accounting Jetty activity.</p>
@@ -87,11 +97,6 @@ public class BeigeAccounting extends Activity implements OnClickListener {
   private Spinner cmbPort;
 
   /**
-   * <p>TextView Status.</p>
-   **/
-  private TextView tvStatus;
-
-  /**
    * <p>Application beans map reference to lock.</p>
    **/
   private Map<String, Object> beansMap;
@@ -103,12 +108,72 @@ public class BeigeAccounting extends Activity implements OnClickListener {
     new FactoryAppBeansEmbedded();
 
   /**
+   * <p>Bootstrap.</p>
+   **/
+  private final BootStrapEmbeddedHttps bootStrapEmbeddedHttps =
+    new BootStrapEmbeddedHttps();
+
+  /**
+   * <p>A-Jetty instance number.</p>
+   **/
+  private EditText etAjettyIn;
+
+  /**
+   * <p>KS password.</p>
+   **/
+  private EditText etKsPassw;
+
+  /**
+   * <p>KS password repeated.</p>
+   **/
+  private EditText etKsPasswRep;
+
+  /**
+   * <p>A-Jetty instance number.</p>
+   **/
+  private Integer ajettyIn;
+
+  /**
+   * <p>Crypto service.</p>
+   **/
+  private CryptoServiceSc cryptoService;
+
+  /**
+   * <p>Flag is starting.</p>
+   **/
+  private boolean isStarting;
+
+  /**
+   * <p>Flag is stopping.</p>
+   **/
+  private boolean isStopping;
+
+  /**
+   * <p>Flag is keystore created.</p>
+   **/
+  private boolean isKeystoreCreated;
+
+  /**
+   * <p>Only way to get inner file path for A-Jetty logger file.</p>
+   **/
+  private static BeigeAccounting instance;
+
+  /**
+   * <p>Only way to get inner file path for A-Jetty logger file.</p>
+   * @return BeigeAccounting instance
+   **/
+  public static final BeigeAccounting getBean() {
+    return instance;
+  }
+
+  /**
    * <p>Called when the activity is first created or recreated.</p>
    * @param pSavedInstanceState Saved Instance State
    */
   @Override
   public final void onCreate(final Bundle pSavedInstanceState) {
     super.onCreate(pSavedInstanceState);
+    BeigeAccounting.instance = this;
     //Only way to publish this project in central Maven repository
     //cause missing Google dependencies:
     if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -134,17 +199,20 @@ public class BeigeAccounting extends Activity implements OnClickListener {
           x.printStackTrace();
       }
     }
+    this.cryptoService = new CryptoServiceSc();
     ApplicationPlus appPlus = (ApplicationPlus) getApplicationContext();
     this.beansMap = appPlus.getBeansMap();
     setContentView(R.layout.beigeaccounting);
-    this.tvStatus = (TextView) findViewById(R.id.tvStatus);
+    this.etAjettyIn = (EditText) findViewById(R.id.etAjettyIn);
+    this.etKsPassw = (EditText) findViewById(R.id.etKsPassw);
+    this.etKsPasswRep = (EditText) findViewById(R.id.etKsPasswRep);
     this.cmbPort = (Spinner) findViewById(R.id.cmbPort);
     ArrayAdapter<Integer> cmbAdapter =
       new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item);
-    cmbAdapter.add(new Integer(8080));
-    cmbAdapter.add(new Integer(8081));
-    cmbAdapter.add(new Integer(8082));
-    cmbAdapter.add(new Integer(8083));
+    cmbAdapter.add(new Integer(8443));
+    cmbAdapter.add(new Integer(8444));
+    cmbAdapter.add(new Integer(8445));
+    cmbAdapter.add(new Integer(8446));
     cmbPort.setAdapter(cmbAdapter);
     cmbPort.setSelection(0);
     this.btnStart = (Button) findViewById(R.id.btnStart);
@@ -195,6 +263,42 @@ public class BeigeAccounting extends Activity implements OnClickListener {
         "There was errors!",
           Toast.LENGTH_SHORT).show();
     }
+    // keystore placed into [webappdir-parent]/ks folder:
+    File ksDir = new File(getFilesDir().getAbsolutePath() + "/ks");
+    if (!ksDir.exists() && !ksDir.mkdir()) {
+      Toast.makeText(getApplicationContext(),
+        "Can't create ks directory: " + ksDir,
+          Toast.LENGTH_LONG).show();
+    }
+    File[] lstFl = ksDir.listFiles();
+    String nmpref = "ajettykeystore.";
+    if (lstFl != null) {
+      if (lstFl.length > 1
+        || lstFl.length == 1 && !lstFl[0].isFile()) {
+        Toast.makeText(getApplicationContext(),
+          "KS directory must contains only ks file!!!",
+            Toast.LENGTH_LONG).show();
+      } else if (lstFl.length == 1 && lstFl[0].isFile()
+        && lstFl[0].getName().startsWith(nmpref)) {
+        String ajettyInStr = lstFl[0].getName().replace(nmpref, "");
+        this.ajettyIn = Integer.parseInt(ajettyInStr);
+        this.isKeystoreCreated = true;
+      }
+    }
+    this.bootStrapEmbeddedHttps.setCryptoProviderName("SC");
+    this.bootStrapEmbeddedHttps.setFactoryAppBeans(this.jettyFactoryAppBeans);
+    this.bootStrapEmbeddedHttps.setWebAppPath(getFilesDir().getAbsolutePath()
+       + "/" + APP_BASE);
+    try {
+      this.cryptoService.init();
+    } catch (Exception e) {
+      e.printStackTrace();
+      Toast.makeText(getApplicationContext(),
+        "Can't initialize crypto service!",
+          Toast.LENGTH_SHORT).show();
+    }
+    this.beansMap.put(BootStrapEmbeddedHttps.class.getCanonicalName(),
+      this.bootStrapEmbeddedHttps);
   }
 
   /**
@@ -203,31 +307,194 @@ public class BeigeAccounting extends Activity implements OnClickListener {
    */
   @Override
   public final void onClick(final View pTarget) {
-    if (pTarget == this.btnStart) {
-      BootStrapEmbedded bootStrap = getOrInitBootStrap();
-      if (!bootStrap.getIsStarted()) {
-        bootStrap.setPort((Integer) cmbPort.getSelectedItem());
-        this.btnStart.setEnabled(false);
-        this.cmbPort.setEnabled(false);
-        Toast.makeText(getApplicationContext(),
-          "Sending request to start server, please wait", Toast.LENGTH_SHORT)
-            .show();
-        Intent intent = new Intent(this, JettyAccountingService.class);
-        intent.setAction(JettyAccountingService.ACTION_START);
-        startService(intent);
-      }
-    } else if (pTarget == this.btnStop) {
-      BootStrapEmbedded bootStrap = getOrInitBootStrap();
-      if (bootStrap.getIsStarted()) {
-        this.btnStop.setEnabled(false);
-        this.btnStartBrowser.setEnabled(false);
+    if (!this.isStarting && !this.isStopping) {
+      if (pTarget == this.btnStart
+        && !this.bootStrapEmbeddedHttps.getIsStarted()) {
+        this.isStarting = true;
+        if (!this.isKeystoreCreated) {
+          try {
+            this.ajettyIn = Integer.parseInt(etAjettyIn.getText().toString());
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+        if (this.ajettyIn == null) {
+          Toast.makeText(getApplicationContext(),
+            getResources().getString(R.string.EnterAjettyNumber),
+              Toast.LENGTH_SHORT).show();
+          this.isStarting = false;
+          return;
+        }
+        refreshView();
+        try {
+          startAjetty();
+        } catch (Exception e) {
+          Toast.makeText(getApplicationContext(),
+            "Can't start A-Jetty!", Toast.LENGTH_LONG).show();
+          e.printStackTrace();
+        }
+        refreshView();
+      } else if (pTarget == this.btnStop
+        && this.bootStrapEmbeddedHttps.getIsStarted()) {
+        this.isStopping = true;
+        refreshView();
         Intent intent = new Intent(this, JettyAccountingService.class);
         intent.setAction(JettyAccountingService.ACTION_STOP);
         startService(intent);
+        refreshView();
+      } else if (pTarget == this.btnStartBrowser) {
+        startBrowser();
       }
-    } else if (pTarget == this.btnStartBrowser) {
-      startBrowser();
     }
+  }
+
+  /**
+   * <p>It starts A-Jetty.</p>
+   * @throws Exception an Exception
+   **/
+  public final void startAjetty() throws Exception {
+    if (this.etKsPassw.getText() == null) {
+      Toast.makeText(getApplicationContext(),
+        getResources().getString(R.string.enterPassw),
+          Toast.LENGTH_SHORT).show();
+      this.isStarting = false;
+      return;
+    }
+    char[] ksPassword = this.etKsPassw.getText().toString().toCharArray();
+    File pks12File = new File(getFilesDir().getAbsolutePath()
+      + "/ks/ajettykeystore." + this.ajettyIn);
+    KeyStore pkcs12Store = null;
+    if (!pks12File.exists()) {
+      if (this.etKsPasswRep.getText() == null) {
+        Toast.makeText(getApplicationContext(),
+          getResources().getString(R.string.enterPassw),
+            Toast.LENGTH_SHORT).show();
+        this.isStarting = false;
+        return;
+      }
+      char[] ksPasswordc = this.etKsPasswRep.getText().toString().toCharArray();
+      boolean noMatch = false;
+      if (ksPassword.length != ksPasswordc.length) {
+        noMatch = true;
+      } else {
+        for (int i = 0; i < ksPassword.length; i++) {
+          if (ksPassword[i] != ksPasswordc[i]) {
+            noMatch = true;
+            break;
+          }
+        }
+      }
+      if (noMatch) {
+        Toast.makeText(getApplicationContext(),
+          getResources().getString(R.string.passwNoMatch),
+            Toast.LENGTH_SHORT).show();
+        this.isStarting = false;
+        return;
+      }
+      String isPswStrRez = this.cryptoService.isPasswordStrong(ksPassword);
+      if (isPswStrRez != null) {
+        Toast.makeText(getApplicationContext(),
+          isPswStrRez, Toast.LENGTH_SHORT).show();
+        this.isStarting = false;
+        return;
+      }
+      this.cryptoService.createKeyStoreWithCredentials(getFilesDir()
+        .getAbsolutePath() + "/ks", this.ajettyIn, ksPassword);
+      FileInputStream fis = null;
+      Certificate certCa = null;
+      PublicKey fileExchPub = null;
+      try {
+        pkcs12Store = KeyStore.getInstance("PKCS12", "SC");
+        fis = new FileInputStream(pks12File);
+        pkcs12Store.load(fis, ksPassword);
+        this.isKeystoreCreated = true;
+        certCa = pkcs12Store.getCertificate("AJettyCa" + this.ajettyIn);
+        fileExchPub = pkcs12Store
+          .getCertificate("AJettyFileExch" + this.ajettyIn).getPublicKey();
+      } finally {
+        if (fis != null) {
+         try {
+           fis.close();
+         } catch (Exception e2) {
+           e2.printStackTrace();
+         }
+        }
+      }
+      if (certCa != null) {
+        File pemFl = new File(Environment.getExternalStorageDirectory()
+          .getAbsolutePath() + File.separator + "ajetty-ca.pem");
+        JcaPEMWriter pemWriter = null;
+        try {
+          OutputStreamWriter osw = new OutputStreamWriter(
+            new FileOutputStream(pemFl), Charset.forName("ASCII").newEncoder());
+          pemWriter = new JcaPEMWriter(osw);
+          pemWriter.writeObject(certCa);
+          pemWriter.flush();
+        } finally {
+          if (pemWriter != null) {
+            try {
+              pemWriter.close();
+            } catch (Exception e2) {
+              e2.printStackTrace();
+            }
+          }
+        }
+        File pubFl = new File(Environment.getExternalStorageDirectory()
+          + File.separator + "ajetty-file-exch" + this.ajettyIn + ".kpub");
+        FileOutputStream fos = null;
+        try {
+          fos = new FileOutputStream(pubFl);
+          fos.write(fileExchPub.getEncoded());
+          fos.flush();
+          Toast.makeText(getApplicationContext(),
+            getResources().getString(R.string.ajettycacopied),
+              Toast.LENGTH_SHORT).show();
+        } finally {
+          if (fos != null) {
+            try {
+              fos.close();
+            } catch (Exception e2) {
+              e2.printStackTrace();
+            }
+          }
+        }
+      }
+    } else {
+      FileInputStream fis = null;
+      try {
+        pkcs12Store = KeyStore.getInstance("PKCS12", "SC");
+        fis = new FileInputStream(pks12File);
+        pkcs12Store.load(fis, ksPassword);
+      } catch (Exception e) {
+        pkcs12Store = null;
+        e.printStackTrace();
+      } finally {
+        if (fis != null) {
+          try {
+            fis.close();
+          } catch (Exception e2) {
+            e2.printStackTrace();
+          }
+        }
+      }
+      if (pkcs12Store == null) {
+        Toast.makeText(getApplicationContext(),
+          getResources().getString(R.string.passwordWrong),
+            Toast.LENGTH_SHORT).show();
+        this.isStarting = false;
+        return;
+      }
+    }
+    this.bootStrapEmbeddedHttps.setHttpsAlias("AJettyHttps" + this.ajettyIn);
+    this.bootStrapEmbeddedHttps.setPkcs12File(pks12File);
+    this.bootStrapEmbeddedHttps.setPassword(new String(ksPassword));
+    this.bootStrapEmbeddedHttps.setPort((Integer) cmbPort.getSelectedItem());
+    Toast.makeText(getApplicationContext(),
+      "Sending request to start server, please wait", Toast.LENGTH_SHORT)
+        .show();
+    Intent intent = new Intent(this, JettyAccountingService.class);
+    intent.setAction(JettyAccountingService.ACTION_START);
+    startService(intent);
   }
 
   /**
@@ -273,60 +540,56 @@ public class BeigeAccounting extends Activity implements OnClickListener {
    * <p>Refresh view.</p>
    */
   private void refreshView() {
-    synchronized (this.beansMap) {
-      BootStrapEmbedded bootStrap = getOrInitBootStrap();
-      if (bootStrap.getIsStarted()) {
+    if (this.isStarting && !this.bootStrapEmbeddedHttps.getIsStarted()
+      || this.isStopping && this.bootStrapEmbeddedHttps.getIsStarted()) {
+      this.cmbPort.setEnabled(false);
+      this.etAjettyIn.setEnabled(false);
+      this.etKsPassw.setEnabled(false);
+      this.etKsPasswRep.setEnabled(false);
+      this.btnStart.setEnabled(false);
+      this.btnStop.setEnabled(false);
+      this.btnStartBrowser.setEnabled(false);
+      if (this.isStarting) {
+        this.btnStartBrowser.setText(getResources()
+          .getString(R.string.starting));
+      } else {
+        this.btnStartBrowser.setText(getResources()
+          .getString(R.string.stopping));
+      }
+    } else {
+      if (this.bootStrapEmbeddedHttps.getIsStarted()) {
+        if (this.isStarting) {
+          this.isStarting = false;
+        }
         this.cmbPort.setEnabled(false);
         this.btnStart.setEnabled(false);
+        this.etAjettyIn.setEnabled(false);
+        this.etKsPassw.setEnabled(false);
+        this.etKsPasswRep.setEnabled(false);
         this.btnStop.setEnabled(true);
-        this.tvStatus.setText(getResources().getString(R.string.started));
         this.btnStartBrowser.setEnabled(true);
-        String text = "http://localhost:"
-          + String.valueOf(bootStrap.getPort());
-        this.btnStartBrowser.setText(text);
+        this.btnStartBrowser.setText("https://localhost:"
+        + this.cmbPort.getSelectedItem());
       } else {
-        this.btnStart.setEnabled(true);
+        if (this.isStopping) {
+          this.isStopping = false;
+        }
+        if (this.isKeystoreCreated) {
+          this.etAjettyIn.setEnabled(false);
+          this.etKsPasswRep.setEnabled(false);
+          this.etAjettyIn.setText(this.ajettyIn.toString());
+        } else {
+          this.etAjettyIn.setEnabled(true);
+          this.etKsPasswRep.setEnabled(true);
+        }
+        this.etKsPassw.setEnabled(true);
         this.cmbPort.setEnabled(true);
+        this.btnStart.setEnabled(true);
         this.btnStop.setEnabled(false);
-        this.tvStatus.setText(getResources().getString(R.string.stopped));
         this.btnStartBrowser.setEnabled(false);
         this.btnStartBrowser.setText("");
       }
     }
-  }
-
-  /**
-   * <p>Get Or Initialize BootStrapEmbedded.</p>
-   * @return BootStrapEmbedded BootStrapEmbedded
-   */
-  private BootStrapEmbedded getOrInitBootStrap() {
-    BootStrapEmbedded bootStrap = null;
-    Object bootStrapO = this.beansMap
-      .get(BootStrapEmbedded.class.getCanonicalName());
-    if (bootStrapO != null) {
-      bootStrap = (BootStrapEmbedded) bootStrapO;
-    } else { // initialize:
-      synchronized (this.beansMap) {
-        bootStrapO = this.beansMap
-          .get(BootStrapEmbedded.class.getCanonicalName());
-        if (bootStrapO == null) {
-          bootStrap = new BootStrapEmbedded();
-          bootStrap.setWebAppPath(getFilesDir().getAbsolutePath()
-            + "/" + APP_BASE);
-          try {
-            bootStrap.setFactoryAppBeans(jettyFactoryAppBeans);
-            // SERVER WILL BE CREATED BY START THREAD IN JettyAccountingService
-          } catch (Exception e) {
-            e.printStackTrace();
-          }
-          this.beansMap
-            .put(BootStrapEmbedded.class.getCanonicalName(), bootStrap);
-          // it will be removed from beans-map by STOP thread
-          // in JettyAccountingService
-        }
-      }
-    }
-    return bootStrap;
   }
 
   /**

@@ -1,7 +1,7 @@
 package org.beigesoft.accounting.factory;
 
 /*
- * Copyright (c) 2015-2017 Beigesoft ™
+ * Copyright (c) 2016 Beigesoft ™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -73,10 +73,10 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
     factoryAccServices.setFactoryBldAccServices(factoryBldAccServices);
     factoryBldAccServices.setFactoryAccServices(factoryAccServices);
     setFactoryOverBeans(factoryAccServices);
-    FactoryAccReplicatorXmlHttp<Cursor> factoryReplicatorXmlHttp =
-      new FactoryAccReplicatorXmlHttp<Cursor>();
-    factoryReplicatorXmlHttp.setFactoryAppBeans(this);
-    setFactoryReplicatorXmlHttp(factoryReplicatorXmlHttp);
+    FactoryAccReplicatorXmlHttps<Cursor> factoryReplicatorXmlHttps =
+      new FactoryAccReplicatorXmlHttps<Cursor>();
+    factoryReplicatorXmlHttps.setFactoryAppBeans(this);
+    setFactoryReplicatorXmlHttps(factoryReplicatorXmlHttps);
     FactoryAccDatabaseWriterXml<Cursor> factoryDatabaseWriterXml =
       new FactoryAccDatabaseWriterXml<Cursor>();
     factoryDatabaseWriterXml.setFactoryAppBeans(this);
@@ -155,8 +155,7 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
     if (logger == null) {
       logger = new LoggerFile();
       logger.setIsShowDebugMessages(getIsShowDebugMessages());
-      String currDir = Environment.getExternalStorageDirectory()
-        .getAbsolutePath();
+      String currDir = this.context.getFilesDir().getAbsolutePath();
       String fileBaseName = "beige-accounting";
       logger.setFilePath(currDir + File.separator + fileBaseName);
       Log.i("A-Jetty", "> Log file path: " + logger.getFilePath());

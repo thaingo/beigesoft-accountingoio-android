@@ -3,26 +3,40 @@
   android:layout_height="match_parent"
   android:orientation="vertical"
   xmlns:tools="http://schemas.android.com/tools"
-  tools:context="org.beigesoft.android.ajetty.AJetty" >
+  tools:context="org.beigesoft.accounting.android.BeigeAccounting" >
 
-  <LinearLayout
+  <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:text="@string/ajettyNumber" />
 
-    <TextView
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:text="@string/status" />
-    
-    <TextView
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/tvStatus"
-      android:textSize="20sp"
-      android:text="@string/stopped" />
-  </LinearLayout>
+  <EditText
+    android:id="@+id/etAjettyIn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="number" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/ksPassw" />
+
+  <EditText
+    android:id="@+id/etKsPassw"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textPassword" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/ksPasswRep" />
+
+  <EditText
+    android:id="@+id/etKsPasswRep"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textPassword" />
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -39,6 +53,7 @@
       android:id="@+id/cmbPort"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content" />
+
   </LinearLayout>
 
   <Button
@@ -55,7 +70,7 @@
 
   <Button
     android:id="@+id/btnStartBrowser"
-    android:layout_marginTop="40sp"
+    android:layout_marginTop="20sp"
     android:gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />

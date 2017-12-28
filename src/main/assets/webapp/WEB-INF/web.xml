@@ -34,7 +34,7 @@
     </init-param>
     <init-param>
       <param-name>initFactoryClass</param-name>
-      <param-value>org.beigesoft.accounting.factory.InitAppFactoryAndroid</param-value>
+      <param-value>org.beigesoft.accounting.factory.InitAppFactoryAndroidHttps</param-value>
     </init-param>
     <init-param>
       <param-name>databaseName</param-name>
@@ -151,6 +151,16 @@
     <url-pattern>/secure/replicator/*</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>addFirstUser</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WAddFirstUser
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addFirstUser</servlet-name>
+    <url-pattern>/addFirstUser/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>mngDatabase</servlet-name>
     <servlet-class>
       org.beigesoft.web.servlet.WMngDatabaseExt
@@ -212,6 +222,11 @@ Automatically created by Apache Tomcat JspC.
 Place this fragment in the web.xml before all icon, display-name,
 description, distributable, and context-param elements.
 -->
+
+    <servlet>
+        <servlet-name>org.apache.jsp.addFirstUser_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.addFirstUser_jsp</servlet-class>
+    </servlet>
 
     <servlet>
         <servlet-name>org.apache.jsp.index_jsp</servlet-name>
@@ -2207,6 +2222,11 @@ description, distributable, and context-param elements.
         <servlet-name>org.apache.jsp.secure.fragments.loginTmpl_jsp</servlet-name>
         <servlet-class>org.apache.jsp.secure.fragments.loginTmpl_jsp</servlet-class>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.addFirstUser_jsp</servlet-name>
+        <url-pattern>/addFirstUser.jsp</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>org.apache.jsp.index_jsp</servlet-name>
@@ -4272,6 +4292,38 @@ env-entry, and ejb-ref elements should follow this fragment.
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>JDBCRealm</realm-name>
+    <form-login-config>
+      <form-login-page>/secure/login.jsp</form-login-page>
+      <form-error-page>/secure/loginError.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+  <security-role>
+    <role-name>admin</role-name>
+  </security-role>
+  <security-role>
+    <role-name>user</role-name>
+  </security-role>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name></web-resource-name>
+      <url-pattern>/secure/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>*</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name></web-resource-name>
+      <url-pattern>/mngSoftware/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
   <error-page>
     <error-code>500</error-code>
     <location>/error.jsp</location>

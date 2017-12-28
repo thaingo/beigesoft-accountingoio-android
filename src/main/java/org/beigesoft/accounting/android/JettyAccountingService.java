@@ -1,7 +1,7 @@
 package org.beigesoft.accounting.android;
 
 /*
- * Copyright (c) 2015-2017 Beigesoft ™
+ * Copyright (c) 2016 Beigesoft ™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -18,7 +18,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import org.beigesoft.ajetty.BootStrapEmbedded;
+import org.beigesoft.ajetty.BootStrapEmbeddedHttps;
 
 /**
  * <p>A-Jetty Android service.</p>
@@ -123,13 +123,13 @@ public class JettyAccountingService extends Service {
    * It invoked by start/stop threads.</p>
    * @return BootStrapEmbedded BootStrapEmbedded
    */
-  private BootStrapEmbedded getBootStrap() {
-    BootStrapEmbedded bootStrap = null;
+  private BootStrapEmbeddedHttps getBootStrap() {
+    BootStrapEmbeddedHttps bootStrap = null;
     // this.beansMap already synchronized
     Object bootStrapO = this.beansMap
-      .get(BootStrapEmbedded.class.getCanonicalName());
+      .get(BootStrapEmbeddedHttps.class.getCanonicalName());
     if (bootStrapO != null) {
-      bootStrap = (BootStrapEmbedded) bootStrapO;
+      bootStrap = (BootStrapEmbeddedHttps) bootStrapO;
     } else {
       //already stopped
       stopSelf();
@@ -145,7 +145,7 @@ public class JettyAccountingService extends Service {
     @Override
     public void run() {
       synchronized (JettyAccountingService.this.beansMap) {
-        BootStrapEmbedded bootStrap = getBootStrap();
+        BootStrapEmbeddedHttps bootStrap = getBootStrap();
         if (bootStrap != null && !bootStrap.getIsStarted()) {
           try {
             if (bootStrap.getServer() == null) {
@@ -174,13 +174,11 @@ public class JettyAccountingService extends Service {
     @Override
     public void run() {
       synchronized (JettyAccountingService.this.beansMap) {
-        BootStrapEmbedded bootStrap = JettyAccountingService.this
+        BootStrapEmbeddedHttps bootStrap = JettyAccountingService.this
           .getBootStrap();
         if (bootStrap != null && bootStrap.getIsStarted()) {
           try {
             bootStrap.stopServer();
-            JettyAccountingService.this.beansMap
-              .remove(BootStrapEmbedded.class.getCanonicalName());
           } catch (Exception e) {
             e.printStackTrace();
           }
