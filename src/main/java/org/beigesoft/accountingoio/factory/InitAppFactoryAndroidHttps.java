@@ -1,7 +1,7 @@
-package org.beigesoft.accounting.factory;
+package org.beigesoft.accountingoio.factory;
 
 /*
- * Copyright (c) 2016 Beigesoft ™
+ * Copyright (c) 2017 Beigesoft ™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -12,9 +12,19 @@ package org.beigesoft.accounting.factory;
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
+import java.security.KeyStore;
+
+import android.database.Cursor;
+
+import org.eclipse.jetty.security.DataBaseLoginService;
+
 import org.beigesoft.exception.ExceptionWithCode;
 import org.beigesoft.delegate.IDelegateExc;
 import org.beigesoft.web.model.FactoryAndServlet;
+import org.beigesoft.service.ISrvDatabase;
+import org.beigesoft.web.service.SrvAddTheFirstUser;
+import org.beigesoft.ajetty.SrvGetUserCredentials;
+import org.beigesoft.web.service.CryptoHelper;
 
 /**
  * <p>
@@ -23,7 +33,8 @@ import org.beigesoft.web.model.FactoryAndServlet;
  *
  * @author Yury Demidenko
  */
-public class InitAppFactoryAndroid implements IDelegateExc<FactoryAndServlet> {
+public class InitAppFactoryAndroidHttps
+  implements IDelegateExc<FactoryAndServlet> {
 
   /**
    * <p>Make something with a model.</p>
@@ -72,5 +83,34 @@ public class InitAppFactoryAndroid implements IDelegateExc<FactoryAndServlet> {
       .setAttribute("srvI18n", factoryAppBeans.lazyGet("ISrvI18n"));
     //to create/initialize database if need:
     factoryAppBeans.lazyGet("ISrvOrm");
+    LstnDbChangedAndroid lstnDbChanged = new LstnDbChangedAndroid();
+    lstnDbChanged.setFactoryAndServlet(pFactoryAndServlet);
+    factoryAppBeans.getListenersDbChanged().add(lstnDbChanged);
+    @SuppressWarnings("unchecked")
+    ISrvDatabase<Cursor> srvDb = (ISrvDatabase<Cursor>)
+      factoryAppBeans.lazyGet("ISrvDatabase");
+    SrvAddTheFirstUser<Cursor> srvAddFiU = new SrvAddTheFirstUser<Cursor>();
+    srvAddFiU.setSrvDatabase(srvDb);
+    pFactoryAndServlet.getHttpServlet().getServletContext()
+      .setAttribute("srvAddTheFirstUser", srvAddFiU);
+    DataBaseLoginService srvDbl = (DataBaseLoginService)
+      pFactoryAndServlet.getHttpServlet().getServletContext()
+        .getAttribute("JDBCRealm");
+    if (srvDbl != null) {
+      SrvGetUserCredentials<Cursor> srvCr = new SrvGetUserCredentials<Cursor>();
+      srvCr.setSrvDatabase(srvDb);
+      srvDbl.setSrvGetUserCredentials(srvCr);
+    }
+    //crypto init:
+    CryptoHelper ch = (CryptoHelper) factoryAppBeans.lazyGet("ICryptoHelper");
+    KeyStore ks = (KeyStore) pFactoryAndServlet.getHttpServlet()
+      .getServletContext().getAttribute("ajettyKeystore");
+    ch.setKeyStore(ks);
+    String passw = (String) pFactoryAndServlet.getHttpServlet()
+      .getServletContext().getAttribute("ksPassword");
+    ch.setKsPassword(passw.toCharArray());
+    Integer ajettyIn = (Integer) pFactoryAndServlet.getHttpServlet()
+      .getServletContext().getAttribute("ajettyIn");
+    ch.setAjettyIn(ajettyIn);
   }
 }

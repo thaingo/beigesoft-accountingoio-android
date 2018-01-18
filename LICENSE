@@ -332,23 +332,27 @@ Oracle JEE:
 CDDL + GPLv2 with classpath exception
 https://javaee.github.io/glassfish/LICENSE
 
-part of Apache Tomcat/JSTL by Apache Software Foundation, adapted for Android to precompile and run JSP/JSTL:
+https://github.com/demidenko05/a-tomcat-all - part of Apache Tomcat/JSTL by Apache Software Foundation, adapted for Android to precompile and run JSP/JSTL:
 The Apache Software License, Version 2.0
 http://www.apache.org/licenses/LICENSE-2.0.txt
 
-part of Jetty 9.2 by Mort Bay Consulting Pty. Ltd (adapted for Android):
+https://github.com/demidenko05/a-jetty-all - part of Jetty 9.2 by Mort Bay Consulting Pty. Ltd adapted for Android:
 The Eclipse Public License, Version 1.0
 http://www.eclipse.org/legal/epl-v10.html
+
+https://github.com/demidenko05/a-javabeans8 - adapted OpenJDK8 javabeans for Android:
+GNU General Public License, version 2, with the Classpath Exception
+http://openjdk.java.net/legal/gplv2+ce.html
 
 JavaMail API (compat) 1.4 plus JavaBeans(TM) Activation Framework:
 Common Development and Distribution License (CDDL) v1.0
 https://glassfish.dev.java.net/public/CDDLv1.0.html
 
-SLF4J by QOS.ch:
-MIT License
-http://www.opensource.org/licenses/mit-license.php
+Bouncy Castle Crypto APIs by the Legion of the Bouncy Castle Inc:
+Bouncy Castle License (actually MIT)
+http://www.bouncycastle.org/licence.html
 
-CSS/Javascript framework Bootstrap by Twitter, Inc:
+CSS/Javascript framework Bootstrap by Twitter, Inc and the Bootstrap Authors:
 MIT License
 https://github.com/twbs/bootstrap/blob/master/LICENSE
 
@@ -356,8 +360,18 @@ JQuery by JS Foundation and other contributors:
 MIT license
 https://jquery.org/license
 
+JS library Popper by Federico Zivolo and contributors:
+MIT License
+https://github.com/twbs/bootstrap/blob/master/LICENSE
+
+Open Iconic icon fonts by Waybury:
+SIL OPEN FONT LICENSE Version 1.1
+http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web
+Open Iconic to Bootstrap CSS by Waybury:
+MIT License
+https://github.com/twbs/bootstrap/blob/master/LICENSE
+
 DejaVu fonts by Bitstream:
 https://dejavu-fonts.github.io/License.html 
 
-site: http://www.beigesoft.org
-or https://sites.google.com/site/beigesoftware
+site: https://sites.google.com/site/beigesoftware

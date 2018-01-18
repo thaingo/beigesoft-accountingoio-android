@@ -1,4 +1,4 @@
-package org.beigesoft.accounting.android;
+package org.beigesoft.accountingoio.android;
 
 /*
  * Copyright (c) 2016 Beigesoft ™
@@ -53,6 +53,9 @@ import org.beigesoft.exception.ExceptionWithCode;
 import org.beigesoft.ajetty.FactoryAppBeansEmbedded;
 import org.beigesoft.ajetty.BootStrapEmbeddedHttps;
 import org.beigesoft.ajetty.crypto.CryptoServiceSc;
+import org.beigesoft.log.ILogger;
+import org.beigesoft.log.LoggerFile;
+import org.beigesoft.android.log.Logger;
 
 /**
  * <p>Beige Accounting Jetty activity.</p>
@@ -167,6 +170,11 @@ public class BeigeAccounting extends Activity implements OnClickListener {
   }
 
   /**
+   * <p>Logger.</p>
+   **/
+  private ILogger logger;
+
+  /**
    * <p>Called when the activity is first created or recreated.</p>
    * @param pSavedInstanceState Saved Instance State
    */
@@ -199,29 +207,47 @@ public class BeigeAccounting extends Activity implements OnClickListener {
           x.printStackTrace();
       }
     }
-    this.cryptoService = new CryptoServiceSc();
-    ApplicationPlus appPlus = (ApplicationPlus) getApplicationContext();
-    this.beansMap = appPlus.getBeansMap();
-    setContentView(R.layout.beigeaccounting);
-    this.etAjettyIn = (EditText) findViewById(R.id.etAjettyIn);
-    this.etKsPassw = (EditText) findViewById(R.id.etKsPassw);
-    this.etKsPasswRep = (EditText) findViewById(R.id.etKsPasswRep);
-    this.cmbPort = (Spinner) findViewById(R.id.cmbPort);
-    ArrayAdapter<Integer> cmbAdapter =
-      new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item);
-    cmbAdapter.add(new Integer(8443));
-    cmbAdapter.add(new Integer(8444));
-    cmbAdapter.add(new Integer(8445));
-    cmbAdapter.add(new Integer(8446));
-    cmbPort.setAdapter(cmbAdapter);
-    cmbPort.setSelection(0);
-    this.btnStart = (Button) findViewById(R.id.btnStart);
-    this.btnStartBrowser = (Button) findViewById(R.id.btnStartBrowser);
-    this.btnStartBrowser.setOnClickListener(this);
-    this.btnStop = (Button) findViewById(R.id.btnStop);
-    this.btnStart.setOnClickListener(this);
-    this.btnStop.setOnClickListener(this);
+    if (this.logger == null) {
+      try {
+        LoggerFile log = new LoggerFile();
+        log.setFilePath(Environment.getExternalStorageDirectory()
+          .getAbsolutePath() + "/starter");
+        log.setIsCloseFileAfterRecord(true);
+        this.logger = log;
+      } catch (Exception e) {
+        this.logger = new Logger();
+        logger.error(null, BeigeAccounting.class,
+          "Cant create starter file log", e);
+      }
+    }
     try {
+      ApplicationPlus appPlus = (ApplicationPlus) getApplicationContext();
+      this.beansMap = appPlus.getBeansMap();
+      setContentView(R.layout.beigeaccounting);
+      this.etAjettyIn = (EditText) findViewById(R.id.etAjettyIn);
+      this.etKsPassw = (EditText) findViewById(R.id.etKsPassw);
+      this.etKsPasswRep = (EditText) findViewById(R.id.etKsPasswRep);
+      this.cmbPort = (Spinner) findViewById(R.id.cmbPort);
+      ArrayAdapter<Integer> cmbAdapter =
+        new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item);
+      cmbAdapter.add(new Integer(8443));
+      cmbAdapter.add(new Integer(8444));
+      cmbAdapter.add(new Integer(8445));
+      cmbAdapter.add(new Integer(8446));
+      cmbPort.setAdapter(cmbAdapter);
+      cmbPort.setSelection(0);
+      this.btnStart = (Button) findViewById(R.id.btnStart);
+      this.btnStartBrowser = (Button) findViewById(R.id.btnStartBrowser);
+      this.btnStartBrowser.setOnClickListener(this);
+      this.btnStop = (Button) findViewById(R.id.btnStop);
+      this.btnStart.setOnClickListener(this);
+      this.btnStop.setOnClickListener(this);
+    } catch (Exception e) {
+      logger.error(null, BeigeAccounting.class,
+        "Cant create interface", e);
+    }
+    try {
+      this.cryptoService = new CryptoServiceSc();
       File jettyBase = new File(getFilesDir().getAbsolutePath()
        + "/" + APP_BASE);
       PackageInfo packageInfo = getPackageManager()
@@ -231,8 +257,9 @@ public class BeigeAccounting extends Activity implements OnClickListener {
        + "/" + APP_BASE + "/" + nameFileVersion);
       if (!jettyBase.exists()) { //new install
         if (!jettyBase.mkdirs()) {
-          throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG,
-            "Can't create dir " + jettyBase);
+          String msg = "Can't create dir " + jettyBase;
+          this.logger.error(null, BeigeAccounting.class, msg);
+          throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG, msg);
         }
         copyAssets(APP_BASE);
         Toast.makeText(getApplicationContext(),
@@ -240,25 +267,28 @@ public class BeigeAccounting extends Activity implements OnClickListener {
             + " and WEB static files has been copied!",
             Toast.LENGTH_SHORT).show();
         if (!fileVersion.createNewFile()) {
-          throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG,
-            "Cant't create file " + fileVersion);
+          String msg = "Cant't create file " + fileVersion;
+          this.logger.error(null, BeigeAccounting.class, msg);
+          throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG, msg);
         }
       } else if (!fileVersion.exists()) { // upgrade
         copyAssets(APP_BASE); // refresh from upgrade package
         if (!fileVersion.createNewFile()) {
-          throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG,
-            "Cant't create file " + fileVersion);
+          String msg = "Cant't create file " + fileVersion;
+          this.logger.error(null, BeigeAccounting.class, msg);
+          throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG, msg);
         }
         Toast.makeText(getApplicationContext(),
           "New version of WEB static files has been copied!",
             Toast.LENGTH_SHORT).show();
       }
     } catch (ExceptionWithCode e) {
+      this.logger.error(null, BeigeAccounting.class, null, e);
       Toast.makeText(getApplicationContext(),
         e.getShortMessage(),
           Toast.LENGTH_SHORT).show();
     } catch (Exception e) {
-      e.printStackTrace();
+      this.logger.error(null, BeigeAccounting.class, null, e);
       Toast.makeText(getApplicationContext(),
         "There was errors!",
           Toast.LENGTH_SHORT).show();
@@ -266,18 +296,18 @@ public class BeigeAccounting extends Activity implements OnClickListener {
     // keystore placed into [webappdir-parent]/ks folder:
     File ksDir = new File(getFilesDir().getAbsolutePath() + "/ks");
     if (!ksDir.exists() && !ksDir.mkdir()) {
-      Toast.makeText(getApplicationContext(),
-        "Can't create ks directory: " + ksDir,
-          Toast.LENGTH_LONG).show();
+      String msg = "Can't create ks directory: " + ksDir;
+      this.logger.error(null, BeigeAccounting.class, msg);
+      Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
     File[] lstFl = ksDir.listFiles();
     String nmpref = "ajettykeystore.";
     if (lstFl != null) {
       if (lstFl.length > 1
         || lstFl.length == 1 && !lstFl[0].isFile()) {
-        Toast.makeText(getApplicationContext(),
-          "KS directory must contains only ks file!!!",
-            Toast.LENGTH_LONG).show();
+        String msg = "KS directory must contains only ks file!!!";
+        this.logger.error(null, BeigeAccounting.class, msg);
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
       } else if (lstFl.length == 1 && lstFl[0].isFile()
         && lstFl[0].getName().startsWith(nmpref)) {
         String ajettyInStr = lstFl[0].getName().replace(nmpref, "");
@@ -292,10 +322,9 @@ public class BeigeAccounting extends Activity implements OnClickListener {
     try {
       this.cryptoService.init();
     } catch (Exception e) {
-      e.printStackTrace();
-      Toast.makeText(getApplicationContext(),
-        "Can't initialize crypto service!",
-          Toast.LENGTH_SHORT).show();
+      String msg = "Can't initialize crypto service!";
+      this.logger.error(null, BeigeAccounting.class, msg);
+      Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
     this.beansMap.put(BootStrapEmbeddedHttps.class.getCanonicalName(),
       this.bootStrapEmbeddedHttps);
@@ -329,9 +358,10 @@ public class BeigeAccounting extends Activity implements OnClickListener {
         try {
           startAjetty();
         } catch (Exception e) {
-          Toast.makeText(getApplicationContext(),
-            "Can't start A-Jetty!", Toast.LENGTH_LONG).show();
-          e.printStackTrace();
+          String msg = "Can't start A-Jetty!";
+          this.logger.error(null, BeigeAccounting.class, msg, e);
+          Toast.makeText(getApplicationContext(), msg,
+            Toast.LENGTH_LONG).show();
         }
         refreshView();
       } else if (pTarget == this.btnStop
@@ -413,11 +443,11 @@ public class BeigeAccounting extends Activity implements OnClickListener {
           .getCertificate("AJettyFileExch" + this.ajettyIn).getPublicKey();
       } finally {
         if (fis != null) {
-         try {
-           fis.close();
-         } catch (Exception e2) {
-           e2.printStackTrace();
-         }
+          try {
+            fis.close();
+          } catch (Exception e2) {
+            this.logger.error(null, BeigeAccounting.class, null, e2);
+          }
         }
       }
       if (certCa != null) {
@@ -435,7 +465,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
             try {
               pemWriter.close();
             } catch (Exception e2) {
-              e2.printStackTrace();
+              this.logger.error(null, BeigeAccounting.class, null, e2);
             }
           }
         }
@@ -454,7 +484,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
             try {
               fos.close();
             } catch (Exception e2) {
-              e2.printStackTrace();
+              this.logger.error(null, BeigeAccounting.class, null, e2);
             }
           }
         }
@@ -467,13 +497,13 @@ public class BeigeAccounting extends Activity implements OnClickListener {
         pkcs12Store.load(fis, ksPassword);
       } catch (Exception e) {
         pkcs12Store = null;
-        e.printStackTrace();
+        this.logger.error(null, BeigeAccounting.class, null, e);
       } finally {
         if (fis != null) {
           try {
             fis.close();
           } catch (Exception e2) {
-            e2.printStackTrace();
+            this.logger.error(null, BeigeAccounting.class, null, e2);
           }
         }
       }
@@ -488,6 +518,8 @@ public class BeigeAccounting extends Activity implements OnClickListener {
     this.bootStrapEmbeddedHttps.setHttpsAlias("AJettyHttps" + this.ajettyIn);
     this.bootStrapEmbeddedHttps.setPkcs12File(pks12File);
     this.bootStrapEmbeddedHttps.setPassword(new String(ksPassword));
+    this.bootStrapEmbeddedHttps.setKeyStore(pkcs12Store);
+    this.bootStrapEmbeddedHttps.setAjettyIn(this.ajettyIn);
     this.bootStrapEmbeddedHttps.setPort((Integer) cmbPort.getSelectedItem());
     Toast.makeText(getApplicationContext(),
       "Sending request to start server, please wait", Toast.LENGTH_SHORT)
@@ -569,7 +601,8 @@ public class BeigeAccounting extends Activity implements OnClickListener {
         this.btnStop.setEnabled(true);
         this.btnStartBrowser.setEnabled(true);
         this.btnStartBrowser.setText("https://localhost:"
-        + this.cmbPort.getSelectedItem());
+        + this.cmbPort.getSelectedItem() + "/bsa"
+            + this.cmbPort.getSelectedItem());
       } else {
         if (this.isStopping) {
           this.isStopping = false;
@@ -607,8 +640,9 @@ public class BeigeAccounting extends Activity implements OnClickListener {
         File subdir = new File(createdPath);
         if (!subdir.exists()) {
           if (!subdir.mkdirs()) {
-            throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG,
-              "Cant't create dir " + subdir);
+            String msg = "Cant't create dir " + subdir;
+            this.logger.error(null, BeigeAccounting.class, msg);
+            throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG, msg);
           } else {
             Log.i(BeigeAccounting.class.getSimpleName(),
               "Created : " + subdir);
@@ -679,5 +713,22 @@ public class BeigeAccounting extends Activity implements OnClickListener {
       BeigeAccounting.this.refreshView();
       super.onProgressUpdate(values);
     }
+  }
+
+  //SGS:
+  /**
+   * <p>Getter for logger.</p>
+   * @return ILogger
+   **/
+  public final ILogger getLogger() {
+    return this.logger;
+  }
+
+  /**
+   * <p>Setter for logger.</p>
+   * @param pLogger reference
+   **/
+  public final void setLogger(final ILogger pLogger) {
+    this.logger = pLogger;
   }
 }

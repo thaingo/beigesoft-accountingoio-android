@@ -13,16 +13,18 @@
 
 body {
   margin: 0px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1rem;
+  font-weight: 400;
 }
 
-/*Form:*/
 input, select {
   width: 100%;
-  padding-top: 4px;
-  margin-bottom: 4px;
+  padding-top: .2rem;
+  margin-bottom: .2rem;
   display: inline-block;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 form.filter input, select {
@@ -37,7 +39,7 @@ textarea {
 }
 
 .input-line {
-  padding: 2px;
+  padding: .2rem;
 }
 
 .changed {
@@ -48,17 +50,17 @@ textarea {
   text-align: center;
   background-color: #3D80B9;
   color: white;
-  padding: 5px;
+  padding: .4rem;
 }
 
 .form-actions {
-  margin-top: 10px;
+  margin-top: .5rem;
   text-align: center;
   text-decoration: initial;
 }
 
 .dlg-actions {
-  margin-bottom: 10px;
+  margin-bottom: .5rem;
   text-align: center;
   text-decoration: initial;
 }
@@ -66,24 +68,20 @@ textarea {
 .btn, .page, .page-current, .page-inactive, .form-actions input, .form-actions button, .form-actions a {
   width: initial;
   background-color: #3D80B9;
-  padding: 5px;
-  margin: 2px;
+  border-color: #3D80B9;
+  padding: .2rem .35rem;
+  margin: .2rem;
   color: white;
   text-decoration: none;
   font-size: medium;
-  font-family: sans-serif;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 #listMainNew {
   position: absolute;
-  right: 100px;
-}
-
-.page, .page-current, .page-inactive {
-  font-size: small;
+  right: 6rem;
 }
 
 .page-current {
@@ -98,24 +96,19 @@ textarea {
 }
 
 .pages {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 .new-panel {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
   text-align: center;
 }
 
 .form-actions input, .form-actions button, .form-actions a {
-  margin-left: 20px;
+  margin-left: 1.5rem;
 }
-
-.btn-sm {
-  font-size: small;
-  padding-top: 3px;
-  padding-bottom: 3px;}
 
 .btn:hover, .page:hover, .page-current:hover, .form-actions input:hover, .form-actions a:hover, .form-actions button:hover {
   background-color: #3E6C92;
@@ -127,19 +120,18 @@ textarea {
 
 .alert-20 {
   position: relative;
-  top: 150px;
+  top: 10rem;
   text-align: center;
   color: red;
   font-size: larger;
-  font-family: sans-serif;
 }
 
 .form-std {
   border: 1px solid #3D80B9;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 .form-std form {
-  padding: 5px;
+  padding: .3rem;
   margin-bottom: 0px;
 }
 
@@ -168,7 +160,6 @@ textarea {
   border: none;
 }
 
-/*Navigation:*/
 .navbar {
   background-color: #676262;
 }
@@ -178,14 +169,13 @@ textarea {
 }
 
 .navbar a {
-  padding: 10px;
+  padding: .9rem;
   text-decoration: none;
   color: white;
   font-size: medium;
-  font-family: sans-serif;
   cursor: pointer;
   display: inline-block;
-  margin-right: -4px;
+  margin-right: -.3rem;
 }
 
 .navbar a:hover {
@@ -212,7 +202,7 @@ textarea {
 .dropdown-content a {
     background-color: white;
     color: black;
-    padding: 12px 16px;
+    padding: .8rem 1.1rem;
     text-decoration: none;
     display: block;
 }
@@ -223,40 +213,38 @@ textarea {
     display: block;
 }
 
-/*Dialogs:*/
 .dlg {
   border: none;
   padding: 0px;
-  top: 45px;
+  top: 4rem;
   min-width: 65%;
 }
 
 .dlg-sub {
-  top: 80px;
+  top: 5rem;
   min-width: 60%;
 }
 
 .dlg-alert {
-  top: 110px;
-  min-width: 200px;
+  top: 8rem;
+  min-width: 10rem;
 }
 
 .dlg-notifier {
   position: fixed;
   top: 0;
   right: 0;
-  min-width: 200px;
+  min-width: 10rem;
   z-index: 1000;
   display: none;
 }
 
 .btn-close {
-  right: 4px;
+  right: .3rem;
   position: absolute;
   background-color: #3D80B9;
   color: white;
   border: solid 1px #CCC;
-  font-family: monospace;
   cursor: pointer;
 }
 
@@ -264,15 +252,14 @@ textarea {
   background-color: #3E6C92;
 }
 
-/*Tables:*/
 #lstMainPlace {
-  margin: 2px;
+  margin: .2rem;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
-  min-width: 300px;
+  min-width: 20rem;
 }
 
 table, td, th {    
@@ -303,7 +290,6 @@ tr:hover {
   text-align: center;
 }
 
-/*Alerts:*/
 .error-title {
   background-color: #F71E0E;
 }
@@ -324,7 +310,7 @@ tr:hover {
   color: red;
   border-color: #F71E0E;
   border: 1px solid;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .btn-error {
@@ -338,11 +324,11 @@ tr:hover {
 .confirm {
   border-color: #72acde;
   border: 1px solid;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .btn-act {
-  min-width: 80px;
+  min-width: 4rem;
 }
 
 .btn-confirm {
@@ -356,7 +342,7 @@ tr:hover {
 .warning {
   border-color: #AF4841;
   border: 1px solid;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .btn-warning {
@@ -370,7 +356,7 @@ tr:hover {
 .success {
   border-color: #629626;
   border: 1px solid;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .btn-success {
@@ -382,14 +368,17 @@ tr:hover {
 }
 
 .msg-place {
-  padding: 20px;
+  padding: 1.2rem;
   font-size: large;
   background-color: white;
 }
 
-/*Mobile:*/
+.pubKeyStr {
+  word-wrap:break-word;
+  margin: 1.5rem;
+}
+
 @media only screen and (max-width: 768px) {
-  /* For mobile phones: */
   .picked-appearence {
     width: 75%;
   }
@@ -409,10 +398,5 @@ tr:hover {
   [class*="frm-"] {
     position: initial;
     width: initial;
-  }
-  .btn-sm {
-    font-size: medium;
-    padding-top: initial;
-    padding-bottom: initial;
   }
 }

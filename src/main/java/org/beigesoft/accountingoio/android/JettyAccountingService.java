@@ -1,4 +1,4 @@
-package org.beigesoft.accounting.android;
+package org.beigesoft.accountingoio.android;
 
 /*
  * Copyright (c) 2016 Beigesoft ™
@@ -31,13 +31,13 @@ public class JettyAccountingService extends Service {
    * <p>Action start.</p>
    **/
   public static final String ACTION_START =
-    "org.beigesoft.accounting.android.START";
+    "org.beigesoft.accountingoio.android.START";
 
   /**
    * <p>Action stop.</p>
    **/
   public static final String ACTION_STOP
-    = "org.beigesoft.accounting.android.STOP";
+    = "org.beigesoft.accountingoio.android.STOP";
 
   /**
    * <p>Application beans map reference to lock.</p>

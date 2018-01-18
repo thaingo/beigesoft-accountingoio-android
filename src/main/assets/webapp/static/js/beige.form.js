@@ -49,7 +49,7 @@ function anyOpenedFormHasBeenChanged() {
   var forms = document.querySelectorAll('form');
   for(var i=0; i < forms.length; i++) {
     var formDlg = document.getElementById(forms[i].id.replace("Frm", "Dlg"));
-    if(formDlg.open && formHasBeenChanged(forms[i])) {
+    if(formDlg != nulll && formDlg.open && formHasBeenChanged(forms[i])) {
       return true;
     }
   }

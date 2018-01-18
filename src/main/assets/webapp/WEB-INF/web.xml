@@ -22,6 +22,9 @@
   <jsp-property-group>
     <trim-directive-whitespaces>true</trim-directive-whitespaces>
   </jsp-property-group>
+  <listener>
+    <listener-class>org.beigesoft.accountingoio.android.WebContextCleaner</listener-class>
+  </listener>
   <servlet>
     <servlet-name>servicePublic</servlet-name>
     <servlet-class>
@@ -30,11 +33,11 @@
     <load-on-startup>1</load-on-startup>
     <init-param>
       <param-name>factoryAppBeansClass</param-name>
-      <param-value>org.beigesoft.accounting.factory.FactoryAppBeansAndroid</param-value>
+      <param-value>org.beigesoft.accountingoio.factory.FactoryAppBeansAndroid</param-value>
     </init-param>
     <init-param>
       <param-name>initFactoryClass</param-name>
-      <param-value>org.beigesoft.accounting.factory.InitAppFactoryAndroidHttps</param-value>
+      <param-value>org.beigesoft.accountingoio.factory.InitAppFactoryAndroidHttps</param-value>
     </init-param>
     <init-param>
       <param-name>databaseName</param-name>
@@ -141,6 +144,16 @@
     <url-pattern>/secure/sendEntities/*</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>loginError</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WLoginError
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginError</servlet-name>
+    <url-pattern>/secure/loginError/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>replicator</servlet-name>
     <servlet-class>
       org.beigesoft.web.servlet.WReplicator
@@ -159,6 +172,16 @@
   <servlet-mapping>
     <servlet-name>addFirstUser</servlet-name>
     <url-pattern>/addFirstUser/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>changeUserPasswd</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WChangeUserPasswd
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>changeUserPasswd</servlet-name>
+    <url-pattern>/secure/changeUserPasswd/*</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>mngDatabase</servlet-name>
@@ -236,6 +259,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.error_jsp</servlet-name>
         <servlet-class>org.apache.jsp.error_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.loginBan_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.loginBan_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -536,11 +564,6 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.assignGoodsToCatalogForm_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.assignGoodsToCatalogForm_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mngDatabase_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mngDatabase_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2189,11 +2212,6 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.secure.loginError_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.secure.loginError_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
         <servlet-name>org.apache.jsp.secure.main_jsp</servlet-name>
         <servlet-class>org.apache.jsp.secure.main_jsp</servlet-class>
     </servlet>
@@ -2219,8 +2237,8 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.secure.fragments.loginTmpl_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.secure.fragments.loginTmpl_jsp</servlet-class>
+        <servlet-name>org.apache.jsp.secure.changePasswdFirstUser_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.secure.changePasswdFirstUser_jsp</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -2236,6 +2254,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.error_jsp</servlet-name>
         <url-pattern>/error.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.loginBan_jsp</servlet-name>
+        <url-pattern>/loginBan.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -2536,11 +2559,6 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.assignGoodsToCatalogForm_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/assignGoodsToCatalogForm.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mngDatabase_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/mngDatabase.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -4189,11 +4207,6 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.secure.loginError_jsp</servlet-name>
-        <url-pattern>/secure/loginError.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
         <servlet-name>org.apache.jsp.secure.main_jsp</servlet-name>
         <url-pattern>/secure/main.jsp</url-pattern>
     </servlet-mapping>
@@ -4219,8 +4232,8 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.secure.fragments.loginTmpl_jsp</servlet-name>
-        <url-pattern>/secure/fragments/loginTmpl.jsp</url-pattern>
+        <servlet-name>org.apache.jsp.secure.changePasswdFirstUser_jsp</servlet-name>
+        <url-pattern>/secure/changePasswdFirstUser.jsp</url-pattern>
     </servlet-mapping>
 
 <!--
@@ -4290,14 +4303,14 @@ env-entry, and ejb-ref elements should follow this fragment.
       <url-pattern></url-pattern>
   </servlet-mapping>
   <session-config>
-    <session-timeout>30</session-timeout>
+    <session-timeout>15</session-timeout>
   </session-config>
   <login-config>
     <auth-method>FORM</auth-method>
     <realm-name>JDBCRealm</realm-name>
     <form-login-config>
       <form-login-page>/secure/login.jsp</form-login-page>
-      <form-error-page>/secure/loginError.jsp</form-error-page>
+      <form-error-page>/secure/loginError</form-error-page>
     </form-login-config>
   </login-config>
   <security-role>
@@ -4319,6 +4332,8 @@ env-entry, and ejb-ref elements should follow this fragment.
     <web-resource-collection>
       <web-resource-name></web-resource-name>
       <url-pattern>/mngSoftware/*</url-pattern>
+      <web-resource-name></web-resource-name>
+      <url-pattern>/mngDatabase/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>admin</role-name>

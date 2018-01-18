@@ -1,4 +1,4 @@
-package org.beigesoft.accounting.android;
+package org.beigesoft.accountingoio.android;
 
 /*
  * Copyright (c) 2016 Beigesoft ™

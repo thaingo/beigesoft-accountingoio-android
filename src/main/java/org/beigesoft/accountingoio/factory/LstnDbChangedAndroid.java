@@ -1,4 +1,4 @@
-package org.beigesoft.accounting.factory;
+package org.beigesoft.accountingoio.factory;
 
 /*
  * Copyright (c) 2017 Beigesoft ™
@@ -12,6 +12,8 @@ package org.beigesoft.accounting.factory;
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
+import java.security.KeyStore;
+
 import android.database.Cursor;
 
 import org.eclipse.jetty.security.DataBaseLoginService;
@@ -22,6 +24,7 @@ import org.beigesoft.web.model.FactoryAndServlet;
 import org.beigesoft.web.factory.AFactoryAppBeans;
 import org.beigesoft.web.service.SrvAddTheFirstUser;
 import org.beigesoft.ajetty.SrvGetUserCredentials;
+import org.beigesoft.web.service.CryptoHelper;
 
 /**
  * <p>Re-initializes external context after database
@@ -66,6 +69,17 @@ public class LstnDbChangedAndroid implements IDelegateSimpleExc {
         srvDbl.getSrvGetUserCredentials();
       srvCr.setSrvDatabase(srvDb);
     }
+    //crypto init:
+    CryptoHelper ch = (CryptoHelper) factoryAppBeans.lazyGet("ICryptoHelper");
+    KeyStore ks = (KeyStore) this.factoryAndServlet.getHttpServlet()
+      .getServletContext().getAttribute("ajettyKeystore");
+    ch.setKeyStore(ks);
+    String passw = (String) this.factoryAndServlet.getHttpServlet()
+      .getServletContext().getAttribute("ksPassword");
+    ch.setKsPassword(passw.toCharArray());
+    Integer ajettyIn = (Integer) this.factoryAndServlet.getHttpServlet()
+      .getServletContext().getAttribute("ajettyIn");
+    ch.setAjettyIn(ajettyIn);
   }
 
   //Simple getters and setters:

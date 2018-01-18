@@ -1,4 +1,4 @@
-package org.beigesoft.accounting.factory;
+package org.beigesoft.accountingoio.factory;
 
 /*
  * Copyright (c) 2016 Beigesoft ™
@@ -12,14 +12,10 @@ package org.beigesoft.accounting.factory;
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
-import java.util.Properties;
 import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
 
 import android.os.Environment;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -29,10 +25,16 @@ import org.beigesoft.log.LoggerFile;
 import org.beigesoft.exception.ExceptionWithCode;
 import org.beigesoft.replicator.service.PrepareDbAfterGetCopy;
 import org.beigesoft.web.factory.AFactoryAppBeans;
+import org.beigesoft.web.service.CryptoHelper;
+import org.beigesoft.web.service.MngDatabaseSqliteEncrypted;
 import org.beigesoft.orm.service.SrvOrmAndroid;
 
 import org.beigesoft.android.sqlite.service.CursorFactory;
 import org.beigesoft.android.sqlite.service.SrvDatabase;
+import org.beigesoft.accounting.factory.FactoryAccDatabaseWriterXml;
+import org.beigesoft.accounting.factory.FactoryAccReplicatorXmlHttps;
+import org.beigesoft.accounting.factory.FactoryBldAccServices;
+import org.beigesoft.accounting.factory.FactoryAccServices;
 
 /**
  * <p>
@@ -92,10 +94,12 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
   @Override
   public final Object lazyGetOtherBean(
     final String pBeanName) throws Exception {
-    if ("CursorFactory".equals(pBeanName)) {
+    if (getCursorFactoryName().equals(pBeanName)) {
       return lazyGetCursorFactory();
-    } else if ("IMngDatabaseExt".equals(pBeanName)) {
-      return lazyGetMngDatabaseAndroid();
+    } else if (getMngDatabaseName().equals(pBeanName)) {
+      return lazyGetMngDatabaseSqliteEncrypted();
+    } else if (getCryptoHelperName().equals(pBeanName)) {
+      return lazyGetCryptoHelper();
     } else {
       return null;
     }
@@ -144,8 +148,8 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
   }
 
   /**
-   * <p>Get SrvDatabase in lazy mode.</p>
-   * @return SrvDatabase - SrvDatabase
+   * <p>Get logger mode.</p>
+   * @return ILogger Logger
    * @throws Exception - an exception
    */
   @Override
@@ -159,56 +163,29 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
       String fileBaseName = "beige-accounting";
       logger.setFilePath(currDir + File.separator + fileBaseName);
       Log.i("A-Jetty", "> Log file path: " + logger.getFilePath());
-      String logPropFn = "/" + fileBaseName + ".properties";
-      URL urlSetting = FactoryAppBeansAndroid.class.getResource(logPropFn);
-      if (urlSetting != null) {
-        Log.i("A-Jetty",
-          "> Found properties: " + logPropFn);
-        InputStream inputStream = null;
-        try {
-          Properties props = new Properties();
-          inputStream = FactoryAppBeansAndroid.class
-            .getResourceAsStream(logPropFn);
-          props.load(inputStream);
-          String fileMaxSizeStr = props.getProperty("fileMaxSize");
-          if (fileMaxSizeStr != null) {
-            Integer fileMaxSize = Integer.parseInt(fileMaxSizeStr);
-            logger.setFileMaxSize(fileMaxSize);
-          }
-          String maxIdleTimeStr = props.getProperty("maxIdleTime");
-          if (maxIdleTimeStr != null) {
-            Integer maxIdleTime = Integer.parseInt(maxIdleTimeStr);
-            logger.setMaxIdleTime(maxIdleTime);
-          }
-          String isCloseFileAfterRecordStr = props
-            .getProperty("isCloseFileAfterRecord");
-          if (isCloseFileAfterRecordStr != null) {
-            Boolean isCloseFileAfterRecord = Boolean
-              .valueOf(isCloseFileAfterRecordStr);
-            logger.setIsCloseFileAfterRecord(isCloseFileAfterRecord);
-          }
-          String isShowDebugMessagesStr = props
-            .getProperty("isShowDebugMessages");
-          if (isShowDebugMessagesStr != null) {
-            Boolean isShowDebugMessages = Boolean
-              .valueOf(isShowDebugMessagesStr);
-            logger.setIsShowDebugMessages(isShowDebugMessages);
-          }
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        } finally {
-          if (inputStream != null) {
-            try {
-              inputStream.close();
-            } catch (Exception ex) {
-              ex.printStackTrace();
-            }
-          }
-        }
-      } else {
-        Log.i("A-Jetty",
-          "> There is no properties: " + logPropFn);
-      }
+      getBeansMap().put(beanName, logger);
+      lazyGetLogger().info(null, FactoryAppBeansAndroid.class, beanName
+        + " has been created.");
+    }
+    return logger;
+  }
+
+  /**
+   * <p>Get secure logger in lazy mode.</p>
+   * @return secure logger
+   * @throws Exception - an exception
+   */
+  @Override
+  public final ILogger lazyGetSecureLogger() throws Exception {
+    String beanName = getLoggerName();
+    LoggerFile logger = (LoggerFile) getBeansMap().get(beanName);
+    if (logger == null) {
+      logger = new LoggerFile();
+      logger.setIsCloseFileAfterRecord(true);
+      logger.setIsShowDebugMessages(getIsShowDebugMessages());
+      logger.setFilePath(this.context.getFilesDir().getAbsolutePath()
+        + "/secure");
+      Log.i("A-Jetty", "> Log file path: " + logger.getFilePath());
       getBeansMap().put(beanName, logger);
       lazyGetLogger().info(null, FactoryAppBeansAndroid.class, beanName
         + " has been created.");
@@ -239,41 +216,84 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
   }
 
   /**
-   * <p>Get MngDatabaseAndroid in lazy mode.</p>
-   * @return MngDatabaseAndroid - MngDatabaseAndroid
+   * <p>Get CryptoHelper in lazy mode.</p>
+   * @return CryptoHelper - CryptoHelper
    * @throws Exception - an exception
    */
-  public final MngDatabaseAndroid
-    lazyGetMngDatabaseAndroid() throws Exception {
-    String beanName = getMngDatabaseAndroidName();
-    MngDatabaseAndroid mngDatabaseAndroid =
-      (MngDatabaseAndroid) getBeansMap().get(beanName);
-    if (mngDatabaseAndroid == null) {
-      mngDatabaseAndroid = new MngDatabaseAndroid();
-      mngDatabaseAndroid.setFactoryAppBeansAndroid(this);
-      ContextWrapper cw = new ContextWrapper(context);
-      mngDatabaseAndroid.setDatabaseDir(cw.getFilesDir()
-        .getAbsolutePath().replace("files", "databases"));
+  public final synchronized CryptoHelper
+    lazyGetCryptoHelper() throws Exception {
+    String beanName = getCryptoHelperName();
+    CryptoHelper cryptoHelper =
+      (CryptoHelper) getBeansMap().get(beanName);
+    if (cryptoHelper == null) {
+      cryptoHelper = new CryptoHelper();
+      cryptoHelper.setKsDirPath(this.context.getFilesDir()
+        .getAbsolutePath() + "/ks");
       File bkDir = new File(Environment.getExternalStorageDirectory()
-        .getAbsolutePath() + "/" + "BeigeAccountingBackup");
+        .getAbsolutePath() + "/BeigeAccountingBackup");
       if (!bkDir.exists() && !bkDir.mkdirs()) {
         throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG,
           "Can't create dir: " + bkDir);
       }
-      mngDatabaseAndroid.setBackupDir(bkDir.getAbsolutePath());
-      getBeansMap().put(beanName, mngDatabaseAndroid);
+      File peDir = new File(bkDir + "/pub-exch");
+      if (!peDir.exists() && !peDir.mkdir()) {
+        throw new Exception("Can't create directory: " + peDir);
+      }
+      cryptoHelper.setPublicKeyDir(peDir.getAbsolutePath());
+      cryptoHelper.setCryptoProvider("SC");
+      getBeansMap().put(beanName, cryptoHelper);
       lazyGetLogger().info(null, FactoryAppBeansAndroid.class, beanName
         + " has been created.");
     }
-    return mngDatabaseAndroid;
+    return cryptoHelper;
   }
 
   /**
-   * <p>Getter of MngDatabaseAndroid service name.</p>
+   * <p>Getter of Manager Database service name.</p>
    * @return service name
    **/
-  public final String getMngDatabaseAndroidName() {
-    return "mngDatabaseAndroid";
+  public final String getCryptoHelperName() {
+    return "ICryptoHelper";
+  }
+
+  /**
+   * <p>Get MngDatabaseSqliteEncrypted in lazy mode.</p>
+   * @return MngDatabaseSqliteEncrypted<Cursor> - MngDatabaseSqliteEncrypted
+   * @throws Exception - an exception
+   */
+  public final synchronized MngDatabaseSqliteEncrypted<Cursor>
+    lazyGetMngDatabaseSqliteEncrypted() throws Exception {
+    String beanName = getMngDatabaseName();
+    @SuppressWarnings("unchecked")
+    MngDatabaseSqliteEncrypted<Cursor> mngDatabaseSqlite =
+      (MngDatabaseSqliteEncrypted<Cursor>) getBeansMap().get(beanName);
+    if (mngDatabaseSqlite == null) {
+      mngDatabaseSqlite = new MngDatabaseSqliteEncrypted<Cursor>();
+      mngDatabaseSqlite.setFactoryAppBeans(this);
+      mngDatabaseSqlite.setCryptoHelper(lazyGetCryptoHelper());
+      mngDatabaseSqlite.setLogDir(this.context.getFilesDir());
+      mngDatabaseSqlite.setDatabaseDir(this.context.getFilesDir()
+        .getAbsolutePath().replace("files", "databases"));
+      File bkDir = new File(Environment.getExternalStorageDirectory()
+        .getAbsolutePath() + "/BeigeAccountingBackup");
+      if (!bkDir.exists() && !bkDir.mkdirs()) {
+        throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG,
+          "Can't create dir: " + bkDir);
+      }
+      mngDatabaseSqlite.setBackupDir(bkDir.getPath());
+      getBeansMap().put(beanName, mngDatabaseSqlite);
+      lazyGetLogger().info(null, FactoryAppBeansAndroid.class, beanName
+        + " has been created.");
+    }
+    return mngDatabaseSqlite;
+  }
+
+  /**
+   * <p>Getter of Manager Database service name.</p>
+   * @return service name
+   **/
+  public final String getMngDatabaseName() {
+    return "IMngDatabaseExt";
   }
 
   /**

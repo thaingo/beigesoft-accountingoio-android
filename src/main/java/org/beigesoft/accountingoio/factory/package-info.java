@@ -20,4 +20,4 @@
  *
  * @author Yury Demidenko
  */
-package org.beigesoft.accounting.factory;
+package org.beigesoft.accountingoio.factory;
