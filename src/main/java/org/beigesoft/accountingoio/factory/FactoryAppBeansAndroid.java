@@ -159,9 +159,7 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
     if (logger == null) {
       logger = new LoggerFile();
       logger.setIsShowDebugMessages(getIsShowDebugMessages());
-      String currDir = this.context.getFilesDir().getAbsolutePath();
-      String fileBaseName = "beige-accounting";
-      logger.setFilePath(currDir + File.separator + fileBaseName);
+      logger.setFilePath(getWebAppPath() + "/beige-accounting");
       Log.i("A-Jetty", "> Log file path: " + logger.getFilePath());
       getBeansMap().put(beanName, logger);
       lazyGetLogger().info(null, FactoryAppBeansAndroid.class, beanName
@@ -183,8 +181,7 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
       logger = new LoggerFile();
       logger.setIsCloseFileAfterRecord(true);
       logger.setIsShowDebugMessages(getIsShowDebugMessages());
-      logger.setFilePath(this.context.getFilesDir().getAbsolutePath()
-        + "/secure");
+      logger.setFilePath(getWebAppPath() + "/secure");
       Log.i("A-Jetty", "> Log file path: " + logger.getFilePath());
       getBeansMap().put(beanName, logger);
       lazyGetLogger().info(null, FactoryAppBeansAndroid.class, beanName

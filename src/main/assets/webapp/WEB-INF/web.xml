@@ -144,16 +144,6 @@
     <url-pattern>/secure/sendEntities/*</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>loginError</servlet-name>
-    <servlet-class>
-      org.beigesoft.web.servlet.WLoginError
-    </servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>loginError</servlet-name>
-    <url-pattern>/secure/loginError/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>replicator</servlet-name>
     <servlet-class>
       org.beigesoft.web.servlet.WReplicator
@@ -2212,6 +2202,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.secure.loginError_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.secure.loginError_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.secure.main_jsp</servlet-name>
         <servlet-class>org.apache.jsp.secure.main_jsp</servlet-class>
     </servlet>
@@ -4207,6 +4202,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.secure.loginError_jsp</servlet-name>
+        <url-pattern>/secure/loginError.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.secure.main_jsp</servlet-name>
         <url-pattern>/secure/main.jsp</url-pattern>
     </servlet-mapping>
@@ -4310,7 +4310,7 @@ env-entry, and ejb-ref elements should follow this fragment.
     <realm-name>JDBCRealm</realm-name>
     <form-login-config>
       <form-login-page>/secure/login.jsp</form-login-page>
-      <form-error-page>/secure/loginError</form-error-page>
+      <form-error-page>/secure/loginError.jsp</form-error-page>
     </form-login-config>
   </login-config>
   <security-role>

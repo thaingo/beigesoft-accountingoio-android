@@ -157,19 +157,6 @@ public class BeigeAccounting extends Activity implements OnClickListener {
   private boolean isKeystoreCreated;
 
   /**
-   * <p>Only way to get inner file path for A-Jetty logger file.</p>
-   **/
-  private static BeigeAccounting instance;
-
-  /**
-   * <p>Only way to get inner file path for A-Jetty logger file.</p>
-   * @return BeigeAccounting instance
-   **/
-  public static final BeigeAccounting getBean() {
-    return instance;
-  }
-
-  /**
    * <p>Logger.</p>
    **/
   private ILogger logger;
@@ -181,7 +168,6 @@ public class BeigeAccounting extends Activity implements OnClickListener {
   @Override
   public final void onCreate(final Bundle pSavedInstanceState) {
     super.onCreate(pSavedInstanceState);
-    BeigeAccounting.instance = this;
     //Only way to publish this project in central Maven repository
     //cause missing Google dependencies:
     if (android.os.Build.VERSION.SDK_INT >= 23) {

@@ -19,7 +19,6 @@
 package org.eclipse.jetty.util.log;
 
 import org.beigesoft.log.LoggerFileAdp;
-import org.beigesoft.accountingoio.android.BeigeAccounting;
 
 import android.util.Log;
 import android.os.Environment;
@@ -41,8 +40,6 @@ public class LoggerFileAndroid extends AILoggerLog {
   @Override
   protected final void createLogger() {
     LoggerFileAdp logger = new LoggerFileAdp();
-    //"fileName" internal directory do not works
-    //String dir = BeigeAccounting.getBean().getFilesDir().getAbsolutePath();
     String dir = Environment.getExternalStorageDirectory().getAbsolutePath();
     logger.setFilePath(dir + "/ajetty-bsa");
     Log.i("A-Jetty", "> Log file path: " + logger.getFilePath());

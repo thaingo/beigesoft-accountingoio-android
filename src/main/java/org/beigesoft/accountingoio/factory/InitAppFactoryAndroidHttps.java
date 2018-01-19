@@ -81,6 +81,9 @@ public class InitAppFactoryAndroidHttps
     factoryAppBeans.setContext(aContext);
     pFactoryAndServlet.getHttpServlet().getServletContext()
       .setAttribute("srvI18n", factoryAppBeans.lazyGet("ISrvI18n"));
+    pFactoryAndServlet.getHttpServlet().getServletContext()
+      .setAttribute("sessionTracker",
+        factoryAppBeans.lazyGet("ISessionTracker"));
     //to create/initialize database if need:
     factoryAppBeans.lazyGet("ISrvOrm");
     LstnDbChangedAndroid lstnDbChanged = new LstnDbChangedAndroid();
