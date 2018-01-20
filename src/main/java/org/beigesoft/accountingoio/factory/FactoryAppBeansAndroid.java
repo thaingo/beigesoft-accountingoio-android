@@ -154,7 +154,7 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
    */
   @Override
   public final ILogger lazyGetLogger() throws Exception {
-    String beanName = getLoggerName();
+    String beanName = getSecureLoggerName();
     LoggerFile logger = (LoggerFile) getBeansMap().get(beanName);
     if (logger == null) {
       logger = new LoggerFile();
@@ -268,7 +268,7 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
       mngDatabaseSqlite = new MngDatabaseSqliteEncrypted<Cursor>();
       mngDatabaseSqlite.setFactoryAppBeans(this);
       mngDatabaseSqlite.setCryptoHelper(lazyGetCryptoHelper());
-      mngDatabaseSqlite.setLogDir(this.context.getFilesDir());
+      mngDatabaseSqlite.setLogDir(new File(getWebAppPath()));
       mngDatabaseSqlite.setDatabaseDir(this.context.getFilesDir()
         .getAbsolutePath().replace("files", "databases"));
       File bkDir = new File(Environment.getExternalStorageDirectory()
