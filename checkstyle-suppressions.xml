@@ -6,5 +6,5 @@
 
 <suppressions>
   <suppress checks="MagicNumberCheck"
-    files="JettyAccountingService|BeigeAccounting|MngDatabaseAndroid|CryptoServiceSc"/>
+    files="JettyAccountingService|BeigeAccounting|CryptoHelper|CryptoServiceSc"/>
 </suppressions>

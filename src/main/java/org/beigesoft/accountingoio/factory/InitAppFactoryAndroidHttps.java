@@ -24,7 +24,7 @@ import org.beigesoft.web.model.FactoryAndServlet;
 import org.beigesoft.service.ISrvDatabase;
 import org.beigesoft.web.service.SrvAddTheFirstUser;
 import org.beigesoft.ajetty.SrvGetUserCredentials;
-import org.beigesoft.web.service.CryptoHelper;
+import org.beigesoft.ajetty.crypto.CryptoHelper;
 
 /**
  * <p>

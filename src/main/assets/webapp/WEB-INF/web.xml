@@ -176,7 +176,7 @@
   <servlet>
     <servlet-name>mngDatabase</servlet-name>
     <servlet-class>
-      org.beigesoft.web.servlet.WMngDatabaseExt
+      org.beigesoft.ajetty.WMngDatabaseExt
     </servlet-class>
     <init-param>
       <param-name>dirJsp</param-name>

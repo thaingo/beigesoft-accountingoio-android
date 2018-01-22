@@ -25,8 +25,8 @@ import org.beigesoft.log.LoggerFile;
 import org.beigesoft.exception.ExceptionWithCode;
 import org.beigesoft.replicator.service.PrepareDbAfterGetCopy;
 import org.beigesoft.web.factory.AFactoryAppBeans;
-import org.beigesoft.web.service.CryptoHelper;
-import org.beigesoft.web.service.MngDatabaseSqliteEncrypted;
+import org.beigesoft.ajetty.crypto.CryptoHelper;
+import org.beigesoft.ajetty.MngDatabaseSqliteEncrypted;
 import org.beigesoft.orm.service.SrvOrmAndroid;
 
 import org.beigesoft.android.sqlite.service.CursorFactory;
@@ -237,7 +237,6 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
         throw new Exception("Can't create directory: " + peDir);
       }
       cryptoHelper.setPublicKeyDir(peDir.getAbsolutePath());
-      cryptoHelper.setCryptoProvider("SC");
       getBeansMap().put(beanName, cryptoHelper);
       lazyGetLogger().info(null, FactoryAppBeansAndroid.class, beanName
         + " has been created.");

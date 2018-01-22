@@ -24,7 +24,7 @@ import org.beigesoft.web.model.FactoryAndServlet;
 import org.beigesoft.web.factory.AFactoryAppBeans;
 import org.beigesoft.web.service.SrvAddTheFirstUser;
 import org.beigesoft.ajetty.SrvGetUserCredentials;
-import org.beigesoft.web.service.CryptoHelper;
+import org.beigesoft.ajetty.crypto.CryptoHelper;
 
 /**
  * <p>Re-initializes external context after database
