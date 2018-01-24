@@ -119,8 +119,10 @@ textarea {
 }
 
 .alert-20 {
-  position: relative;
-  top: 10rem;
+  position: absolute;
+  top: 20%;
+  left:33%;
+  width:33%;
   text-align: center;
   color: red;
   font-size: larger;
@@ -386,6 +388,9 @@ tr:hover {
   }
   .column-actions {
     width: 20%;
+  }
+  .alert-20 {
+    width: initial;
   }
   [class*="alert-"] {
     position: initial;
