@@ -6,7 +6,7 @@
   <version>1.1.6-SNAPSHOT</version>
   <artifactId>beigesoft-accountingoio-android</artifactId>
   <packaging>apk</packaging>
-  <name>Beigesoft ™ Accountion All In One on embedded A-Jetty for Android</name>
+  <name>Beigesoft™ Accounting All In One on embedded A-Jetty for Android</name>
   
   <description>This is Android version of Beige-Accounting plus Beige-WebStore on embedded A-Jetty.
     Web-Store is included for study and tests purposes and you are also able to make full DB copy from cloud version.
@@ -220,7 +220,7 @@
     <dependency>
       <groupId>org.beigesoft</groupId>
       <artifactId>beigesoft-accountingoio-ajetty</artifactId>
-      <version>1.1.5</version>
+      <version>1.1.6-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <groupId>org.xerial</groupId>
