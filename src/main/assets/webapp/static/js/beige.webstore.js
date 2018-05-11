@@ -55,3 +55,41 @@ function delCartItem(pCartItemType, pCartItemId, pCartItemName, pCartItemPrice, 
   var cartItemItsId = document.getElementById("cartItemItsIdDel");
   cartItemItsId.value = pCartItemItsId;
 };
+
+function onPriceOperChanged(pSelect, pVal1Id, pVal2Id) {
+  var isDisabledV1 = pSelect.options[pSelect.selectedIndex].value == "";
+  document.getElementById(pVal1Id).disabled = isDisabledV1;
+  var isDisabledV2 = pSelect.options[pSelect.selectedIndex].value != "BETWEEN_INCLUDE";
+  document.getElementById(pVal2Id).disabled = isDisabledV2;
+};
+
+function onCatalogOperChanged(pSelect, pFltCtValId, pRowCatId) {
+  var fltCtVal = document.getElementById(pFltCtValId);
+  var rowCat = document.getElementById(pRowCatId);
+  onFltCatalogChanged(pSelect, fltCtVal, rowCat);
+};
+
+function onCatalogValChanged(pSelect, pFltCtOpId, pRowCatId) {
+  var fltCtOp = document.getElementById(pFltCtOpId);
+  var rowCat = document.getElementById(pRowCatId);
+  onFltCatalogChanged(fltCtOp, pSelect, rowCat);
+};
+
+function onFltCatalogChanged(pFltCtOp, pFltCtVal, pRowCat) {
+  var isDisabledCatalog = pFltCtOp.options[pFltCtOp.selectedIndex].value != "";
+  if (!isDisabledCatalog) {
+    var i;
+    for (i = 0; i < pFltCtVal.length; i++) {
+      if (pFltCtVal.options[i].selected) {
+        isDisabledCatalog = false;
+        break;
+      }
+    }
+  }
+  pFltCtVal.disabled = !isDisabledCatalog;
+  if (isDisabledCatalog && !pRowCat.classList.contains('dimmed')) {
+    pRowCat.classList.add('dimmed');
+  } else if (!isDisabledCatalog && pRowCat.classList.contains('dimmed')) {
+    pRowCat.classList.remove('dimmed');
+  }
+};

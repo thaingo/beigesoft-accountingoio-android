@@ -82,7 +82,14 @@ https://dejavu-fonts.github.io/License.html
 site: https://sites.google.com/site/beigesoftware
 
 Working with source:
-Android SDK for Fedora 64bit requires libraries (for AVD):
-dnf install glibc.i686 glibc-devel.i686 libstdc++.i686 zlib-devel.i686 ncurses-devel.i686 zlib.i686 ncurses-libs.i686 bzip2-libs.i686
-it might help for AVD rendering:
-dnf install  libX11-devel.i686 libXrender.i686 libXrandr.i686
+building APK works fine on the latest 64bit Android SDK and on 32bit with old build-tools-23.0.3 and platform-tools r23.0.1
+64bit AVD works fine on the last emulator (27.1.12) and SDK platform API26,
+Google APIs system Intel x86 Atom system image(API26).
+On Debian fix emulator with:
+ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ~/Android/Sdk/emulator/lib64/libstdc++/libstdc++.so.6
+
+Google APIs system Intel x86 Atom system image(API27) rises SSL error:
+java.lang.NullPointerException: ssl == null
+	at com.android.org.conscrypt.NativeCrypto.SSL_get_shutdown(Native Method)
+
+
