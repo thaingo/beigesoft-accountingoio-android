@@ -32,6 +32,10 @@
     </servlet-class>
     <load-on-startup>1</load-on-startup>
     <init-param>
+      <param-name>langCountries</param-name>
+      <param-value>en,US,ru,RU</param-value>
+    </init-param>
+    <init-param>
       <param-name>factoryAppBeansClass</param-name>
       <param-value>org.beigesoft.accountingoio.factory.FactoryAppBeansAndroid</param-value>
     </init-param>
@@ -439,6 +443,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.listAccEntries_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.listAccEntries_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.refreshedCatalog_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.refreshedCatalog_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2132,6 +2141,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.filterSimpleTmpl_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.filterSimpleTmpl_jsp</servlet-class>
     </servlet>
@@ -2484,6 +2498,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.listAccEntries_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/listAccEntries.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.refreshedCatalog_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/refreshedCatalog.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -4174,6 +4193,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.filterInteger_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/filters/filterInteger.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/filters/wsFilterPrice.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

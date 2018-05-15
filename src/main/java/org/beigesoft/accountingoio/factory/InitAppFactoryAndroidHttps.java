@@ -12,6 +12,8 @@ package org.beigesoft.accountingoio.factory;
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
+import java.util.List;
+import java.util.ArrayList;
 import java.security.KeyStore;
 
 import android.database.Cursor;
@@ -78,6 +80,14 @@ public class InitAppFactoryAndroidHttps
         ExceptionWithCode.CONFIGURATION_MISTAKE,
           "Servlet context attribute android.content.Context is null!!!");
     }
+    String langCountriesStr = pFactoryAndServlet.getHttpServlet()
+      .getInitParameter("langCountries");
+    List<String> lngCntLst = new ArrayList<String>();
+    for (String str : langCountriesStr.split(",")) {
+      lngCntLst.add(str);
+    }
+    String[] lngCntArr = new String[lngCntLst.size()];
+    factoryAppBeans.lazyGetSrvI18n().add(lngCntLst.toArray(lngCntArr));
     factoryAppBeans.setContext(aContext);
     pFactoryAndServlet.getHttpServlet().getServletContext()
       .setAttribute("srvI18n", factoryAppBeans.lazyGet("ISrvI18n"));

@@ -56,7 +56,7 @@ function delCartItem(pCartItemType, pCartItemId, pCartItemName, pCartItemPrice, 
   cartItemItsId.value = pCartItemItsId;
 };
 
-function onPriceOperChanged(pSelect, pVal1Id, pVal2Id) {
+function onFilterNumberOperChanged(pSelect, pVal1Id, pVal2Id) {
   var isDisabledV1 = pSelect.options[pSelect.selectedIndex].value == "";
   document.getElementById(pVal1Id).disabled = isDisabledV1;
   var isDisabledV2 = pSelect.options[pSelect.selectedIndex].value != "BETWEEN_INCLUDE";
