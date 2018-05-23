@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">Беижсофт ™ Бухгалтерия</string>
+  <string name="port">Порт:</string>
+  <string name="start">Старт</string>
+  <string name="stop">Стор</string>
+  <string name="starting">Запускается</string>
+  <string name="stopping">Останавливается</string>
+  <string name="started">Запущено</string>
+  <string name="stopped">Остановлено</string>
+  <string name="ksPassw">Пароль:</string>
+  <string name="ksPasswRep">Повторите пароль:</string>
+  <string name="ajettyNumber">А-Джетти номер:</string>
+  <string name="passwNoMatch">Пароли не совпадают!</string>
+  <string name="EnterAjettyNumber">Пожалуйста введите номер А-Джетти!</string>
+  <string name="ajettycacopied">А-Джетти ЦА сертификат и публичный ключ обмена файлами в файлах ajetty-ca.pem и ajetty-file-exch[А-Джетти#].kpub files.</string>
+  <string name="passwordWrong">Wrong password!</string>
+  <string name="wait">Please wait!</string>
+  <string name="enterPassw">Please enter password!</string>
+</resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string name="app_name">Beige Accounting</string>
+  <string name="app_name">Beigesoft ™ Accounting</string>
   <string name="port">Port:</string>
   <string name="start">Start</string>
   <string name="stop">Stop</string>
@@ -14,7 +14,7 @@
   <string name="ajettyNumber">A-Jetty number:</string>
   <string name="passwNoMatch">The passwords do not match!</string>
   <string name="EnterAjettyNumber">Please enter A-Jetty number!</string>
-  <string name="ajettycacopied">A-Jetty CA certificate ans file exchanger public key copied into external storage ajetty-ca.pem and ajetty-file-exch[A-Jetty#].kpub files.</string>
+  <string name="ajettycacopied">A-Jetty CA certificate and file exchanger public key copied into external storage ajetty-ca.pem and ajetty-file-exch[A-Jetty#].kpub files.</string>
   <string name="passwordWrong">Wrong password!</string>
   <string name="wait">Please wait!</string>
   <string name="enterPassw">Please enter password!</string>
