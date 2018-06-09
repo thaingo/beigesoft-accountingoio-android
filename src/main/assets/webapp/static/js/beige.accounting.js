@@ -31,7 +31,7 @@ function submitGoodsSpecificByAjax(pIdFrm) {
 };
 
 //set UOM and known cost (if exist)  for picked item
-function setCostUom(pKnownCost, uomId, uomName, idDomBasePicker, costPrecision, totalPrecision) {
+function setCostUom(pKnownCost, uomId, uomName, idDomBasePicker, costPrecision, totalPrecision, pDsep, pDgSep) {
   var whoPicking = cnvState["Who Picking"][idDomBasePicker];
   document.getElementById(whoPicking["pickingEntity"] + "unitOfMeasureId").value = uomId;
   var unitOfMeasureAppearanceVisible = document.getElementById(whoPicking["pickingEntity"] + "unitOfMeasureAppearanceVisible");
@@ -43,7 +43,7 @@ function setCostUom(pKnownCost, uomId, uomName, idDomBasePicker, costPrecision, 
     if (itsCost.value != pKnownCost) {
       itsCostVisible.value = pKnownCost;
       itsCost.value = pKnownCost;
-      calculateTotalForCost(whoPicking["pickingEntity"], costPrecision, totalPrecision);
+      calculateTotalForCost(whoPicking["pickingEntity"], costPrecision, totalPrecision, pDsep, pDgSep);
     }
   }
 };

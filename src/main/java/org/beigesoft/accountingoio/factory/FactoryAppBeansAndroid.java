@@ -159,6 +159,7 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
     if (logger == null) {
       logger = new LoggerFile();
       logger.setIsShowDebugMessages(getIsShowDebugMessages());
+      logger.setDetailLevel(getDetailLevel());
       logger.setFilePath(getWebAppPath() + "/beige-accounting");
       Log.i("A-Jetty", "> Log file path: " + logger.getFilePath());
       getBeansMap().put(beanName, logger);

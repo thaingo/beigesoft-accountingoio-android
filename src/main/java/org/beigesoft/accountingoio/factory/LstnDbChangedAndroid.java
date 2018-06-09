@@ -27,6 +27,8 @@ import org.beigesoft.web.factory.AFactoryAppBeans;
 import org.beigesoft.web.service.SrvAddTheFirstUser;
 import org.beigesoft.ajetty.SrvGetUserCredentials;
 import org.beigesoft.ajetty.crypto.CryptoHelper;
+import org.beigesoft.accounting.service.ISrvAccSettings;
+import org.beigesoft.accounting.service.HndlAccVarsRequest;
 
 /**
  * <p>Re-initializes external context after database
@@ -64,6 +66,15 @@ public class LstnDbChangedAndroid implements IDelegateSimpleExc {
     this.factoryAndServlet.getHttpServlet().getServletContext()
       .setAttribute("sessionTracker",
         factoryAppBeans.lazyGet("ISessionTracker"));
+    HndlAccVarsRequest<Cursor> hndlAccVarsRequest =
+      new HndlAccVarsRequest<Cursor>();
+    hndlAccVarsRequest.setLogger(factoryAppBeans.lazyGetLogger());
+    hndlAccVarsRequest.setSrvDatabase(factoryAppBeans.lazyGetSrvDatabase());
+    hndlAccVarsRequest.setSrvOrm(factoryAppBeans.lazyGetSrvOrm());
+    hndlAccVarsRequest.setSrvAccSettings((ISrvAccSettings) factoryAppBeans
+      .lazyGet("ISrvAccSettings"));
+    factoryAppBeans.lazyGetHndlI18nRequest()
+      .setAdditionalI18nReqHndl(hndlAccVarsRequest);
     factoryAppBeans.lazyGet("ISrvOrm");
     ISrvDatabase<Cursor> srvDb = (ISrvDatabase<Cursor>)
       factoryAppBeans.lazyGet("ISrvDatabase");

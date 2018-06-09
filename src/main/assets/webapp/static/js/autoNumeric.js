@@ -314,9 +314,9 @@
             return empty;
         }
         var digitalGroup = '';
-        if (settings.dGroup === 2) {
+        if (settings.dGroup == 2) {
             digitalGroup = /(\d)((\d)(\d{2}?)+)$/;
-        } else if (settings.dGroup === 4) {
+        } else if (settings.dGroup == 4) {
             digitalGroup = /(\d)((\d{4}?)+)$/;
         } else {
             digitalGroup = /(\d)((\d{3}?)+)$/;

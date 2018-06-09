@@ -83,7 +83,7 @@ public class CryptoServiceSc implements ICryptoService {
     try {
       this.messages = ResourceBundle.getBundle("MessagesCrypto");
     } catch (Exception e) {
-      try { // fix Android Java
+      try {
         Locale locale = new Locale("en", "US");
         this.messages = ResourceBundle.getBundle("MessagesCrypto", locale);
       } catch (Exception e1) {

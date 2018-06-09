@@ -27,6 +27,8 @@ import org.beigesoft.service.ISrvDatabase;
 import org.beigesoft.web.service.SrvAddTheFirstUser;
 import org.beigesoft.ajetty.SrvGetUserCredentials;
 import org.beigesoft.ajetty.crypto.CryptoHelper;
+import org.beigesoft.accounting.service.ISrvAccSettings;
+import org.beigesoft.accounting.service.HndlAccVarsRequest;
 
 /**
  * <p>
@@ -54,6 +56,9 @@ public class InitAppFactoryAndroidHttps
       .getInitParameter("isShowDebugMessages");
     factoryAppBeans.setIsShowDebugMessages(Boolean
       .valueOf(isShowDebugMessagesStr));
+    String detailLevelStr = pFactoryAndServlet.getHttpServlet()
+      .getInitParameter("detailLevel");
+    factoryAppBeans.setDetailLevel(Integer.parseInt(detailLevelStr));
     String newDatabaseIdStr = pFactoryAndServlet.getHttpServlet()
       .getInitParameter("newDatabaseId");
     factoryAppBeans.setNewDatabaseId(Integer.parseInt(newDatabaseIdStr));
@@ -94,6 +99,15 @@ public class InitAppFactoryAndroidHttps
     pFactoryAndServlet.getHttpServlet().getServletContext()
       .setAttribute("sessionTracker",
         factoryAppBeans.lazyGet("ISessionTracker"));
+    HndlAccVarsRequest<Cursor> hndlAccVarsRequest =
+      new HndlAccVarsRequest<Cursor>();
+    hndlAccVarsRequest.setLogger(factoryAppBeans.lazyGetLogger());
+    hndlAccVarsRequest.setSrvDatabase(factoryAppBeans.lazyGetSrvDatabase());
+    hndlAccVarsRequest.setSrvOrm(factoryAppBeans.lazyGetSrvOrm());
+    hndlAccVarsRequest.setSrvAccSettings((ISrvAccSettings) factoryAppBeans
+      .lazyGet("ISrvAccSettings"));
+    factoryAppBeans.lazyGetHndlI18nRequest()
+      .setAdditionalI18nReqHndl(hndlAccVarsRequest);
     //to create/initialize database if need:
     factoryAppBeans.lazyGet("ISrvOrm");
     LstnDbChangedAndroid lstnDbChanged = new LstnDbChangedAndroid();

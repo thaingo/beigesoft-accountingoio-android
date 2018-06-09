@@ -249,8 +249,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
         }
         copyAssets(APP_BASE);
         Toast.makeText(getApplicationContext(),
-          "Beige Accounting directory has been  successfully created"
-            + " and WEB static files has been copied!",
+          getResources().getString(R.string.dirCrFlCop),
             Toast.LENGTH_SHORT).show();
         if (!fileVersion.createNewFile()) {
           String msg = "Cant't create file " + fileVersion;
@@ -265,7 +264,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
           throw new ExceptionWithCode(ExceptionWithCode.SOMETHING_WRONG, msg);
         }
         Toast.makeText(getApplicationContext(),
-          "New version of WEB static files has been copied!",
+          getResources().getString(R.string.newFlCop),
             Toast.LENGTH_SHORT).show();
       }
     } catch (ExceptionWithCode e) {
@@ -276,13 +275,13 @@ public class BeigeAccounting extends Activity implements OnClickListener {
     } catch (Exception e) {
       this.logger.error(null, BeigeAccounting.class, null, e);
       Toast.makeText(getApplicationContext(),
-        "There was errors!",
+        getResources().getString(R.string.wasErr),
           Toast.LENGTH_SHORT).show();
     }
     // keystore placed into [webappdir-parent]/ks folder:
     File ksDir = new File(getFilesDir().getAbsolutePath() + "/ks");
     if (!ksDir.exists() && !ksDir.mkdir()) {
-      String msg = "Can't create ks directory: " + ksDir;
+      String msg = getResources().getString(R.string.cantCrDir) + ": " + ksDir;
       this.logger.error(null, BeigeAccounting.class, msg);
       Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
@@ -291,7 +290,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
     if (lstFl != null) {
       if (lstFl.length > 1
         || lstFl.length == 1 && !lstFl[0].isFile()) {
-        String msg = "KS directory must contains only ks file!!!";
+        String msg = getResources().getString(R.string.ksDirRules);
         this.logger.error(null, BeigeAccounting.class, msg);
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
       } else if (lstFl.length == 1 && lstFl[0].isFile()
@@ -308,7 +307,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
     try {
       this.cryptoService.init();
     } catch (Exception e) {
-      String msg = "Can't initialize crypto service!";
+      String msg = getResources().getString(R.string.cantInitCrypto);
       this.logger.error(null, BeigeAccounting.class, msg);
       Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
@@ -344,7 +343,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
         try {
           startAjetty();
         } catch (Exception e) {
-          String msg = "Can't start A-Jetty!";
+          String msg = getResources().getString(R.string.cantStart);
           this.logger.error(null, BeigeAccounting.class, msg, e);
           Toast.makeText(getApplicationContext(), msg,
             Toast.LENGTH_LONG).show();
@@ -507,8 +506,8 @@ public class BeigeAccounting extends Activity implements OnClickListener {
     this.bootStrapEmbeddedHttps.setKeyStore(pkcs12Store);
     this.bootStrapEmbeddedHttps.setAjettyIn(this.ajettyIn);
     this.bootStrapEmbeddedHttps.setPort((Integer) cmbPort.getSelectedItem());
-    Toast.makeText(getApplicationContext(),
-      "Sending request to start server, please wait", Toast.LENGTH_SHORT)
+    Toast.makeText(getApplicationContext(), getResources().getString(
+      R.string.sendingStart), Toast.LENGTH_SHORT)
         .show();
     Intent intent = new Intent(this, JettyAccountingService.class);
     intent.setAction(JettyAccountingService.ACTION_START);
