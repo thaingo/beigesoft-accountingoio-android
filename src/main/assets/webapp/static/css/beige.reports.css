@@ -52,6 +52,7 @@ table, td, th {
 }
 .debit-credit {
   text-align: right;
+  width: 13%;
 }
 .total {
   padding-top: 5mm;

@@ -26,6 +26,7 @@ import org.beigesoft.web.model.FactoryAndServlet;
 import org.beigesoft.web.factory.AFactoryAppBeans;
 import org.beigesoft.web.service.SrvAddTheFirstUser;
 import org.beigesoft.ajetty.SrvGetUserCredentials;
+import org.beigesoft.ajetty.LstnUserPswdChanged;
 import org.beigesoft.ajetty.crypto.CryptoHelper;
 import org.beigesoft.accounting.service.ISrvAccSettings;
 import org.beigesoft.accounting.service.HndlAccVarsRequest;
@@ -92,6 +93,11 @@ public class LstnDbChangedAndroid implements IDelegateSimpleExc {
       SrvGetUserCredentials<Cursor> srvCr = (SrvGetUserCredentials<Cursor>)
         srvDbl.getSrvGetUserCredentials();
       srvCr.setSrvDatabase(srvDb);
+      srvDbl.getUsers().clear();
+      LstnUserPswdChanged lstnUserPswdChanged = new LstnUserPswdChanged();
+      lstnUserPswdChanged.setDbLoginService(srvDbl);
+      this.factoryAndServlet.getHttpServlet().getServletContext()
+        .setAttribute("ILstnUserPswdChanged", lstnUserPswdChanged);
     }
     //crypto init:
     CryptoHelper ch = (CryptoHelper) factoryAppBeans.lazyGet("ICryptoHelper");

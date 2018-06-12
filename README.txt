@@ -20,7 +20,7 @@ The 1-st start application:
   as trusted Certificate Authority in the settings.
   Certificate Authorities that aren't signed by global trusted CA are often used to create private (non-public) intranets, using digital signatures inside organization and its partners.
   Here A-Jetty CA used to create HTTPS intranet inside only computer and for encrypted file exchange between your computers/tablets...
-3. press button "https://localhost:8443" to start the browser.
+3. press button "https://localhost:8443/bsa8433" to start the browser.
 4. Empty database requires to add the first (only) user with strong password.
   To make strong and ease to remember password use method similar to this:
   a. use at least 3 words, e.g. raccoon eat stone

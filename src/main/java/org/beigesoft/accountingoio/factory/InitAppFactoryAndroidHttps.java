@@ -25,6 +25,7 @@ import org.beigesoft.delegate.IDelegateExc;
 import org.beigesoft.web.model.FactoryAndServlet;
 import org.beigesoft.service.ISrvDatabase;
 import org.beigesoft.web.service.SrvAddTheFirstUser;
+import org.beigesoft.ajetty.LstnUserPswdChanged;
 import org.beigesoft.ajetty.SrvGetUserCredentials;
 import org.beigesoft.ajetty.crypto.CryptoHelper;
 import org.beigesoft.accounting.service.ISrvAccSettings;
@@ -127,6 +128,10 @@ public class InitAppFactoryAndroidHttps
       SrvGetUserCredentials<Cursor> srvCr = new SrvGetUserCredentials<Cursor>();
       srvCr.setSrvDatabase(srvDb);
       srvDbl.setSrvGetUserCredentials(srvCr);
+      LstnUserPswdChanged lstnUserPswdChanged = new LstnUserPswdChanged();
+      lstnUserPswdChanged.setDbLoginService(srvDbl);
+      pFactoryAndServlet.getHttpServlet().getServletContext()
+        .setAttribute("ILstnUserPswdChanged", lstnUserPswdChanged);
     }
     //crypto init:
     CryptoHelper ch = (CryptoHelper) factoryAppBeans.lazyGet("ICryptoHelper");
