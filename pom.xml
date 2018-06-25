@@ -220,7 +220,7 @@
     <dependency>
       <groupId>org.beigesoft</groupId>
       <artifactId>beigesoft-accountingoio-ajetty</artifactId>
-      <version>1.1.6</version>
+      <version>1.1.7-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <groupId>org.xerial</groupId>

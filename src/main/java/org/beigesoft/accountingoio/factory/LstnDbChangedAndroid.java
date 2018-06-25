@@ -30,6 +30,9 @@ import org.beigesoft.ajetty.LstnUserPswdChanged;
 import org.beigesoft.ajetty.crypto.CryptoHelper;
 import org.beigesoft.accounting.service.ISrvAccSettings;
 import org.beigesoft.accounting.service.HndlAccVarsRequest;
+import org.beigesoft.webstore.service.HndlTradeVarsRequest;
+import org.beigesoft.webstore.service.ISrvTradingSettings;
+import org.beigesoft.webstore.service.UtlTradeJsp;
 
 /**
  * <p>Re-initializes external context after database
@@ -67,8 +70,18 @@ public class LstnDbChangedAndroid implements IDelegateSimpleExc {
     this.factoryAndServlet.getHttpServlet().getServletContext()
       .setAttribute("sessionTracker",
         factoryAppBeans.lazyGet("ISessionTracker"));
+    HndlTradeVarsRequest<Cursor> hndlTradeVarsRequest =
+      new HndlTradeVarsRequest<Cursor>();
+    hndlTradeVarsRequest.setLogger(factoryAppBeans.lazyGetLogger());
+    hndlTradeVarsRequest.setSrvDatabase(factoryAppBeans.lazyGetSrvDatabase());
+    hndlTradeVarsRequest.setSrvOrm(factoryAppBeans.lazyGetSrvOrm());
+    hndlTradeVarsRequest.setUtlTradeJsp((UtlTradeJsp)
+      factoryAppBeans.lazyGet("utlTradeJsp"));
+    hndlTradeVarsRequest.setSrvTradingSettings((ISrvTradingSettings)
+      factoryAppBeans.lazyGet("ISrvTradingSettings"));
     HndlAccVarsRequest<Cursor> hndlAccVarsRequest =
       new HndlAccVarsRequest<Cursor>();
+    hndlAccVarsRequest.setAdditionalI18nReqHndl(hndlTradeVarsRequest);
     hndlAccVarsRequest.setLogger(factoryAppBeans.lazyGetLogger());
     hndlAccVarsRequest.setSrvDatabase(factoryAppBeans.lazyGetSrvDatabase());
     hndlAccVarsRequest.setSrvOrm(factoryAppBeans.lazyGetSrvOrm());
