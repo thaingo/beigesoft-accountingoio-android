@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Beigesoft ™
+ * Copyright (c) 2016 Beigesoft™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -10,10 +10,10 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
-function submitGoodsSpecificByAjax(pIdFrm) {
+function submitItemSpecificsByAjax(pIdFrm, pItemSpecNm) {
   var frm = document.getElementById(pIdFrm);
-  var gsAlUpUrl = document.getElementById("GoodsSpecific.stringValue1");
-  var gsFile = document.getElementById("GoodsSpecific.path");
+  var gsAlUpUrl = document.getElementById(pItemSpecNm + ".stringValue1");
+  var gsFile = document.getElementById(pItemSpecNm + ".path");
   if (gsAlUpUrl.value == "" && gsFile.value == "") {
     showWarning(MSGS["enterEitherAlreadyOrLoadNew"]);
   } else {
@@ -159,3 +159,19 @@ function tryToSetPercentagePlusAmount(itsPercentage, plusAmount, idDomBasePicker
     inpPercentage.onchange();
   }
 };
+
+function makeFltrPaymentTot(pInp, pIdSelFlt) {
+  var fldWas;
+  var fldIs;
+  if (pInp.options[pInp.selectedIndex].value == "ITSTOTAL") {
+    fltIs = "ITSTOTAL";
+    fltWas = "FOREIGNTOTAL";
+  } else {
+    fltIs = "FOREIGNTOTAL";
+    fltWas = "ITSTOTAL";
+  }
+  var selFlt = document.getElementById(pIdSelFlt);
+  for (var i=0; i < selFlt.options.length; i++) {
+    selFlt.options[i].value = selFlt.options[i].value.replace(fltWas, fltIs);
+  }  
+}

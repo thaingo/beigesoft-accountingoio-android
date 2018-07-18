@@ -1,7 +1,7 @@
 package org.beigesoft.accountingoio.factory;
 
 /*
- * Copyright (c) 2017 Beigesoft ™
+ * Copyright (c) 2017 Beigesoft™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -33,6 +33,7 @@ import org.beigesoft.accounting.service.HndlAccVarsRequest;
 import org.beigesoft.webstore.service.HndlTradeVarsRequest;
 import org.beigesoft.webstore.service.ISrvTradingSettings;
 import org.beigesoft.webstore.service.UtlTradeJsp;
+import org.beigesoft.webstore.service.ISrvSettingsAdd;
 
 /**
  * <p>
@@ -110,6 +111,8 @@ public class InitAppFactoryAndroidHttps
     hndlTradeVarsRequest.setSrvOrm(factoryAppBeans.lazyGetSrvOrm());
     hndlTradeVarsRequest.setUtlTradeJsp((UtlTradeJsp)
       factoryAppBeans.lazyGet("utlTradeJsp"));
+    hndlTradeVarsRequest.setSrvSettingsAdd((ISrvSettingsAdd)
+      factoryAppBeans.lazyGet("ISrvSettingsAdd"));
     hndlTradeVarsRequest.setSrvTradingSettings((ISrvTradingSettings)
       factoryAppBeans.lazyGet("ISrvTradingSettings"));
     HndlAccVarsRequest<Cursor> hndlAccVarsRequest =

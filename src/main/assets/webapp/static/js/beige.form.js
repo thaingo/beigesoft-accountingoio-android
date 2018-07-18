@@ -600,3 +600,13 @@ function setAutoNum(pTarget) {
     $('#'+ pTarget).find('.autoNum4').autoNumeric('init', {mDec: '4', vMin:'-999999999.9999', mRound:'' + RSmRound + '', dGroup:'' + RSdGroup + ''});
   }
 };
+
+function makeRelatedInput(pInput, pIdRelInp) {
+  var inpRel = document.getElementById(pIdRelInp);
+  if (pInput.value != "") {
+    inpRel.required = true;
+  } else {
+    inpRel.required = false;
+    inpRel.value = "";
+  }
+};
