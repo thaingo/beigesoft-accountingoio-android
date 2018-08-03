@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- Copyright (c) 2016 Beigesoft ™
+ Copyright (c) 2016 Beigesoft™
  
  Licensed under the GNU General Public License (GPL), Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
                       http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
   version="3.0"
   metadata-complete="true">
-  <display-name>Beige Accounting</display-name>
+  <display-name>Beigesoft™ Accounting</display-name>
   <context-param>
     <param-name>webAppFor</param-name>
     <param-value>Android</param-value>
@@ -365,6 +365,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.bnkStLn_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.bnkStLn_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.ledgerFormJson_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.ledgerFormJson_jsp</servlet-class>
     </servlet>
@@ -505,6 +510,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.bnkStLnJson_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.bnkStLnJson_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.getDatabaseCopyForm_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.getDatabaseCopyForm_jsp</servlet-class>
     </servlet>
@@ -582,6 +592,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.pickerDubJson_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.pickerDubJson_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFolSavedNlJson_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntityFolSavedNlJson_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -820,6 +835,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelHeaSalTaxSalInvIt_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelHeaSalTaxSalInvIt_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCellDetailSalTaxPurch_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCellDetailSalTaxPurch_jsp</servlet-class>
     </servlet>
@@ -832,6 +852,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCellDetailSalTaxPurchSales_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCellDetailSalTaxPurchSales_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelDetSalTaxSalInvIt_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelDetSalTaxSalInvIt_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -852,6 +877,16 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCellHeaderSalTaxPurch_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCellHeaderSalTaxPurch_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelDetSalTaxPurchInvIt_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelDetSalTaxPurchInvIt_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelHeaSalTaxPurchInvIt_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelHeaSalTaxPurchInvIt_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -990,6 +1025,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputKnownCostQuantityTotalFc_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputKnownCostQuantityTotalFc_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputEnum_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputEnum_jsp</servlet-class>
     </servlet>
@@ -1085,6 +1125,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputBnCsvMethCsvCol_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputBnCsvMethCsvCol_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputEntityHasNameReadOnly_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputEntityHasNameReadOnly_jsp</servlet-class>
     </servlet>
@@ -1137,6 +1182,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputUserRoleTomcatReadOnly_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputUserRoleTomcatReadOnly_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputCsvSource_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputCsvSource_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -1655,6 +1705,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputKnownCostQuantityTotalFc_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputKnownCostQuantityTotalFc_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputEnum_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputEnum_jsp</servlet-class>
     </servlet>
@@ -1750,6 +1805,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputBnCsvMethCsvCol_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputBnCsvMethCsvCol_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputEntityHasNameReadOnly_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputEntityHasNameReadOnly_jsp</servlet-class>
     </servlet>
@@ -1802,6 +1862,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputUserRoleTomcatReadOnly_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputUserRoleTomcatReadOnly_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputCsvSource_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputCsvSource_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2137,6 +2202,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActStd_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.actions.lstActStd_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActBnkStLns_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.actions.lstActBnkStLns_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2610,6 +2680,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.bnkStLn_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/bnkStLn.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.ledgerFormJson_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/ledgerFormJson.jsp</url-pattern>
     </servlet-mapping>
@@ -2750,6 +2825,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.bnkStLnJson_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/bnkStLnJson.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.getDatabaseCopyForm_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/getDatabaseCopyForm.jsp</url-pattern>
     </servlet-mapping>
@@ -2827,6 +2907,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.pickerDubJson_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/pickerDubJson.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFolSavedNlJson_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/editEntityFolSavedNlJson.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3065,6 +3150,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelHeaSalTaxSalInvIt_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/forList/wdgToCelHeaSalTaxSalInvIt.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCellDetailSalTaxPurch_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/forList/wdgToCellDetailSalTaxPurch.jsp</url-pattern>
     </servlet-mapping>
@@ -3077,6 +3167,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCellDetailSalTaxPurchSales_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/forList/wdgToCellDetailSalTaxPurchSales.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelDetSalTaxSalInvIt_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/forList/wdgToCelDetSalTaxSalInvIt.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3097,6 +3192,16 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCellHeaderSalTaxPurch_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/forList/wdgToCellHeaderSalTaxPurch.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelDetSalTaxPurchInvIt_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/forList/wdgToCelDetSalTaxPurchInvIt.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.forList.wdgToCelHeaSalTaxPurchInvIt_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/forList/wdgToCelHeaSalTaxPurchInvIt.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3235,6 +3340,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputKnownCostQuantityTotalFc_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/mobile/inputs/inputKnownCostQuantityTotalFc.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputEnum_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mobile/inputs/inputEnum.jsp</url-pattern>
     </servlet-mapping>
@@ -3330,6 +3440,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputBnCsvMethCsvCol_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/mobile/inputs/inputBnCsvMethCsvCol.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputEntityHasNameReadOnly_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mobile/inputs/inputEntityHasNameReadOnly.jsp</url-pattern>
     </servlet-mapping>
@@ -3382,6 +3497,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputUserRoleTomcatReadOnly_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mobile/inputs/inputUserRoleTomcatReadOnly.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputCsvSource_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/mobile/inputs/inputCsvSource.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3900,6 +4020,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputKnownCostQuantityTotalFc_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/inputs/inputKnownCostQuantityTotalFc.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputEnum_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/inputs/inputEnum.jsp</url-pattern>
     </servlet-mapping>
@@ -3995,6 +4120,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputBnCsvMethCsvCol_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/inputs/inputBnCsvMethCsvCol.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputEntityHasNameReadOnly_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/inputs/inputEntityHasNameReadOnly.jsp</url-pattern>
     </servlet-mapping>
@@ -4047,6 +4177,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputUserRoleTomcatReadOnly_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/inputs/inputUserRoleTomcatReadOnly.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputCsvSource_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/inputs/inputCsvSource.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -4382,6 +4517,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActStd_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/actions/lstActStd.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActBnkStLns_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/actions/lstActBnkStLns.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

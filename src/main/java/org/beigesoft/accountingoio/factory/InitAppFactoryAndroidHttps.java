@@ -127,6 +127,9 @@ public class InitAppFactoryAndroidHttps
       .setAdditionalI18nReqHndl(hndlAccVarsRequest);
     //to create/initialize database if need:
     factoryAppBeans.lazyGet("ISrvOrm");
+    // single user mode anyway:
+    factoryAppBeans.getFactoryBldServices().lazyGetHandlerEntityRequest()
+      .setChangingTranIsol(ISrvDatabase.TRANSACTION_READ_UNCOMMITTED);
     LstnDbChangedAndroid lstnDbChanged = new LstnDbChangedAndroid();
     lstnDbChanged.setFactoryAndServlet(pFactoryAndServlet);
     factoryAppBeans.getListenersDbChanged().add(lstnDbChanged);
