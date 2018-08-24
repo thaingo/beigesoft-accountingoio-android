@@ -43,13 +43,15 @@ function takeRequest(xmlhttp) {
     var complRes = JSON.parse(xmlhttp.responseText);
     var arr=complRes.multiTargetResponse;
     for (var i = 0; i < arr.length; i++) {
-      var target = document.getElementById(arr[i].nameTarget);
-      if (target == null) {
-        target = document.createElement('div');
-        target.setAttribute("id", arr[i].nameTarget);
-        document.getElementById(arr[i].nameTargetParent).appendChild(target);
+      if (arr[i].nameTarget!=null) {
+        var target = document.getElementById(arr[i].nameTarget);
+        if (target == null) {
+          target = document.createElement('div');
+          target.setAttribute("id", arr[i].nameTarget);
+          document.getElementById(arr[i].nameTargetParent).appendChild(target);
+        }
+        target.innerHTML = arr[i].content;
       }
-      target.innerHTML = arr[i].content;
       if (arr[i].javascript!=null) {
         eval(arr[i].javascript);
       }

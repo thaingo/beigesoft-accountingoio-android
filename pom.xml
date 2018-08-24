@@ -332,6 +332,7 @@
         <version>4.5.0</version>
         <configuration>
           <dex>
+            <multiDex>true</multiDex>
             <jvmArguments>
               <jvmArgument>-Xmx2048m</jvmArgument>
             </jvmArguments>

@@ -375,209 +375,121 @@ function closeSuccess() {
   document.getElementById("dlgSuccess").style.display = "none";
 };
 
-function calculateTotalForPrice(nameEntity, pricePrecision, totalPrecision, pDsep, pDgSep) {
+function calculateTotalForPrice(nameEntity, pDsep, pDgSep) {
   var inpPrice = document.getElementById(nameEntity + "itsPrice");
   if (inpPrice != null) {
     var dec = inpPrice.value;
-    if (pDgSep != "") {
-      dec = dec.replace(pDgSep, "");
-    }
-    if (pDsep != ".") {
-      dec = dec.replace(pDsep, ".");
-    }
+    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
     var price = parseFloat(dec);
     if (price > 0) {
-      price = price.toFixed(pricePrecision);
       var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
       dec = inpQuantity.value;
-      if (pDgSep != "") {
-        dec = dec.replace(pDgSep, "");
-      }
-      if (pDsep != ".") {
-        dec = dec.replace(pDsep, ".");
-      }
+      if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+      if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
       var quantity = parseFloat(dec);
       if (quantity > 0) {
         var inpTotal = document.getElementById(nameEntity + "itsTotal");
         var total = price * quantity;
-        total = total.toFixed(totalPrecision);
-        var totStr = numToStr(total.toString(), pDsep, pDgSep, totalPrecision);
-        inpTotal.value = totStr;
+        inpTotal.value = total.toString();
         var inpTotalVisible =   document.getElementById(nameEntity + "itsTotalVisible");
         if (inpTotalVisible != null) {
-          inpTotalVisible.value = totStr;
+          inpTotalVisible.value = total.toString();
+          $(inpTotalVisible).autoNumeric('update');
           inputHasBeenChanged(inpTotalVisible);
+        } else {
+          $(inpTotal).autoNumeric('update');
+          inputHasBeenChanged(inpTotal);
         }
       }
     }
   }
 };
 
-function calculateTotalForCost(nameEntity, costPrecision, totalPrecision, pDsep, pDgSep) {
+function calculateTotalForCost(nameEntity, pDsep, pDgSep) {
   var inpCost = document.getElementById(nameEntity + "itsCost");
   if (inpCost != null) {
     var dec = inpCost.value;
-    if (pDgSep != "") {
-      dec = dec.replace(pDgSep, "");
-    }
-    if (pDsep != ".") {
-      dec = dec.replace(pDsep, ".");
-    }
+    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
     var cost = parseFloat(dec);
     if (cost > 0) {
-      cost = cost.toFixed(costPrecision);
       var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
       dec = inpQuantity.value;
-      if (pDgSep != "") {
-        dec = dec.replace(pDgSep, "");
-      }
-      if (pDsep != ".") {
-        dec = dec.replace(pDsep, ".");
-      }
+      if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+      if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
       var quantity = parseFloat(dec);
       if (quantity > 0) {
         var inpTotal = document.getElementById(nameEntity + "itsTotal");
         var total = cost * quantity;
-        total = total.toFixed(totalPrecision);
-        var vStr = numToStr(total.toString(), pDsep, pDgSep, totalPrecision);
-        inpTotal.value = vStr;
+        inpTotal.value = total.toString();
         var inpTotalVisible =   document.getElementById(nameEntity + "itsTotalVisible");
         if (inpTotalVisible != null) {
-          inpTotalVisible.value = vStr;
+          inpTotalVisible.value = total.toString();
+          $(inpTotalVisible).autoNumeric('update');
+          inputHasBeenChanged(inpTotalVisible);
+        } else {
+          $(inpTotal).autoNumeric('update');
+          inputHasBeenChanged(inpTotal);
         }
       }
     }
   }
 };
 
-function numToStr(pNumber, pDigSep, pDigGrSep, pDecPlAfDot) {
-  if (pNumber == null || "" == pNumber) {
-    return "";
-  }
-  var digitsInGroup = parseInt(RSdGroup);
-  var dotIdx = pNumber.indexOf(".");
-  var leftWing;
-  var rightWing;
-  if (dotIdx == -1) {
-    leftWing = pNumber;
-    rightWing = null;
-  } else {
-    leftWing = pNumber.substring(0, dotIdx);
-    rightWing = pNumber.substring(dotIdx + 1);
-  }
-  var sb = "";
-  if (leftWing.charAt(0) == "-") {
-    leftWing = leftWing.substring(1);
-    sb = "-";
-  }
-  for (i = 0; i < leftWing.length; i++) {
-    var ch = leftWing.charAt(i);
-    sb += ch;
-    var idxFl = leftWing.length - i;
-    if (digitsInGroup == 2) {
-      //hard-coded Indian style 12,12,14,334
-      if (idxFl == 4) {
-        sb += pDigGrSep;
-      } else {
-        idxFl -= 3;
-      }
-    }
-    if (idxFl >= digitsInGroup) {
-      var gc = (idxFl / digitsInGroup).toFixed(0);
-      if (gc > 0) {
-        var rem;
-        if (gc == 1) {
-          rem = idxFl % digitsInGroup;
-        } else {
-          rem = idxFl % (digitsInGroup * gc);
-        }
-        if (rem.toFixed(0) == 1) {
-          sb += pDigGrSep;
-        }
-      }
-    }
-  }
-  if (pDecPlAfDot > 0) {
-    sb += pDigSep;
-    for (i = 0; i < pDecPlAfDot; i++) {
-      if (rightWing != null && rightWing.length > i) {
-        sb += rightWing.charAt(i);
-      } else {
-        sb += "0";
-      }
-    }
-  }
-  return sb;
-}
-
-
-function calculatePrice(nameEntity, pricePrecision, totalPrecision, pDsep, pDgSep) {
+function calculatePrice(nameEntity, pDsep, pDgSep) {
   var inpTotal = document.getElementById(nameEntity + "itsTotal");
   var dec = inpTotal.value;
-  if (pDgSep != "") {
-    dec = dec.replace(pDgSep, "");
-  }
-  if (pDsep != ".") {
-    dec = dec.replace(pDsep, ".");
-  }
+  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
   var total = parseFloat(dec);
   if (total > 0) {
-    total = total.toFixed(totalPrecision);
     var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
     dec = inpQuantity.value;
-    if (pDgSep != "") {
-      dec = dec.replace(pDgSep, "");
-    }
-    if (pDsep != ".") {
-      dec = dec.replace(pDsep, ".");
-    }
+    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
     var quantity = parseFloat(dec);
     if (quantity > 0) {
       var inpPrice = document.getElementById(nameEntity + "itsPrice");
       var price = total/quantity;
-      price = price.toFixed(pricePrecision);
-      var vStr = numToStr(price.toString(), pDsep, pDgSep, pricePrecision);
-      inpPrice.value = vStr;
+      inpPrice.value = price.toString();
       var inpPriceVisible = document.getElementById(nameEntity + "itsPriceVisible");
       if (inpPriceVisible != null) {
-        inpPriceVisible.value = vStr;
+        inpPriceVisible.value = price.toString();
+        $(inpPriceVisible).autoNumeric('update');
         inputHasBeenChanged(inpPriceVisible);
+      } else {
+        $(inpPrice).autoNumeric('update');
+        inputHasBeenChanged(inpPrice);
       }
     }
   }
 };
 
-function calculateCost(nameEntity, costPrecision, totalPrecision, pDsep, pDgSep) {
+function calculateCost(nameEntity, pDsep, pDgSep) {
   var inpTotal = document.getElementById(nameEntity + "itsTotal");
   var dec = inpTotal.value;
-  if (pDgSep != "") {
-    dec = dec.replace(pDgSep, "");
-  }
-  if (pDsep != ".") {
-    dec = dec.replace(pDsep, ".");
-  }
+  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
   var total = parseFloat(dec);
   if (total > 0) {
-    total = total.toFixed(totalPrecision);
     var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
     dec = inpQuantity.value;
-    if (pDgSep != "") {
-      dec = dec.replace(pDgSep, "");
-    }
-    if (pDsep != ".") {
-      dec = dec.replace(pDsep, ".");
-    }
+    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
     var quantity = parseFloat(dec);
     if (quantity > 0) {
       var inpCost = document.getElementById(nameEntity + "itsCost");
       var cost = total/quantity;
-      cost = cost.toFixed(costPrecision);
-      var vStr = numToStr(cost.toString(), pDsep, pDgSep, costPrecision);
-      inpCost.value = vStr;
+      inpCost.value = cost.toString();
       var inpCostVisible = document.getElementById(nameEntity + "itsCostVisible");
       if (inpCostVisible != null) {
-        inpCostVisible.value = vStr;
+        inpCostVisible.value = cost.toString();
+        $(inpCostVisible).autoNumeric('update');
         inputHasBeenChanged(inpCostVisible);
+      } else {
+        $(inpCost).autoNumeric('update');
+        inputHasBeenChanged(inpCost);
       }
     }
   }
@@ -609,4 +521,14 @@ function makeRelatedInput(pInput, pIdRelInp) {
     inpRel.required = false;
     inpRel.value = "";
   }
+};
+
+function setRsAuNum(RSdGroup, RSmRound, RSisUsePrecision0, RSisUsePrecision1, RSisUsePrecision2, RSisUsePrecision3, RSisUsePrecision4) {
+  RSmRound=RSmRound;
+  RSdGroup=RSdGroup;
+  RSisUsePrecision0=RSisUsePrecision0;
+  RSisUsePrecision1=RSisUsePrecision1;
+  RSisUsePrecision2=RSisUsePrecision2;
+  RSisUsePrecision3=RSisUsePrecision3;
+  RSisUsePrecision4=RSisUsePrecision4;
 };

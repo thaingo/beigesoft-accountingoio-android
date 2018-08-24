@@ -30,22 +30,17 @@ function submitItemSpecificsByAjax(pIdFrm, pItemSpecNm) {
   }
 };
 
-//set UOM and known cost (if exist)  for picked item
-function setCostUom(pKnownCost, uomId, uomName, idDomBasePicker, costPrecision, totalPrecision, pDsep, pDgSep) {
+//set known cost for picked item
+function setCost(pKnownCost, idDomBasePicker, costPrecision, totalPrecision, pDsep, pDgSep) {
   var whoPicking = cnvState["Who Picking"][idDomBasePicker];
-  document.getElementById(whoPicking["pickingEntity"] + "unitOfMeasureId").value = uomId;
-  var unitOfMeasureAppearanceVisible = document.getElementById(whoPicking["pickingEntity"] + "unitOfMeasureAppearanceVisible");
-  unitOfMeasureAppearanceVisible.value = uomName;
-  unitOfMeasureAppearanceVisible.onchange();
-  if (pKnownCost != null) {
-    var itsCostVisible = document.getElementById(whoPicking["pickingEntity"] + "itsCostVisible");
-    var itsCost = document.getElementById(whoPicking["pickingEntity"] + "itsCost");
-    if (itsCost.value != pKnownCost) {
-      itsCostVisible.value = pKnownCost;
-      itsCost.value = pKnownCost;
-      calculateTotalForCost(whoPicking["pickingEntity"], costPrecision, totalPrecision, pDsep, pDgSep);
-    }
+  var itsCostVisible = document.getElementById(whoPicking["pickingEntity"] + "itsCostVisible");
+  var itsCost = document.getElementById(whoPicking["pickingEntity"] + "itsCost");
+  if (itsCost.value != pKnownCost) {
+    itsCostVisible.value = pKnownCost;
+    itsCost.value = pKnownCost;
+    itsCostVisible.onchange();
   }
+  calculateTotalForCost(whoPicking["pickingEntity"], costPrecision, totalPrecision, pDsep, pDgSep);
 };
 
 //set UOM for picked item (goods)
@@ -59,6 +54,7 @@ function setUom(uomId, uomName, idDomBasePicker) {
     unitOfMeasureAppearanceVisible.onchange();
   }
 };
+
 
 function openPickerSubacc(entitySimpleName, accName, subaccName, paramsAdd) {
   var inpAccId = document.getElementById(entitySimpleName + accName + "Id");
@@ -125,16 +121,25 @@ function selectAccSubacc(entityId, entityAppearance, idDomBasePicker) {
   document.getElementById(idDomBasePicker+"Dlg").close();
 };
 
-function calculateTotalTax(nameEntity, totalGross) {
+function makeTotalTax(nameEntity, totalGross, pDsep, pDgSep) {
   var inpAllowance = document.getElementById(nameEntity + "allowance");
   var inpPlusAmount = document.getElementById(nameEntity + "plusAmount");
   var inpPercentage = document.getElementById(nameEntity + "itsPercentage");
-  var allowance = parseFloat(inpAllowance.value);
-  var plusAmount = parseFloat(inpPlusAmount.value);
-  var itsPercentage = parseFloat(inpPercentage.value);
+  var dec = inpAllowance.value;
+  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+  var allowance = parseFloat(dec);
+  var dec = inpPlusAmount.value;
+  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+  var plusAmount = parseFloat(dec);
+  var dec = inpPercentage.value;
+  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+  var itsPercentage = parseFloat(dec);
   var inpTotal = document.getElementById(nameEntity + "itsTotal");
   var total = plusAmount + (totalGross - allowance) * itsPercentage / 100;
-  inpTotal.value = total.toFixed(2);
+  $(inpTotal).autoNumeric('update');
   inputHasBeenChanged(inpTotal);
 };
 
@@ -174,7 +179,7 @@ function makeFltrPaymentTot(pInp, pIdSelFlt) {
   for (var i=0; i < selFlt.options.length; i++) {
     selFlt.options[i].value = selFlt.options[i].value.replace(fltWas, fltIs);
   }  
-}
+};
 
 function bnStLnAccentryMatchChanged(pInp) {
   var tbPrepPayEntry = document.getElementById("bnkStLnPrepPayEntry");
@@ -201,7 +206,7 @@ function bnStLnAccentryMatchChanged(pInp) {
     if (bnkStLnPrepMatch != null) { bnkStLnPrepMatch.style.display="none"; }
     if (bnkStLnPayMatch != null) { bnkStLnPayMatch.style.display="none"; }
   }
-}
+};
 
 function bnStLnPrepayMatchChanged(pInp) {
   var tbPrepPayEntry = document.getElementById("bnkStLnPrepPayEntry");
@@ -228,7 +233,7 @@ function bnStLnPrepayMatchChanged(pInp) {
     if (bnkStLnPayMatch != null) { bnkStLnPayMatch.style.display="none"; }
     if (bnkStLnAccentryMatch != null) { bnkStLnAccentryMatch.style.display="none"; }
   }
-}
+};
 
 function bnStLnPayMatchChanged(pInp) {
   var tbPrepPayEntry = document.getElementById("bnkStLnPrepPayEntry");
@@ -255,7 +260,7 @@ function bnStLnPayMatchChanged(pInp) {
     if (bnkStLnPrepMatch != null) { bnkStLnPrepMatch.style.display="none"; }
     if (bnkStLnAccentryMatch != null) { bnkStLnAccentryMatch.style.display="none"; }
   }
-}
+};
 
 function bnStLnDocTypeChanged(pInp) {
   var tbPrepPayEntry = document.getElementById("bnkStLnPrepPayEntry");
@@ -303,4 +308,246 @@ function bnStLnDocTypeChanged(pInp) {
     if (bnkStLnPayMatch != null) { bnkStLnPayMatch.style.display="none"; }
     if (bnkStLnAccentryMatch != null) { bnkStLnAccentryMatch.style.display="none"; }
   }
-}
+};
+
+function selectCsvPath(pVal, pPathAppr) {
+  var CsvColumndataIndex = document.getElementById("CsvColumndataIndex");
+  var CsvColumnfieldPath = document.getElementById("CsvColumnfieldPath");
+  var dataPath = document.getElementById("dataPath");
+  var scIdx = pVal.indexOf(";");
+  if (scIdx == -1) {
+    CsvColumndataIndex.value = pVal;
+    CsvColumnfieldPath.value = "";
+  } else {
+    var arr = pVal.split(";");
+    CsvColumndataIndex.value = arr[0];
+    CsvColumnfieldPath.value = arr[1];
+  }
+  dataPath.value = pPathAppr;
+  dataPath.onchange();
+};
+
+function clearCsvPath() {
+  var CsvColumndataIndex = document.getElementById("CsvColumndataIndex");
+  var dataPath = document.getElementById("dataPath");
+  var CsvColumnfieldPath = document.getElementById("CsvColumnfieldPath");
+  CsvColumnfieldPath.value = "";
+  CsvColumndataIndex.value = "";
+  dataPath.value = "";
+  dataPath.onchange();
+};
+
+function openCsvPathPicker() {
+  var pickerPlace = "pickersCsvPath";
+  var readerName = null;
+  var readerNameSel = document.getElementById("CsvMethodretrieverName");
+  if (readerNameSel.selectedIndex > 0) {
+    readerName = readerNameSel.options[readerNameSel.selectedIndex].value;
+  }
+  if (readerName != null) {
+    var picker = document.getElementById(pickerPlace + readerName + "Dlg");
+    if (picker != null) {
+        picker.showModal();
+    } else {
+      getHtmlByAjax('GET', 'service/?nmHnd=hndTrdTrnsReq&nmPrc=PrcCsvSampleDataRow&nmRnd=pickerCsvPathJson&nmRet=' + readerName);
+    }
+  }
+};
+function calculatePriceTax(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
+  var inpTotal = document.getElementById(nameEntity + "itsTotal");
+  var dec = inpTotal.value;
+  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+  var total = parseFloat(dec);
+  if (total > 0) {
+    calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
+    var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
+    dec = inpQuantity.value;
+    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+    var quantity = parseFloat(dec);
+    if (quantity > 0) {
+      var inpPrice = document.getElementById(nameEntity + "itsPrice");
+      var price = total/quantity;
+      inpPrice.value = price.toString();
+      var inpPriceVisible = document.getElementById(nameEntity + "itsPriceVisible");
+      if (inpPriceVisible != null) {
+        inpPriceVisible.value = price.toString();
+        $(inpPriceVisible).autoNumeric('update');
+        inputHasBeenChanged(inpPriceVisible);
+      } else {
+        $(inpPrice).autoNumeric('update');
+        inputHasBeenChanged(inpPrice);
+      }
+    }
+  }
+};
+
+function calculateCostTax(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
+  var inpTotal = document.getElementById(nameEntity + "itsTotal");
+  var dec = inpTotal.value;
+  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+  var total = parseFloat(dec);
+  if (total > 0) {
+    calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
+    var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
+    dec = inpQuantity.value;
+    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+    var quantity = parseFloat(dec);
+    if (quantity > 0) {
+      var inpCost = document.getElementById(nameEntity + "itsCost");
+      var cost = total/quantity;
+      inpCost.value = cost.toString();
+      var inpCostVisible = document.getElementById(nameEntity + "itsCostVisible");
+      if (inpCostVisible != null) {
+        inpCostVisible.value = cost.toString();
+        $(inpCostVisible).autoNumeric('update');
+        inputHasBeenChanged(inpCostVisible);
+      } else {
+        $(inpCost).autoNumeric('update');
+        inputHasBeenChanged(inpCost);
+      }
+    }
+  }
+};
+
+function calculateTotalAndTaxForPrice(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
+  var inpPrice = document.getElementById(nameEntity + "itsPrice");
+  if (inpPrice != null) {
+    var dec = inpPrice.value;
+    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+    var price = parseFloat(dec);
+    if (price > 0) {
+      var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
+      dec = inpQuantity.value;
+      if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+      if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+      var quantity = parseFloat(dec);
+      if (quantity > 0) {
+        var inpTotal = document.getElementById(nameEntity + "itsTotal");
+        var total = price * quantity;
+        inpTotal.value = total.toString();
+        var inpTotalVisible = document.getElementById(nameEntity + "itsTotalVisible");
+        if (inpTotalVisible != null) {
+          inpTotalVisible.value = total.toString();
+          $(inpTotalVisible).autoNumeric('update');
+          inputHasBeenChanged(inpTotalVisible);
+        } else {
+          $(inpTotal).autoNumeric('update');
+          inputHasBeenChanged(inpTotal);
+        }
+        calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
+      }
+    }
+  }
+};
+
+function calculateTotalAndTaxForCost(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
+  var inpCost = document.getElementById(nameEntity + "itsCost");
+  if (inpCost != null) {
+    var dec = inpCost.value;
+    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+    var cost = parseFloat(dec);
+    if (cost > 0) {
+      var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
+      dec = inpQuantity.value;
+      if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+      if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+      var quantity = parseFloat(dec);
+      if (quantity > 0) {
+        var inpTotal = document.getElementById(nameEntity + "itsTotal");
+        var total = cost * quantity;
+        inpTotal.value = total.toString();
+        var inpTotalVisible =   document.getElementById(nameEntity + "itsTotalVisible");
+        if (inpTotalVisible != null) {
+          inpTotalVisible.value = total.toString();
+          $(inpTotalVisible).autoNumeric('update');
+          inputHasBeenChanged(inpTotalVisible);
+        } else {
+          $(inpTotal).autoNumeric('update');
+          inputHasBeenChanged(inpTotal);
+        }
+        calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
+      }
+    }
+  }
+};
+
+function calcTaxOchRate(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
+  var inpTotal = document.getElementById(nameEntity + "itsTotal");
+  dec = inpTotal.value;
+  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+  var total = parseFloat(dec);
+  calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
+};
+
+function setTaxCat(pTcRate, pTcNm, pIdDomBasePicker) {
+  var whoPicking = cnvState["Who Picking"][pIdDomBasePicker];
+  var btnTaxDestination = document.getElementById(whoPicking["pickingEntity"] + "btnTaxDestination");
+  var inpTaxNm = document.getElementById(whoPicking["pickingEntity"] + "taxCategory");
+  var inpTaxRate = document.getElementById(whoPicking["pickingEntity"] + "itsPercentage");
+  if (btnTaxDestination == null) {
+    inpTaxNm.value = pTcNm;
+    inpTaxNm.onchange();
+    if (inpTaxRate != null) { // aggregate or only rate
+      inpTaxRate.value = pTcRate.toString();
+      $(inpTaxRate).autoNumeric('update');
+      inpTaxRate.onchange();
+    }
+  } else {
+    btnTaxDestination.style.display="inherit";
+    inpTaxNm.value = "";
+    inpTaxNm.onchange();
+    if (inpTaxRate != null) { // aggregate or only rate
+      inpTaxRate.value = "";
+      inpTaxRate.onchange();
+    }
+  }
+};
+
+function setDestTaxCat(pTcRate, pTcNm, pEntityName) {
+  var inpTaxNm = document.getElementById(pEntityName + "taxCategory");
+  inpTaxNm.value = pTcNm;
+  inpTaxNm.onchange();
+  var inpTaxRate = document.getElementById(pEntityName + "itsPercentage");
+  if (inpTaxRate != null) { // aggregate or only rate
+    inpTaxRate.value = pTcRate.toString();
+    $(inpTaxRate).autoNumeric('update');
+    inpTaxRate.onchange();
+  }
+  var btnTaxDestination = document.getElementById(pEntityName + "btnTaxDestination");
+  btnTaxDestination.style.display="none";
+};
+
+function calcTotalTax(pNameEntity, pTotal, pDsep, pDgSep, pIsTaxIncluded) {
+  var inpTaxRate = document.getElementById(pNameEntity + "itsPercentage");
+  var inpTaxTotal = document.getElementById(pNameEntity + "totalTaxes");
+  dec = inpTaxRate.value;
+  if (dec == "") {
+    inpTaxTotal.value = "";
+    inpTaxTotal.onchange();
+  } else {
+    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
+    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
+    var taxRate = parseFloat(dec);
+    var taxTotal;
+    if (pIsTaxIncluded) {
+      taxTotal = pTotal-(pTotal/(1+taxRate/100.0));
+    } else {
+      taxTotal = pTotal*taxRate/100.0;
+    }
+    inpTaxTotal.value = taxTotal.toString();
+    $(inpTaxTotal).autoNumeric('update');
+    inpTaxTotal.onchange();
+  }
+};
+
+function setAutoNumTax(pTarget, pRounding, pTaxPrecision, pPricePrecision) {
+  $('#'+ pTarget).find('.autoNumSalTax').autoNumeric('init', {mDec: '' + pTaxPrecision + '', vMin:'0', mRound:'' + pRounding+ '', dGroup:'' + RSdGroup + ''});
+  $('#'+ pTarget).find('.autoNumSalTaxTot').autoNumeric('init', {mDec: '' + pPricePrecision + '', vMin:'0', mRound:'' + pRounding+ '', dGroup:'' + RSdGroup + ''});
+};
