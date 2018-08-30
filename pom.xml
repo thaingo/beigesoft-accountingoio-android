@@ -299,6 +299,12 @@
       <version>4.1.1.4</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>com.android.support</groupId>
+      <artifactId>multidex</artifactId>
+      <version>1.0.3</version>
+      <type>aar</type>
+    </dependency>
   </dependencies>
 
   <build>
@@ -333,6 +339,7 @@
         <configuration>
           <dex>
             <multiDex>true</multiDex>
+            <generateMainDexList>true</generateMainDexList>
             <jvmArguments>
               <jvmArgument>-Xmx2048m</jvmArgument>
             </jvmArguments>
@@ -404,7 +411,15 @@
       </plugin>
     </plugins>
   </build>
-  
+
+  <repositories>
+    <repository>
+      <id>google-repo</id>
+      <name>Google repo</name>
+      <url>https://maven.google.com/</url>
+    </repository>
+  </repositories>
+
   <developers>
     <developer><name>Yury Demidenko</name></developer>
   </developers>

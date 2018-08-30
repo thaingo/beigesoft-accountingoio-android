@@ -14,14 +14,14 @@ package org.beigesoft.accountingoio.android;
 
 import java.util.HashMap;
 import java.util.Map;
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 /**
  * <p>It extends Application to contains application beans map.</p>
  *
  * @author Yury Demidenko
  */
-public class ApplicationPlus extends Application {
+public class ApplicationPlus extends MultiDexApplication {
 
   /**
    * <p>Application beans map.</p>
