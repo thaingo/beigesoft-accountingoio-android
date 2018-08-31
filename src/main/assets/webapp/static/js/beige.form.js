@@ -391,10 +391,18 @@ function calculateTotalForPrice(nameEntity, pDsep, pDgSep) {
       if (quantity > 0) {
         var inpTotal = document.getElementById(nameEntity + "itsTotal");
         var total = price * quantity;
-        inpTotal.value = total.toString();
+        if (pDsep != ".") {
+          inpTotal.value = total.toString().replace(".", pDsep);
+        } else {
+          inpTotal.value = total.toString();
+        }
         var inpTotalVisible =   document.getElementById(nameEntity + "itsTotalVisible");
         if (inpTotalVisible != null) {
-          inpTotalVisible.value = total.toString();
+          if (pDsep != ".") {
+            inpTotalVisible.value = total.toString().replace(".", pDsep);
+          } else {
+            inpTotalVisible.value = total.toString();
+          }
           $(inpTotalVisible).autoNumeric('update');
           inputHasBeenChanged(inpTotalVisible);
         } else {
@@ -422,10 +430,18 @@ function calculateTotalForCost(nameEntity, pDsep, pDgSep) {
       if (quantity > 0) {
         var inpTotal = document.getElementById(nameEntity + "itsTotal");
         var total = cost * quantity;
-        inpTotal.value = total.toString();
+        if (pDsep != ".") {
+          inpTotal.value = total.toString().replace(".", pDsep);
+        } else {
+          inpTotal.value = total.toString();
+        }
         var inpTotalVisible =   document.getElementById(nameEntity + "itsTotalVisible");
         if (inpTotalVisible != null) {
-          inpTotalVisible.value = total.toString();
+          if (pDsep != ".") {
+            inpTotalVisible.value = total.toString().replace(".", pDsep);
+          } else {
+            inpTotalVisible.value = total.toString();
+          }
           $(inpTotalVisible).autoNumeric('update');
           inputHasBeenChanged(inpTotalVisible);
         } else {
@@ -452,10 +468,18 @@ function calculatePrice(nameEntity, pDsep, pDgSep) {
     if (quantity > 0) {
       var inpPrice = document.getElementById(nameEntity + "itsPrice");
       var price = total/quantity;
-      inpPrice.value = price.toString();
+      if (pDsep != ".") {
+        inpPrice.value = price.toString().replace(".", pDsep);
+      } else {
+        inpPrice.value = price.toString();
+      }
       var inpPriceVisible = document.getElementById(nameEntity + "itsPriceVisible");
       if (inpPriceVisible != null) {
-        inpPriceVisible.value = price.toString();
+        if (pDsep != ".") {
+          inpPriceVisible.value = price.toString().replace(".", pDsep);
+        } else {
+          inpPriceVisible.value = price.toString();
+        }
         $(inpPriceVisible).autoNumeric('update');
         inputHasBeenChanged(inpPriceVisible);
       } else {
@@ -481,10 +505,18 @@ function calculateCost(nameEntity, pDsep, pDgSep) {
     if (quantity > 0) {
       var inpCost = document.getElementById(nameEntity + "itsCost");
       var cost = total/quantity;
-      inpCost.value = cost.toString();
+      if (pDsep != ".") {
+        inpCost.value = cost.toString().replace(".", pDsep);
+      } else {
+        inpCost.value = cost.toString();
+      }
       var inpCostVisible = document.getElementById(nameEntity + "itsCostVisible");
       if (inpCostVisible != null) {
-        inpCostVisible.value = cost.toString();
+        if (pDsep != ".") {
+          inpCostVisible.value = cost.toString().replace(".", pDsep);
+        } else {
+          inpCostVisible.value = cost.toString();
+        }
         $(inpCostVisible).autoNumeric('update');
         inputHasBeenChanged(inpCostVisible);
       } else {
