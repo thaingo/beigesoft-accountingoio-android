@@ -147,7 +147,7 @@ function makeTotalTax(nameEntity, totalGross, pDsep, pDgSep) {
   } else {
     inpTotal.value = total.toString();
   }
-  $(inpTotal).autoNumeric('update');
+  $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
   inputHasBeenChanged(inpTotal);
 };
 
@@ -389,10 +389,11 @@ function calculatePriceTax(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
         } else {
           inpPriceVisible.value = price.toString();
         }
-        $(inpPriceVisible).autoNumeric('update');
+        $(inpPriceVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
         inputHasBeenChanged(inpPriceVisible);
+        inpPrice.value = inpPriceVisible.value;
       } else {
-        $(inpPrice).autoNumeric('update');
+        $(inpPrice).autoNumeric('update', {mRound:'' + RSmRound + ''});
         inputHasBeenChanged(inpPrice);
       }
     }
@@ -427,10 +428,11 @@ function calculateCostTax(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
         } else {
           inpCostVisible.value = cost.toString();
         }
-        $(inpCostVisible).autoNumeric('update');
+        $(inpCostVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
         inputHasBeenChanged(inpCostVisible);
+        inpCost.value = inpCostVisible.value;
       } else {
-        $(inpCost).autoNumeric('update');
+        $(inpCost).autoNumeric('update', {mRound:'' + RSmRound + ''});
         inputHasBeenChanged(inpCost);
       }
     }
@@ -465,10 +467,11 @@ function calculateTotalAndTaxForPrice(nameEntity, pDsep, pDgSep, pIsTaxIncluded)
           } else {
             inpTotalVisible.value = total.toString();
           }
-          $(inpTotalVisible).autoNumeric('update');
+          $(inpTotalVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
           inputHasBeenChanged(inpTotalVisible);
+          inpTotal.value = inpTotalVisible.value;
         } else {
-          $(inpTotal).autoNumeric('update');
+          $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
           inputHasBeenChanged(inpTotal);
         }
         calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
@@ -498,17 +501,18 @@ function calculateTotalAndTaxForCost(nameEntity, pDsep, pDgSep, pIsTaxIncluded) 
         } else {
           inpTotal.value = total.toString();
         }
-        var inpTotalVisible =   document.getElementById(nameEntity + "itsTotalVisible");
+        var inpTotalVisible = document.getElementById(nameEntity + "itsTotalVisible");
         if (inpTotalVisible != null) {
           if (pDsep != ".") {
             inpTotalVisible.value = total.toString().replace(".", pDsep);
           } else {
             inpTotalVisible.value = total.toString();
           }
-          $(inpTotalVisible).autoNumeric('update');
+          $(inpTotalVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
           inputHasBeenChanged(inpTotalVisible);
+          inpTotal.value = inpTotalVisible.value;
         } else {
-          $(inpTotal).autoNumeric('update');
+          $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
           inputHasBeenChanged(inpTotal);
         }
         calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
@@ -540,7 +544,7 @@ function setTaxCat(pTcRate, pTcNm, pIdDomBasePicker, pDsep) {
       } else {
         inpTaxRate.value = pTcRate.toString();
       }
-      $(inpTaxRate).autoNumeric('update');
+      $(inpTaxRate).autoNumeric('update', {mRound:'' + RSmRound + ''});
       inpTaxRate.onchange();
     }
   } else {
@@ -565,7 +569,7 @@ function setDestTaxCat(pTcRate, pTcNm, pEntityName, pDsep) {
     } else {
       inpTaxRate.value = pTcRate.toString();
     }
-    $(inpTaxRate).autoNumeric('update');
+    $(inpTaxRate).autoNumeric('update', {mRound:'' + RSmRound + ''});
     inpTaxRate.onchange();
   }
   var btnTaxDestination = document.getElementById(pEntityName + "btnTaxDestination");

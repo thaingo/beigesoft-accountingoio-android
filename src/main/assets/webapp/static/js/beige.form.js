@@ -403,10 +403,11 @@ function calculateTotalForPrice(nameEntity, pDsep, pDgSep) {
           } else {
             inpTotalVisible.value = total.toString();
           }
-          $(inpTotalVisible).autoNumeric('update');
+          $(inpTotalVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
           inputHasBeenChanged(inpTotalVisible);
+          inpTotal.value = inpTotalVisible.value;
         } else {
-          $(inpTotal).autoNumeric('update');
+          $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
           inputHasBeenChanged(inpTotal);
         }
       }
@@ -442,10 +443,11 @@ function calculateTotalForCost(nameEntity, pDsep, pDgSep) {
           } else {
             inpTotalVisible.value = total.toString();
           }
-          $(inpTotalVisible).autoNumeric('update');
+          $(inpTotalVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
           inputHasBeenChanged(inpTotalVisible);
+          inpTotal.value = inpTotalVisible.value;
         } else {
-          $(inpTotal).autoNumeric('update');
+          $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
           inputHasBeenChanged(inpTotal);
         }
       }
@@ -480,10 +482,11 @@ function calculatePrice(nameEntity, pDsep, pDgSep) {
         } else {
           inpPriceVisible.value = price.toString();
         }
-        $(inpPriceVisible).autoNumeric('update');
+        $(inpPriceVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
         inputHasBeenChanged(inpPriceVisible);
+        inpPrice.value = inpPriceVisible.value;
       } else {
-        $(inpPrice).autoNumeric('update');
+        $(inpPrice).autoNumeric('update', {mRound:'' + RSmRound + ''});
         inputHasBeenChanged(inpPrice);
       }
     }
@@ -517,10 +520,11 @@ function calculateCost(nameEntity, pDsep, pDgSep) {
         } else {
           inpCostVisible.value = cost.toString();
         }
-        $(inpCostVisible).autoNumeric('update');
+        $(inpCostVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
         inputHasBeenChanged(inpCostVisible);
+        inpCost.value = inpCostVisible.value;
       } else {
-        $(inpCost).autoNumeric('update');
+        $(inpCost).autoNumeric('update', {mRound:'' + RSmRound + ''});
         inputHasBeenChanged(inpCost);
       }
     }
