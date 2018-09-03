@@ -1510,6 +1510,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpPurchaseRetLn_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpPurchaseRetLn_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputAccountAsset_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputAccountAsset_jsp</servlet-class>
     </servlet>
@@ -1522,11 +1527,6 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputCatalogOfSubcatalogs_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputCatalogOfSubcatalogs_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputPurchaseInvoiceLine_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputPurchaseInvoiceLine_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2205,6 +2205,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpPurchaseRetLn_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inpPurchaseRetLn_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputAccountAsset_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputAccountAsset_jsp</servlet-class>
     </servlet>
@@ -2217,11 +2222,6 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputCatalogOfSubcatalogs_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputCatalogOfSubcatalogs_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputPurchaseInvoiceLine_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputPurchaseInvoiceLine_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -3985,6 +3985,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpPurchaseRetLn_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/mobile/inputs/inpPurchaseRetLn.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputAccountAsset_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mobile/inputs/inputAccountAsset.jsp</url-pattern>
     </servlet-mapping>
@@ -3997,11 +4002,6 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputCatalogOfSubcatalogs_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mobile/inputs/inputCatalogOfSubcatalogs.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputPurchaseInvoiceLine_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/mobile/inputs/inputPurchaseInvoiceLine.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -4680,6 +4680,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpPurchaseRetLn_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/inputs/inpPurchaseRetLn.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputAccountAsset_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/inputs/inputAccountAsset.jsp</url-pattern>
     </servlet-mapping>
@@ -4692,11 +4697,6 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputCatalogOfSubcatalogs_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/inputs/inputCatalogOfSubcatalogs.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputPurchaseInvoiceLine_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/inputs/inputPurchaseInvoiceLine.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
