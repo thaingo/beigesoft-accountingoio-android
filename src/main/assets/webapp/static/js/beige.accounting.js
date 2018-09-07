@@ -33,17 +33,23 @@ function submitItemSpecificsByAjax(pIdFrm, pItemSpecNm) {
   }
 };
 
-//set known cost for picked item
-function setCost(pKnownCost, idDomBasePicker, costPrecision, totalPrecision, pDsep, pDgSep) {
+//set known or from returned invoice line cost for picked item, cost is already rounded and string value
+function setCost(pCost, idDomBasePicker, costPrecision, totalPrecision, pDsep, pDgSep) {
   var whoPicking = cnvState["Who Picking"][idDomBasePicker];
-  var itsCostVisible = document.getElementById(whoPicking["pickingEntity"] + "itsCostVisible");
-  var itsCost = document.getElementById(whoPicking["pickingEntity"] + "itsCost");
-  if (itsCost.value != pKnownCost) {
-    itsCostVisible.value = pKnownCost;
-    itsCost.value = pKnownCost;
-    itsCostVisible.onchange();
+  var inpCostVisible = document.getElementById(whoPicking["pickingEntity"] + "itsCostVisible");
+  var inpCost = document.getElementById(whoPicking["pickingEntity"] + "itsCost");
+  if (pDsep != ".") { pCost = pCost.replace(".", pDsep); }
+  if (inpCost.value != pCost) {
+    inpCost.value = pCost;
+    if (inpCostVisible != null) {
+      inpCostVisible.value = pCost;
+      $(inpCostVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
+      inpCostVisible.onchange();
+    } else {
+      $(inpCost).autoNumeric('update', {mRound:'' + RSmRound + ''});
+      inpCost.onchange();
+    }
   }
-  calculateTotalForCost(whoPicking["pickingEntity"], costPrecision, totalPrecision, pDsep, pDgSep);
 };
 
 //set UOM for picked item (goods)
