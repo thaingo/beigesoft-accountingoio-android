@@ -9,7 +9,8 @@
   <name>Beigesoft™ Accounting All In One on embedded A-Jetty for Android</name>
   
   <description>This is Android version of Beige-Accounting plus Beige-WebStore on embedded A-Jetty.
-    Web-Store is included for study and tests purposes and you are also able to make full DB copy from cloud version.
+    Web-Store is included for study and tests purposes and you are also able to make full DB copy from cloud version,
+    and you can make price lists (in different price categories) and export it in CSV file to your customers or POS.
     Web-Store is draft yet.</description>
   <url>https://sites.google.com/site/beigesoftware</url>
   <inceptionYear>2017</inceptionYear>
@@ -215,12 +216,12 @@
     <dependency>
       <groupId>org.beigesoft</groupId>
       <artifactId>beigesoft-android-sqlite</artifactId>
-      <version>1.1.7-SNAPSHOT</version>
+      <version>1.1.7</version>
     </dependency>
     <dependency>
       <groupId>org.beigesoft</groupId>
       <artifactId>beigesoft-accountingoio-ajetty</artifactId>
-      <version>1.1.7-SNAPSHOT</version>
+      <version>1.1.7</version>
       <exclusions>
         <exclusion>
           <groupId>org.xerial</groupId>
