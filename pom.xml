@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.beigesoft</groupId>
-  <version>1.1.7-SNAPSHOT</version>
+  <version>1.1.7</version>
   <artifactId>beigesoft-accountingoio-android</artifactId>
   <packaging>apk</packaging>
   <name>Beigesoft™ Accounting All In One on embedded A-Jetty for Android</name>
@@ -468,7 +468,7 @@
     <url>https://github.com/demidenko05/beigesoft-accountingoio-android.git</url>
     <connection>scm:git:git@github.com:demidenko05/beigesoft-accountingoio-android.git</connection>
     <developerConnection>scm:git:git@github.com:demidenko05/beigesoft-accountingoio-android.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>beigesoft-accountingoio-android-1.1.7</tag>
   </scm>
 
 </project>
