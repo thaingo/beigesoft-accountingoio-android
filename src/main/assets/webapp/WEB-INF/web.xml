@@ -28,7 +28,7 @@
   <servlet>
     <servlet-name>servicePublic</servlet-name>
     <servlet-class>
-      org.beigesoft.web.servlet.WServicePublic
+      org.beigesoft.web.servlet.WHandlerAndJsp
     </servlet-class>
     <load-on-startup>1</load-on-startup>
     <init-param>
@@ -79,57 +79,193 @@
       <param-name>dirJsp</param-name>
       <param-value>/WEB-INF/jsp/</param-value>
     </init-param>
-    <multipart-config>
-      <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
-      <file-size-threshold>10000</file-size-threshold>
-    </multipart-config>
+    <init-param>
+      <param-name>defaultJsp</param-name>
+      <param-value>index</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>hndPubWebStrTr</param-value>
+    </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>servicePublic</servlet-name>
     <url-pattern>/servicePublic/*</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>jspPublic</servlet-name>
-    <servlet-class>
-      org.beigesoft.web.servlet.WJspPublic
-    </servlet-class>
-    <init-param>
-      <param-name>dirJsp</param-name>
-      <param-value>/WEB-INF/jsp/</param-value>
-    </init-param>
-    <multipart-config>
-      <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
-      <file-size-threshold>10000</file-size-threshold>
-    </multipart-config>
-  </servlet>
   <servlet-mapping>
-    <servlet-name>jspPublic</servlet-name>
-    <url-pattern>/jspPublic/*</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>jspPublic</servlet-name>
+    <servlet-name>servicePublic</servlet-name>
     <url-pattern></url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>jspd</servlet-name>
+    <servlet-name>service</servlet-name>
     <servlet-class>
-      org.beigesoft.web.servlet.WJsp
+      org.beigesoft.web.servlet.WHandlerAndJsp
     </servlet-class>
     <init-param>
       <param-name>dirJsp</param-name>
       <param-value>/WEB-INF/jsp/</param-value>
     </init-param>
+    <init-param>
+      <param-name>defaultJsp</param-name>
+      <param-value>main</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>handlerEntityRequest</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>service</servlet-name>
+    <url-pattern>/secure/service/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>transact</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WHandlerAndJsp
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>hndTrdSmpReq</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>transact</servlet-name>
+    <url-pattern>/secure/transact/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>uploadSingle</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WUploadSingle
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>handlerEntityRequest</param-value>
+    </init-param>
     <multipart-config>
-      <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
-      <file-size-threshold>10000</file-size-threshold>
+      <max-file-size>10485760</max-file-size>
+      <max-request-size>20971520</max-request-size>
+      <file-size-threshold>5242880</file-size-threshold>
     </multipart-config>
   </servlet>
   <servlet-mapping>
-    <servlet-name>jspd</servlet-name>
-    <url-pattern>/secure/jspd/*</url-pattern>
+    <servlet-name>uploadSingle</servlet-name>
+    <url-pattern>/secure/uploadSingle/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>waservice</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WHandlerAndJsp
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>defaultJsp</param-name>
+      <param-value>webStoreAdmin</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>hndlWaEntitiesReq</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>waservice</servlet-name>
+    <url-pattern>/webadmin/service/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>watransact</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WHandlerAndJsp
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>hndlWaEntitiesReq</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>watransact</servlet-name>
+    <url-pattern>/webadmin/transact/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>wauploadSingle</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WUploadSingle
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>hndlWaEntitiesReq</param-value>
+    </init-param>
+    <multipart-config>
+      <max-file-size>10485760</max-file-size>
+      <max-request-size>20971520</max-request-size>
+      <file-size-threshold>5242880</file-size-threshold>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>wauploadSingle</servlet-name>
+    <url-pattern>/webadmin/uploadSingle/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>seservice</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WHandlerAndJsp
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>defaultJsp</param-name>
+      <param-value>wsSeSeller</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>hndlSeEntitiesReq</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>seservice</servlet-name>
+    <url-pattern>/seseller/service/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>seuploadSingle</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WUploadSingle
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>hndlSeEntitiesReq</param-value>
+    </init-param>
+    <multipart-config>
+      <max-file-size>10485760</max-file-size>
+      <max-request-size>20971520</max-request-size>
+      <file-size-threshold>5242880</file-size-threshold>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>seuploadSingle</servlet-name>
+    <url-pattern>/seseller/uploadSingle/*</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>reportCsv</servlet-name>
@@ -150,101 +286,6 @@
   <servlet-mapping>
     <servlet-name>reportPdf</servlet-name>
     <url-pattern>/secure/reportPdf/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>service</servlet-name>
-    <servlet-class>
-      org.beigesoft.web.servlet.WService
-    </servlet-class>
-    <init-param>
-      <param-name>dirJsp</param-name>
-      <param-value>/WEB-INF/jsp/</param-value>
-    </init-param>
-    <multipart-config>
-      <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
-      <file-size-threshold>10000</file-size-threshold>
-    </multipart-config>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>service</servlet-name>
-    <url-pattern>/secure/service/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>waservice</servlet-name>
-    <servlet-class>
-      org.beigesoft.accounting.servlet.WWaService
-    </servlet-class>
-    <init-param>
-      <param-name>dirJsp</param-name>
-      <param-value>/WEB-INF/jsp/</param-value>
-    </init-param>
-    <multipart-config>
-      <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
-      <file-size-threshold>10000</file-size-threshold>
-    </multipart-config>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>waservice</servlet-name>
-    <url-pattern>/webadmin/service/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>seservice</servlet-name>
-    <servlet-class>
-      org.beigesoft.accounting.servlet.WSeService
-    </servlet-class>
-    <init-param>
-      <param-name>dirJsp</param-name>
-      <param-value>/WEB-INF/jsp/</param-value>
-    </init-param>
-    <multipart-config>
-      <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
-      <file-size-threshold>10000</file-size-threshold>
-    </multipart-config>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>seservice</servlet-name>
-    <url-pattern>/seseller/service/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>seuploadSingle</servlet-name>
-    <servlet-class>
-      org.beigesoft.accounting.servlet.WSeUploadSingle
-    </servlet-class>
-    <init-param>
-      <param-name>dirJsp</param-name>
-      <param-value>/WEB-INF/jsp/</param-value>
-    </init-param>
-    <multipart-config>
-      <max-file-size>10485760</max-file-size>
-      <max-request-size>20971520</max-request-size>
-      <file-size-threshold>5242880</file-size-threshold>
-    </multipart-config>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>seuploadSingle</servlet-name>
-    <url-pattern>/seseller/upload/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>uploadSingle</servlet-name>
-    <servlet-class>
-      org.beigesoft.web.servlet.WUploadSingle
-    </servlet-class>
-    <init-param>
-      <param-name>dirJsp</param-name>
-      <param-value>/WEB-INF/jsp/</param-value>
-    </init-param>
-    <multipart-config>
-      <max-file-size>10485760</max-file-size>
-      <max-request-size>20971520</max-request-size>
-      <file-size-threshold>5242880</file-size-threshold>
-    </multipart-config>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>uploadSingle</servlet-name>
-    <url-pattern>/secure/uploadSingle/*</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>sendEntities</servlet-name>
@@ -5379,20 +5420,6 @@ resource-ref, security-constraint, login-config, security-role,
 env-entry, and ejb-ref elements should follow this fragment.
 -->
 
-  <servlet>
-    <servlet-name>report</servlet-name>
-    <servlet-class>
-      org.beigesoft.web.servlet.WReport
-    </servlet-class>
-    <init-param>
-      <param-name>dirJsp</param-name>
-      <param-value>/WEB-INF/jsp/</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>report</servlet-name>
-    <url-pattern>/secure/report/*</url-pattern>
-  </servlet-mapping>
   <servlet>
     <servlet-name>balance</servlet-name>
     <servlet-class>
