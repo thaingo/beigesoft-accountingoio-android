@@ -87,6 +87,11 @@
       <param-name>handlerName</param-name>
       <param-value>hndPubWebStrTr</param-value>
     </init-param>
+    <multipart-config>
+      <max-file-size>10000</max-file-size>
+      <max-request-size>10000</max-request-size>
+      <file-size-threshold>10000</file-size-threshold>
+    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>servicePublic</servlet-name>
@@ -113,6 +118,11 @@
       <param-name>handlerName</param-name>
       <param-value>handlerEntityRequest</param-value>
     </init-param>
+    <multipart-config>
+      <max-file-size>10000</max-file-size>
+      <max-request-size>10000</max-request-size>
+      <file-size-threshold>10000</file-size-threshold>
+    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>service</servlet-name>
@@ -176,6 +186,11 @@
       <param-name>handlerName</param-name>
       <param-value>hndlWaEntitiesReq</param-value>
     </init-param>
+    <multipart-config>
+      <max-file-size>10000</max-file-size>
+      <max-request-size>10000</max-request-size>
+      <file-size-threshold>10000</file-size-threshold>
+    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>waservice</servlet-name>
@@ -239,6 +254,11 @@
       <param-name>handlerName</param-name>
       <param-value>hndlSeEntitiesReq</param-value>
     </init-param>
+    <multipart-config>
+      <max-file-size>10000</max-file-size>
+      <max-request-size>10000</max-request-size>
+      <file-size-threshold>10000</file-size-threshold>
+    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>seservice</servlet-name>
@@ -272,6 +292,10 @@
     <servlet-class>
       org.beigesoft.web.servlet.WReportCsv
     </servlet-class>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>hndlCsvWriter</param-value>
+    </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>reportCsv</servlet-name>
