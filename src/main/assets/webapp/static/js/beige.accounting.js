@@ -13,26 +13,6 @@
 //request scoped variables
 var RSTaxRounding = 'S';
 
-function submitItemSpecificsByAjax(pIdFrm, pItemSpecNm) {
-  var frm = document.getElementById(pIdFrm);
-  var gsAlUpUrl = document.getElementById(pItemSpecNm + ".stringValue1");
-  var gsFile = document.getElementById(pItemSpecNm + ".path");
-  if (gsAlUpUrl.value == "" && gsFile.value == "") {
-    showWarning(MSGS["enterEitherAlreadyOrLoadNew"]);
-  } else {
-    var addParams;
-    if (gsFile.value != "") {
-      var inpNmsAct = document.getElementById(pIdFrm + ".nmsAct");
-      inpNmsAct.value = "entitySave,list";
-      frm.action = "uploadSingle/";
-      addParams = "&nmRnd=listAfterFormActionJson";
-    } else {
-      addParams = "&nmRnd=editEntitySavedJson";
-    }
-    sendFormByAjax(frm, addParams);
-  }
-};
-
 //set known or from returned invoice line cost for picked item, cost is already rounded and string value
 function setCost(pCost, idDomBasePicker, costPrecision, totalPrecision, pDsep, pDgSep) {
   var whoPicking = cnvState["Who Picking"][idDomBasePicker];

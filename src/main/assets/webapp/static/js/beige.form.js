@@ -568,3 +568,33 @@ function setRsAuNum(RSdGroup, RSmRound, RSisUsePrecision0, RSisUsePrecision1, RS
   RSisUsePrecision3=RSisUsePrecision3;
   RSisUsePrecision4=RSisUsePrecision4;
 };
+
+function fileUpPathChanged(pInp, pInpFileUpNm, pInpParamNameFileToUploadNm) {
+  if (pInp.value != "") {
+    var inpFileUp = document.getElementById(pInpFileUpNm);
+    inpFileUp.value = "";
+    if (inpFileUp.required) {
+      pInp.required = true;
+      inpFileUp.required = false;
+    }
+    inputHasBeenChanged(inpFileUp);
+    var inpParamNameFileToUpload = document.getElementById(pInpParamNameFileToUploadNm);
+    inpParamNameFileToUpload.disabled = true;
+  }
+  inputHasBeenChanged(pInp);
+};
+
+function fileUpChanged(pInp, pInpFileUpPathNm, pInpParamNameFileToUploadNm) {
+  if (pInp.value != "") {
+    var inpFileUpPath = document.getElementById(pInpFileUpPathNm);
+    inpFileUpPath.value = "";
+    if (inpFileUpPath.required) {
+      pInp.required = true;
+      inpFileUpPath.required = false;
+    }
+    inputHasBeenChanged(inpFileUpPath);
+    var inpParamNameFileToUpload = document.getElementById(pInpParamNameFileToUploadNm);
+    inpParamNameFileToUpload.disabled = false;
+  }
+  inputHasBeenChanged(pInp);
+};

@@ -89,7 +89,7 @@
     </init-param>
     <multipart-config>
       <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
+      <max-request-size>50000</max-request-size>
       <file-size-threshold>10000</file-size-threshold>
     </multipart-config>
   </servlet>
@@ -120,7 +120,7 @@
     </init-param>
     <multipart-config>
       <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
+      <max-request-size>50000</max-request-size>
       <file-size-threshold>10000</file-size-threshold>
     </multipart-config>
   </servlet>
@@ -139,12 +139,30 @@
     </init-param>
     <init-param>
       <param-name>handlerName</param-name>
-      <param-value>hndTrdSmpReq</param-value>
+      <param-value>hndAccTrnsReq</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>transact</servlet-name>
     <url-pattern>/secure/transact/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>nontransact</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WHandlerAndJsp
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>srhAccSecure</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>nontransact</servlet-name>
+    <url-pattern>/secure/nontransact/*</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>uploadSingle</servlet-name>
@@ -160,9 +178,9 @@
       <param-value>handlerEntityRequest</param-value>
     </init-param>
     <multipart-config>
-      <max-file-size>10485760</max-file-size>
-      <max-request-size>20971520</max-request-size>
-      <file-size-threshold>5242880</file-size-threshold>
+      <max-file-size>2000000</max-file-size>
+      <max-request-size>3000000</max-request-size>
+      <file-size-threshold>2000000</file-size-threshold>
     </multipart-config>
   </servlet>
   <servlet-mapping>
@@ -188,7 +206,7 @@
     </init-param>
     <multipart-config>
       <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
+      <max-request-size>50000</max-request-size>
       <file-size-threshold>10000</file-size-threshold>
     </multipart-config>
   </servlet>
@@ -207,12 +225,30 @@
     </init-param>
     <init-param>
       <param-name>handlerName</param-name>
-      <param-value>hndlWaEntitiesReq</param-value>
+      <param-value>hndTrdTrnsReq</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
     <servlet-name>watransact</servlet-name>
     <url-pattern>/webadmin/transact/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>wanontransact</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WHandlerAndJsp
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>hndTrdSmpReq</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>wanontransact</servlet-name>
+    <url-pattern>/webadmin/nontransact/*</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>wauploadSingle</servlet-name>
@@ -228,9 +264,9 @@
       <param-value>hndlWaEntitiesReq</param-value>
     </init-param>
     <multipart-config>
-      <max-file-size>10485760</max-file-size>
-      <max-request-size>20971520</max-request-size>
-      <file-size-threshold>5242880</file-size-threshold>
+      <max-file-size>2000000</max-file-size>
+      <max-request-size>3000000</max-request-size>
+      <file-size-threshold>2000000</file-size-threshold>
     </multipart-config>
   </servlet>
   <servlet-mapping>
@@ -256,7 +292,7 @@
     </init-param>
     <multipart-config>
       <max-file-size>10000</max-file-size>
-      <max-request-size>10000</max-request-size>
+      <max-request-size>50000</max-request-size>
       <file-size-threshold>10000</file-size-threshold>
     </multipart-config>
   </servlet>
@@ -278,9 +314,9 @@
       <param-value>hndlSeEntitiesReq</param-value>
     </init-param>
     <multipart-config>
-      <max-file-size>10485760</max-file-size>
-      <max-request-size>20971520</max-request-size>
-      <file-size-threshold>5242880</file-size-threshold>
+      <max-file-size>2000000</max-file-size>
+      <max-request-size>3000000</max-request-size>
+      <file-size-threshold>2000000</file-size-threshold>
     </multipart-config>
   </servlet>
   <servlet-mapping>
@@ -444,8 +480,18 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.confDelItemSpec_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.confDelItemSpec_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntity_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntity_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.confDelItemSpecJson_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.confDelItemSpecJson_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -549,6 +595,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.confDelEntityJson_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.confDelEntityJson_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstore_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.webstore_jsp</servlet-class>
     </servlet>
@@ -566,6 +617,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.assignCatalogResult_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.assignCatalogResult_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityF_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntityF_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -591,6 +647,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFolSavedJson_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntityFolSavedJson_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editItemSpec_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editItemSpec_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -621,11 +682,6 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.refreshedHndlI18n_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.refreshedHndlI18n_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.insertDeleteEntityFfolJson_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.insertDeleteEntityFfolJson_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -694,6 +750,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFJson_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntityFJson_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.reverseLineJson_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.reverseLineJson_jsp</servlet-class>
     </servlet>
@@ -709,11 +770,6 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.insertDeleteEntityFfol_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.insertDeleteEntityFfol_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFol_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntityFol_jsp</servlet-class>
     </servlet>
@@ -726,6 +782,16 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.pickerCsvPath_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.pickerCsvPath_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.confDelEntity_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.confDelEntity_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFfolJson_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntityFfolJson_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -819,8 +885,18 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editItemSpecJson_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editItemSpecJson_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.listWhole_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.listWhole_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editItemSpecSavedJson_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editItemSpecSavedJson_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -891,6 +967,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.listWholeWebstoreGoods_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.listWholeWebstoreGoods_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFfol_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntityFfol_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -1204,6 +1285,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpFileOrPathHasName_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpFileOrPathHasName_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputPurchaseInvoice_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputPurchaseInvoice_jsp</servlet-class>
     </servlet>
@@ -1256,6 +1342,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputDisabledCost_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputDisabledCost_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpFileOrPath_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpFileOrPath_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -1401,6 +1492,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputDisabled_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputDisabled_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpItemSpecStrVal2Del_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpItemSpecStrVal2Del_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2029,6 +2125,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpFileOrPathHasName_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inpFileOrPathHasName_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputPurchaseInvoice_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputPurchaseInvoice_jsp</servlet-class>
     </servlet>
@@ -2081,6 +2182,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputDisabledCost_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputDisabledCost_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpFileOrPath_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inpFileOrPath_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2226,6 +2332,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputDisabled_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputDisabled_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpItemSpecStrVal2Del_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inpItemSpecStrVal2Del_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2619,11 +2730,6 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstEntityFfol_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.actions.lstEntityFfol_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActBnkStLns_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.actions.lstActBnkStLns_jsp</servlet-class>
     </servlet>
@@ -2654,6 +2760,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstOwnedDelete_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.actions.lstOwnedDelete_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActReversableLine_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.actions.lstActReversableLine_jsp</servlet-class>
     </servlet>
@@ -2666,11 +2777,6 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActCopyEdit_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.actions.lstActCopyEdit_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstEntityFfolDelete_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.actions.lstEntityFfolDelete_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2954,8 +3060,18 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.confDelItemSpec_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/confDelItemSpec.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntity_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/editEntity.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.confDelItemSpecJson_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/confDelItemSpecJson.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3059,6 +3175,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.confDelEntityJson_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/confDelEntityJson.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstore_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/webstore.jsp</url-pattern>
     </servlet-mapping>
@@ -3076,6 +3197,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.assignCatalogResult_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/assignCatalogResult.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityF_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/editEntityF.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3101,6 +3227,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFolSavedJson_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/editEntityFolSavedJson.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editItemSpec_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/editItemSpec.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3131,11 +3262,6 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.refreshedHndlI18n_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/refreshedHndlI18n.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.insertDeleteEntityFfolJson_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/insertDeleteEntityFfolJson.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3204,6 +3330,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFJson_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/editEntityFJson.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.reverseLineJson_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/reverseLineJson.jsp</url-pattern>
     </servlet-mapping>
@@ -3219,11 +3350,6 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.insertDeleteEntityFfol_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/insertDeleteEntityFfol.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFol_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/editEntityFol.jsp</url-pattern>
     </servlet-mapping>
@@ -3236,6 +3362,16 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.pickerCsvPath_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/pickerCsvPath.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.confDelEntity_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/confDelEntity.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFfolJson_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/editEntityFfolJson.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3329,8 +3465,18 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editItemSpecJson_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/editItemSpecJson.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.listWhole_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/listWhole.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editItemSpecSavedJson_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/editItemSpecSavedJson.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3401,6 +3547,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.listWholeWebstoreGoods_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/listWholeWebstoreGoods.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFfol_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/editEntityFfol.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3714,6 +3865,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpFileOrPathHasName_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/mobile/inputs/inpFileOrPathHasName.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputPurchaseInvoice_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mobile/inputs/inputPurchaseInvoice.jsp</url-pattern>
     </servlet-mapping>
@@ -3766,6 +3922,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputDisabledCost_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mobile/inputs/inputDisabledCost.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpFileOrPath_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/mobile/inputs/inpFileOrPath.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3911,6 +4072,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputDisabled_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mobile/inputs/inputDisabled.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpItemSpecStrVal2Del_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/mobile/inputs/inpItemSpecStrVal2Del.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -4539,6 +4705,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpFileOrPathHasName_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/inputs/inpFileOrPathHasName.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputPurchaseInvoice_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/inputs/inputPurchaseInvoice.jsp</url-pattern>
     </servlet-mapping>
@@ -4591,6 +4762,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputDisabledCost_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/inputs/inputDisabledCost.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpFileOrPath_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/inputs/inpFileOrPath.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -4736,6 +4912,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputDisabled_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/inputs/inputDisabled.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpItemSpecStrVal2Del_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/inputs/inpItemSpecStrVal2Del.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -5129,11 +5310,6 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstEntityFfol_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/actions/lstEntityFfol.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActBnkStLns_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/actions/lstActBnkStLns.jsp</url-pattern>
     </servlet-mapping>
@@ -5164,6 +5340,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstOwnedDelete_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/actions/lstOwnedDelete.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActReversableLine_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/actions/lstActReversableLine.jsp</url-pattern>
     </servlet-mapping>
@@ -5176,11 +5357,6 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstActCopyEdit_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/actions/lstActCopyEdit.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.actions.lstEntityFfolDelete_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/actions/lstEntityFfolDelete.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
