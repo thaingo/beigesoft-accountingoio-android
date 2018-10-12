@@ -14,6 +14,7 @@ package org.beigesoft.accountingoio.factory;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 import java.security.KeyStore;
 
 import android.database.Cursor;
@@ -21,7 +22,7 @@ import android.database.Cursor;
 import org.eclipse.jetty.security.DataBaseLoginService;
 
 import org.beigesoft.exception.ExceptionWithCode;
-import org.beigesoft.delegate.IDelegateExc;
+import org.beigesoft.delegate.IDelegate;
 import org.beigesoft.web.model.FactoryAndServlet;
 import org.beigesoft.service.ISrvDatabase;
 import org.beigesoft.web.service.SrvAddTheFirstUser;
@@ -44,15 +45,16 @@ import org.beigesoft.webstore.service.ISrvSettingsAdd;
  * @author Yury Demidenko
  */
 public class InitAppFactoryAndroidHttps
-  implements IDelegateExc<FactoryAndServlet> {
+  implements IDelegate<FactoryAndServlet> {
 
   /**
    * <p>Make something with a model.</p>
+   * @param pReqVars additional request scoped parameters
    * @throws Exception - an exception
    * @param pFactoryAndServlet with make
    **/
   @Override
-  public final synchronized void makeWith(
+  public final synchronized void makeWith(final Map<String, Object> pReqVars,
     final FactoryAndServlet pFactoryAndServlet) throws Exception {
     FactoryAppBeansAndroid factoryAppBeans =
       (FactoryAppBeansAndroid) pFactoryAndServlet.getFactoryAppBeans();

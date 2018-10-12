@@ -1,7 +1,7 @@
 package org.beigesoft.accountingoio.factory;
 
 /*
- * Copyright (c) 2017 Beigesoft ™
+ * Copyright (c) 2017 Beigesoft™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -14,13 +14,14 @@ package org.beigesoft.accountingoio.factory;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 import java.security.KeyStore;
 
 import android.database.Cursor;
 
 import org.eclipse.jetty.security.DataBaseLoginService;
 
-import org.beigesoft.delegate.IDelegateSimpleExc;
+import org.beigesoft.delegate.IDelegator;
 import org.beigesoft.service.ISrvDatabase;
 import org.beigesoft.web.model.FactoryAndServlet;
 import org.beigesoft.web.factory.AFactoryAppBeans;
@@ -42,7 +43,7 @@ import org.beigesoft.webstore.service.ISrvSettingsAdd;
  *
  * @author Yury Demidenko
  */
-public class LstnDbChangedAndroid implements IDelegateSimpleExc {
+public class LstnDbChangedAndroid implements IDelegator {
 
   /**
    * <p>Factory and servlet bundle.</p>
@@ -51,11 +52,12 @@ public class LstnDbChangedAndroid implements IDelegateSimpleExc {
 
   /**
    * <p>Make something with a model.</p>
+   * @param pReqVars additional request scoped parameters
    * @throws Exception - an exception
    * @param pFactoryAppBeans with make
    **/
   @Override
-  public final void make() throws Exception {
+  public final void make(final Map<String, Object> pReqVars) throws Exception {
     @SuppressWarnings("unchecked")
     AFactoryAppBeans<Cursor> factoryAppBeans =
       (AFactoryAppBeans<Cursor>) this.factoryAndServlet.getFactoryAppBeans();
