@@ -495,6 +495,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstoreSESERVICE1_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.webstoreSESERVICE1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mainMobile_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mainMobile_jsp</servlet-class>
     </servlet>
@@ -890,6 +895,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstoreSEGOODS1_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.webstoreSEGOODS1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.listWhole_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.listWhole_jsp</servlet-class>
     </servlet>
@@ -912,11 +922,6 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFolJson_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntityFolJson_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstoreSERVICE1_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.webstoreSERVICE1_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -1375,6 +1380,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpItSpecEmbFile_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpItSpecEmbFile_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputUserRoleTomcatReadOnly_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputUserRoleTomcatReadOnly_jsp</servlet-class>
     </servlet>
@@ -1735,6 +1745,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrSeSeller_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.toString.toStrSeSeller_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrSourceType_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.toString.toStrSourceType_jsp</servlet-class>
     </servlet>
@@ -1802,6 +1817,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrEnum_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.toString.toStrEnum_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrUserTomcat_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.toString.toStrUserTomcat_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2212,6 +2232,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputPersistableBaseIdReadOnly_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inputPersistableBaseIdReadOnly_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpItSpecEmbFile_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.inputs.inpItSpecEmbFile_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -3075,6 +3100,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstoreSESERVICE1_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/webstoreSESERVICE1.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mainMobile_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mainMobile.jsp</url-pattern>
     </servlet-mapping>
@@ -3470,6 +3500,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstoreSEGOODS1_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/webstoreSEGOODS1.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.listWhole_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/listWhole.jsp</url-pattern>
     </servlet-mapping>
@@ -3492,11 +3527,6 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFolJson_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/editEntityFolJson.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstoreSERVICE1_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/webstoreSERVICE1.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3955,6 +3985,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inpItSpecEmbFile_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/mobile/inputs/inpItSpecEmbFile.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.mobile.inputs.inputUserRoleTomcatReadOnly_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/mobile/inputs/inputUserRoleTomcatReadOnly.jsp</url-pattern>
     </servlet-mapping>
@@ -4315,6 +4350,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrSeSeller_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/toString/toStrSeSeller.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrSourceType_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/toString/toStrSourceType.jsp</url-pattern>
     </servlet-mapping>
@@ -4382,6 +4422,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrEnum_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/toString/toStrEnum.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrUserTomcat_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/toString/toStrUserTomcat.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -4792,6 +4837,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inputPersistableBaseIdReadOnly_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/inputs/inputPersistableBaseIdReadOnly.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.inputs.inpItSpecEmbFile_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/inputs/inpItSpecEmbFile.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
