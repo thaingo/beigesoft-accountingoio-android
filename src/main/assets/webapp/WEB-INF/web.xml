@@ -1760,6 +1760,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrReal_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.toString.toStrReal_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrBoolean_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.toString.toStrBoolean_jsp</servlet-class>
     </servlet>
@@ -4362,6 +4367,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrSimple_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/toString/toStrSimple.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrReal_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/toString/toStrReal.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017 Beigesoft ™
+ * Copyright (c) 2017 Beigesoft™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -10,50 +10,59 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
-function setCartItem(pCartItemType, pCartItemId, pCartItemName, pCartItemPrice, pCartItemQuantity, pAvailableQuantity, pCartItemItsId) {
+function setCartItem(pItTyp, pItId, pItNm, pPrice, pQuant, pAvQuan, pLnId, pUomId, pUomNm, pUStep, pPriceDp, pPriceRm) {
   var pref = "";
-  if (pCartItemItsId != null) {
+  if (pLnId != null) {
     pref = "Edit";
-    var cartItemItsId = document.getElementById("cartItemItsId" + pref);
-    cartItemItsId.value = pCartItemItsId;
+    var lnId = document.getElementById("lnId" + pref);
+    lnId.value = pLnId;
     $('#cartEditMdl').modal({keyboard: false, backdrop: false});
   } else {
     $('#cartAddMdl').modal('show');
   }
-  var cartItemName = document.getElementById("cartItemName" + pref);
-  cartItemName.value = pCartItemName;
-  var cartItemPrice = document.getElementById("cartItemPrice" + pref);
-  cartItemPrice.value = pCartItemPrice;
-  var cartItemQuantity = document.getElementById("cartItemQuantity" + pref);
-  cartItemQuantity.value = pCartItemQuantity;
-  cartItemQuantity.max = pAvailableQuantity;
-  var cartItemAvailableQuantity = document.getElementById("cartItemAvailableQuantity" + pref);
-  cartItemAvailableQuantity.value = pAvailableQuantity;
-  var cartItemType = document.getElementById("cartItemType" + pref);
-  cartItemType.value = pCartItemType;
-  var cartItemId = document.getElementById("cartItemId" + pref);
-  cartItemId.value = pCartItemId;
-  refreshCartItemTotal(pref);
+  var itNm = document.getElementById("itNm" + pref);
+  itNm.value = pItNm;
+  var quant = document.getElementById("quant" + pref);
+  $(quant).bsInpNumber({step: pUStep});
+  var price = document.getElementById("price" + pref);
+  price.value = numToStr(pPrice.toString(), pPriceDp);
+  var uomNm = document.getElementById("uomNm" + pref);
+  uomNm.value = pUomNm;
+  var uomId = document.getElementById("uomId" + pref);
+  uomId.value = pUomId;
+  quant.value = numToStr(pQuant.toString(), quant.decPl);
+  var avQuan = document.getElementById("avQuan" + pref);
+  avQuan.value = pAvQuan;
+  var unStep = document.getElementById("unStep" + pref);
+  unStep.value = pUStep;
+  var itTyp = document.getElementById("itTyp" + pref);
+  itTyp.value = pItTyp;
+  var itId = document.getElementById("itId" + pref);
+  itId.value = pItId;
+  refreshCartItemTotal(pref, pPriceDp, pPriceRm);
 };
 
-function refreshCartItemTotal(pPref) {
-  var cartItemPrice = document.getElementById("cartItemPrice" + pPref);
-  var cartItemQuantity = document.getElementById("cartItemQuantity" + pPref);
-  var cartItemTotal = document.getElementById("cartItemTotal" + pPref);
-  cartItemTotal.value = cartItemPrice.value * cartItemQuantity.value;
+function refreshCartItemTotal(pPref, pPriceDp, pPriceRm) {
+  var price = document.getElementById("price" + pPref);
+  var quant = document.getElementById("quant" + pPref);
+  var total = document.getElementById("total" + pPref);
+  var pr = strToFloat(price.value);
+  var qu = strToFloat(quant.value);
+  var tot = numRound(pr * qu, pPriceDp, pPriceRm);
+  total.value = numToStr(tot.toString(), pPriceDp);
 };
 
-function delCartItem(pCartItemType, pCartItemId, pCartItemName, pCartItemPrice, pCartItemQuantity, pCartItemItsId) {
-  var cartItemName = document.getElementById("cartItemNameDel");
-  cartItemName.value = pCartItemName;
-  var cartItemPrice = document.getElementById("cartItemPriceDel");
-  cartItemPrice.value = pCartItemPrice;
-  var cartItemQuantity = document.getElementById("cartItemQuantityDel");
-  cartItemQuantity.value = pCartItemQuantity;
-  var cartItemTotal = document.getElementById("cartItemTotalDel");
-  cartItemTotal.value = pCartItemPrice * pCartItemQuantity;
-  var cartItemItsId = document.getElementById("cartItemItsIdDel");
-  cartItemItsId.value = pCartItemItsId;
+function delCartItem(pItTyp, pItId, pItNm, pPrice, pQuant, pLnId) {
+  var itNm = document.getElementById("itNmDel");
+  itNm.value = pItNm;
+  var price = document.getElementById("priceDel");
+  price.value = pPrice;
+  var quant = document.getElementById("quantDel");
+  quant.value = pQuant;
+  var total = document.getElementById("totalDel");
+  total.value = pPrice * pQuant;
+  var lnId = document.getElementById("lnIdDel");
+  lnId.value = pLnId;
 };
 
 function onFilterNumberOperChanged(pSelect, pVal1Id, pVal2Id) {

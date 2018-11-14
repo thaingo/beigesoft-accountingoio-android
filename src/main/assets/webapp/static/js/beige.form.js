@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Beigesoft ™
+ * Copyright (c) 2016 Beigesoft™
  *
  * Licensed under the GNU General Public License (GPL), Version 2.0
  * (the "License");
@@ -15,7 +15,7 @@
  */
  
 //Conversation state variables
-var cnvState = {
+var CNVSTATE = {
     "Who Picking" : {},
   };
   
@@ -25,21 +25,12 @@ window.onbeforeunload = function(e) {
   }
 };
 
-//Request scoped I18N variables:
-var RSdGroup = "3"
-var RSmRound = "S";
-var RSisUsePrecision0 = true;
-var RSisUsePrecision1 = true;
-var RSisUsePrecision2 = true;
-var RSisUsePrecision3 = true;
-var RSisUsePrecision4 = true;
-
 window.onload=function(e){
   initJs();
 };
 
 function initJs(){
-  cnvState["Who Picking"]={};
+  CNVSTATE["Who Picking"]={};
 }
 
 function getHtmlByAjaxCareful(method, url) {
@@ -260,7 +251,7 @@ function removeFormChanges(pFrm) {
 };
 
 function selectEntity(entityId, entityAppearance, idDomBasePicker) {
-  whoPicking = cnvState["Who Picking"][idDomBasePicker];
+  whoPicking = CNVSTATE["Who Picking"][idDomBasePicker];
   document.getElementById(whoPicking["pickingEntity"] + whoPicking["pickingField"] +"Id").setAttribute("value", entityId);
   var inpAppearance = document.getElementById(whoPicking["pickingEntity"] + whoPicking["pickingField"] + "Appearance");
   if (inpAppearance != null) { //invisible appearence to be sent
@@ -292,7 +283,7 @@ function openEntityPicker(pickedEntity, pickingEntity, pickingField, addParam){
   var pikerRenderer = null;
   if (pickerForEntity != null) {
     if (!pickerForEntity.open) {
-      if (cnvState["Who Picking"][pickerPlace + pickedEntity + "addParam"] == addParam) {
+      if (CNVSTATE["Who Picking"][pickerPlace + pickedEntity + "addParam"] == addParam) {
         pickerForEntity.showModal();
       } else {
         pikerRenderer = "pickerWholeJson";
@@ -305,7 +296,7 @@ function openEntityPicker(pickedEntity, pickingEntity, pickingField, addParam){
       pickerForEntity = document.getElementById(pickerPlace + pickedEntity + "Dlg");
       if (pickerForEntity != null) {
         if (!pickerForEntity.open) {
-          if (cnvState["Who Picking"][pickerPlace + pickedEntity + "addParam"] == addParam) {
+          if (CNVSTATE["Who Picking"][pickerPlace + pickedEntity + "addParam"] == addParam) {
               pickerForEntity.showModal();
           } else {
             pikerRenderer = "pickerDubWholeJson";
@@ -323,14 +314,14 @@ function openEntityPicker(pickedEntity, pickingEntity, pickingField, addParam){
   if (pikerRenderer != null) {
     var paramsStr = "service/?nmsAct=list&page=1&nmRnd=" + pikerRenderer + "&nmEnt="
     + pickedEntity;
-    cnvState["Who Picking"][pickerPlace + pickedEntity + "addParam"] = addParam;
+    CNVSTATE["Who Picking"][pickerPlace + pickedEntity + "addParam"] = addParam;
     if (addParam != null) {
       getHtmlByAjax('GET', paramsStr + addParam);
     } else {
       getHtmlByAjax('GET', paramsStr);
     }
   }
-  cnvState["Who Picking"][pickerPlace + pickedEntity] = {pickingEntity, pickingField};
+  CNVSTATE["Who Picking"][pickerPlace + pickedEntity] = {pickingEntity, pickingField};
 };
 
 function confirmHref(inpHref, msg) {
@@ -375,178 +366,42 @@ function closeSuccess() {
   document.getElementById("dlgSuccess").style.display = "none";
 };
 
-function calculateTotalForPrice(nameEntity, pDsep, pDgSep) {
-  var inpPrice = document.getElementById(nameEntity + "itsPrice");
-  if (inpPrice != null) {
-    var dec = inpPrice.value;
-    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-    var price = parseFloat(dec);
-    if (price > 0) {
-      var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
-      dec = inpQuantity.value;
-      if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-      if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-      var quantity = parseFloat(dec);
-      if (quantity > 0) {
-        var inpTotal = document.getElementById(nameEntity + "itsTotal");
-        var total = price * quantity;
-        if (pDsep != ".") {
-          inpTotal.value = total.toString().replace(".", pDsep);
-        } else {
-          inpTotal.value = total.toString();
-        }
-        var inpTotalVisible =   document.getElementById(nameEntity + "itsTotalVisible");
-        if (inpTotalVisible != null) {
-          if (pDsep != ".") {
-            inpTotalVisible.value = total.toString().replace(".", pDsep);
-          } else {
-            inpTotalVisible.value = total.toString();
-          }
-          $(inpTotalVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
-          inputHasBeenChanged(inpTotalVisible);
-          inpTotal.value = inpTotalVisible.value;
-        } else {
-          $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
-          inputHasBeenChanged(inpTotal);
-        }
-      }
-    }
-  }
-};
-
-function calculateTotalForCost(nameEntity, pDsep, pDgSep) {
-  var inpCost = document.getElementById(nameEntity + "itsCost");
-  if (inpCost != null) {
-    var dec = inpCost.value;
-    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-    var cost = parseFloat(dec);
-    if (cost > 0) {
-      var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
-      dec = inpQuantity.value;
-      if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-      if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-      var quantity = parseFloat(dec);
-      if (quantity > 0) {
-        var inpTotal = document.getElementById(nameEntity + "itsTotal");
-        var total = cost * quantity;
-        if (pDsep != ".") {
-          inpTotal.value = total.toString().replace(".", pDsep);
-        } else {
-          inpTotal.value = total.toString();
-        }
-        var inpTotalVisible =   document.getElementById(nameEntity + "itsTotalVisible");
-        if (inpTotalVisible != null) {
-          if (pDsep != ".") {
-            inpTotalVisible.value = total.toString().replace(".", pDsep);
-          } else {
-            inpTotalVisible.value = total.toString();
-          }
-          $(inpTotalVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
-          inputHasBeenChanged(inpTotalVisible);
-          inpTotal.value = inpTotalVisible.value;
-        } else {
-          $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
-          inputHasBeenChanged(inpTotal);
-        }
-      }
-    }
-  }
-};
-
-function calculatePrice(nameEntity, pDsep, pDgSep) {
+function calcTotal(pInp, nameEntity, pPriceNm, pDecPl, pRm) {
+  var inpPrice = document.getElementById(nameEntity + pPriceNm);
+  var price = strToFloat(inpPrice.value);
+  var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
+  var quantity = strToFloat(inpQuantity.value);
   var inpTotal = document.getElementById(nameEntity + "itsTotal");
-  var dec = inpTotal.value;
-  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-  var total = parseFloat(dec);
-  if (total > 0) {
-    var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
-    dec = inpQuantity.value;
-    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-    var quantity = parseFloat(dec);
-    if (quantity > 0) {
-      var inpPrice = document.getElementById(nameEntity + "itsPrice");
-      var price = total/quantity;
-      if (pDsep != ".") {
-        inpPrice.value = price.toString().replace(".", pDsep);
-      } else {
-        inpPrice.value = price.toString();
-      }
-      var inpPriceVisible = document.getElementById(nameEntity + "itsPriceVisible");
-      if (inpPriceVisible != null) {
-        if (pDsep != ".") {
-          inpPriceVisible.value = price.toString().replace(".", pDsep);
-        } else {
-          inpPriceVisible.value = price.toString();
-        }
-        $(inpPriceVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
-        inputHasBeenChanged(inpPriceVisible);
-        inpPrice.value = inpPriceVisible.value;
-      } else {
-        $(inpPrice).autoNumeric('update', {mRound:'' + RSmRound + ''});
-        inputHasBeenChanged(inpPrice);
-      }
-    }
+  var total = numRound(price * quantity, pDecPl, pRm);
+  var totals = numToStr(total.toString(), pDecPl);
+  inpTotal.value = totals;
+  var inpTotalVisible = document.getElementById(nameEntity + "itsTotalVisible");
+  if (inpTotalVisible != null) {
+    inpTotalVisible.value = totals;
+    inputHasBeenChanged(inpTotalVisible);
+  } else {
+    inputHasBeenChanged(inpTotal);
   }
+  inputHasBeenChanged(pInp);
 };
 
-function calculateCost(nameEntity, pDsep, pDgSep) {
+function calcPrice(pInp, nameEntity, pPriceNm, pDecPl, pRm) {
   var inpTotal = document.getElementById(nameEntity + "itsTotal");
-  var dec = inpTotal.value;
-  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-  var total = parseFloat(dec);
-  if (total > 0) {
-    var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
-    dec = inpQuantity.value;
-    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-    var quantity = parseFloat(dec);
-    if (quantity > 0) {
-      var inpCost = document.getElementById(nameEntity + "itsCost");
-      var cost = total/quantity;
-      if (pDsep != ".") {
-        inpCost.value = cost.toString().replace(".", pDsep);
-      } else {
-        inpCost.value = cost.toString();
-      }
-      var inpCostVisible = document.getElementById(nameEntity + "itsCostVisible");
-      if (inpCostVisible != null) {
-        if (pDsep != ".") {
-          inpCostVisible.value = cost.toString().replace(".", pDsep);
-        } else {
-          inpCostVisible.value = cost.toString();
-        }
-        $(inpCostVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
-        inputHasBeenChanged(inpCostVisible);
-        inpCost.value = inpCostVisible.value;
-      } else {
-        $(inpCost).autoNumeric('update', {mRound:'' + RSmRound + ''});
-        inputHasBeenChanged(inpCost);
-      }
-    }
+  var total = strToFloat(inpTotal.value);
+  var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
+  var quantity = strToFloat(inpQuantity.value);
+  var inpPrice = document.getElementById(nameEntity + pPriceNm);
+  var price = numRound(total/quantity, pDecPl, pRm);
+  var prices = numToStr(price.toString(), pDecPl);
+  inpPrice.value = prices;
+  var inpPriceVisible = document.getElementById(nameEntity + pPriceNm + "Visible");
+  if (inpPriceVisible != null) {
+    inpPriceVisible.value = prices;
+    inputHasBeenChanged(inpPriceVisible);
+  } else {
+    inputHasBeenChanged(inpPrice);
   }
-};
-
-function setAutoNum(pTarget) {
-  if (RSisUsePrecision0) {
-    $('#'+ pTarget).find('.autoNum0').autoNumeric('init', {mDec: '0', vMin:'-999999999', mRound:'' + RSmRound + '', dGroup:'' + RSdGroup + ''});
-  }
-  if (RSisUsePrecision1) {
-    $('#'+ pTarget).find('.autoNum1').autoNumeric('init', {mDec: '1', vMin:'-999999999.9', mRound:'' + RSmRound + '', dGroup:'' + RSdGroup + ''});
-  }
-  if (RSisUsePrecision2) {
-    $('#'+ pTarget).find('.autoNum2').autoNumeric('init', {vMin:'-999999999.99', mRound:'' + RSmRound + '', dGroup:'' + RSdGroup + ''});
-  }
-  if (RSisUsePrecision3) {
-    $('#'+ pTarget).find('.autoNum3').autoNumeric('init', {mDec: '3', vMin:'-999999999.999', mRound:'' + RSmRound + '', dGroup:'' + RSdGroup + ''});
-  }
-  if (RSisUsePrecision4) {
-    $('#'+ pTarget).find('.autoNum4').autoNumeric('init', {mDec: '4', vMin:'-999999999.9999', mRound:'' + RSmRound + '', dGroup:'' + RSdGroup + ''});
-  }
+  inputHasBeenChanged(pInp);
 };
 
 function makeRelatedInput(pInput, pIdRelInp) {
@@ -557,16 +412,6 @@ function makeRelatedInput(pInput, pIdRelInp) {
     inpRel.required = false;
     inpRel.value = "";
   }
-};
-
-function setRsAuNum(RSdGroup, RSmRound, RSisUsePrecision0, RSisUsePrecision1, RSisUsePrecision2, RSisUsePrecision3, RSisUsePrecision4) {
-  RSmRound=RSmRound;
-  RSdGroup=RSdGroup;
-  RSisUsePrecision0=RSisUsePrecision0;
-  RSisUsePrecision1=RSisUsePrecision1;
-  RSisUsePrecision2=RSisUsePrecision2;
-  RSisUsePrecision3=RSisUsePrecision3;
-  RSisUsePrecision4=RSisUsePrecision4;
 };
 
 function fileUpPathChanged(pInp, pInpFileUpNm, pInpParamNameFileToUploadNm) {
@@ -597,4 +442,55 @@ function fileUpChanged(pInp, pInpFileUpPathNm, pInpParamNameFileToUploadNm) {
     inpParamNameFileToUpload.disabled = false;
   }
   inputHasBeenChanged(pInp);
+};
+
+/*
+ * <p>Initializes BS inputs for class "bsNum[dpm]", where dpm:
+ * 0 - 0 DP; 1 - 1 DP; 2m - 2DP, nmin -999999999.99.
+ * </p>
+ * @param pUsedDpm comma separated DPM
+ * @param pParent ID of parent DOM
+ */
+function initBsInpsNum(pUsedDpm, pParent) {
+  $.each(pUsedDpm.split(","), function (idx, dpm) {
+    var dp = parseInt(dpm.charAt(0));
+    var ndef = {decPl: dp};
+    if (dpm.length > 1) {
+      nmins = "-999999999";
+      if (dp > 0) {
+        nmins = nmins + ".9";
+        for (i = 1; i < dp; i++) {
+          nmins = nmins + "9";
+        }
+      }
+      ndef.nmin = parseFloat(nmins);
+    }
+    if (pParent == null) {
+      $(".bsNum" + dpm).bsInpNumber(ndef);
+    } else {
+      $("#" + pParent).find(".bsNum" + dpm).bsInpNumber(ndef);
+    }
+  });
+};
+
+/*
+ * <p>Initializes BS inputs for class "bsNum[step]", where step:
+ * 0d25 - 0.25, 1 - 1, 2d5 - 2.5.
+ * It's useful for initialize "quantity" that has minimum=step, shopping cart
+ * may has items with different quantity's step.
+ * </p>
+ * @param pUsedSteps comma separated steps
+ * @param pParent ID of parent DOM
+ */
+function initBsInpsNumStep(pUsedSteps, pParent) {
+  $.each(pUsedSteps.split(","), function (idx, sts) {
+    var stsd = sts.replace("d", ".");
+    var st = parseFloat(stsd);
+    var ndef = {step: st};
+    if (pParent == null) {
+      $(".bsNum" + sts).bsInpNumber(ndef);
+    } else {
+      $("#" + pParent).find(".bsNum" + sts).bsInpNumber(ndef);
+    }
+  });
 };

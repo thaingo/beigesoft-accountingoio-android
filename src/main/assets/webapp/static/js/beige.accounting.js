@@ -10,23 +10,18 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
-//request scoped variables
-var RSTaxRounding = 'S';
 
-//set known or from returned invoice line cost for picked item, cost is already rounded and string value
-function setCost(pCost, idDomBasePicker, costPrecision, totalPrecision, pDsep, pDgSep) {
-  var whoPicking = cnvState["Who Picking"][idDomBasePicker];
+//set known or from returned invoice line cost for picked item, cost is already rounded and internationalized string value
+function setCost(pCost, idDomBasePicker) {
+  var whoPicking = CNVSTATE["Who Picking"][idDomBasePicker];
   var inpCostVisible = document.getElementById(whoPicking["pickingEntity"] + "itsCostVisible");
   var inpCost = document.getElementById(whoPicking["pickingEntity"] + "itsCost");
-  if (pDsep != ".") { pCost = pCost.replace(".", pDsep); }
   if (inpCost.value != pCost) {
     inpCost.value = pCost;
     if (inpCostVisible != null) {
       inpCostVisible.value = pCost;
-      $(inpCostVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
       inpCostVisible.onchange();
     } else {
-      $(inpCost).autoNumeric('update', {mRound:'' + RSmRound + ''});
       inpCost.onchange();
     }
   }
@@ -34,7 +29,7 @@ function setCost(pCost, idDomBasePicker, costPrecision, totalPrecision, pDsep, p
 
 //set UOM for picked item (goods)
 function setUom(uomId, uomName, idDomBasePicker) {
-  var whoPicking = cnvState["Who Picking"][idDomBasePicker];
+  var whoPicking = CNVSTATE["Who Picking"][idDomBasePicker];
   var inpUomId = document.getElementById(whoPicking["pickingEntity"] + "unitOfMeasureId");
   if (inpUomId != null) {
     inpUomId.value = uomId;
@@ -56,7 +51,7 @@ function openPickerSubacc(entitySimpleName, accName, subaccName, paramsAdd) {
 };
 
 function selectSubacc(subaccId, subaccType, subaccAppearance, idDomBasePicker) {
-  var whoPicking = cnvState["Who Picking"][idDomBasePicker];
+  var whoPicking = CNVSTATE["Who Picking"][idDomBasePicker];
   document.getElementById(whoPicking["pickingEntity"] + whoPicking["pickingField"] + "Appearance").value = subaccAppearance;
   document.getElementById(whoPicking["pickingEntity"] + whoPicking["pickingField"] + "Type").value = subaccType;
   document.getElementById(whoPicking["pickingEntity"] + whoPicking["pickingField"] + "Id").value = subaccId;
@@ -67,7 +62,7 @@ function selectSubacc(subaccId, subaccType, subaccAppearance, idDomBasePicker) {
 };
 
 function selectChooseableSpecType(typeId, typeAppearance, idDomBasePicker) {
-  whoPicking = cnvState["Who Picking"][idDomBasePicker];
+  whoPicking = CNVSTATE["Who Picking"][idDomBasePicker];
   document.getElementById(whoPicking["pickingEntity"] + whoPicking["pickingField"] +"TypeId").setAttribute("value", typeId);
   var inpAppearance = document.getElementById(whoPicking["pickingEntity"] + whoPicking["pickingField"] + "TypeAppearance");
   inpAppearance.setAttribute("value", typeAppearance);
@@ -101,7 +96,7 @@ function clearSubaccLine(entitySimpleName) {
 };
 
 function selectAccSubacc(entityId, entityAppearance, idDomBasePicker) {
-  var whoPicking = cnvState["Who Picking"][idDomBasePicker];
+  var whoPicking = CNVSTATE["Who Picking"][idDomBasePicker];
   document.getElementById(whoPicking["pickingEntity"] +"subaccId").setAttribute("value", entityId);
   document.getElementById(whoPicking["pickingEntity"] +"subaccNameAppearance").setAttribute("value", entityAppearance);
   var inpAppearanceVisible = document.getElementById(whoPicking["pickingEntity"] + "subaccNameAppearanceVisible");
@@ -110,31 +105,18 @@ function selectAccSubacc(entityId, entityAppearance, idDomBasePicker) {
   document.getElementById(idDomBasePicker+"Dlg").close();
 };
 
-function makeTotalTax(nameEntity, totalGross, pDsep, pDgSep) {
+function makeTotalTax(pInp, nameEntity, totalGross, pTaxDp, pTaxRm) {
   var inpAllowance = document.getElementById(nameEntity + "allowance");
   var inpPlusAmount = document.getElementById(nameEntity + "plusAmount");
   var inpPercentage = document.getElementById(nameEntity + "itsPercentage");
-  var dec = inpAllowance.value;
-  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-  var allowance = parseFloat(dec);
-  var dec = inpPlusAmount.value;
-  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-  var plusAmount = parseFloat(dec);
-  var dec = inpPercentage.value;
-  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-  var itsPercentage = parseFloat(dec);
+  var allowance = strToFloat(inpAllowance.value);
+  var plusAmount = strToFloat(inpPlusAmount.value);
+  var itsPercentage = strToFloat(inpPercentage.value);
   var inpTotal = document.getElementById(nameEntity + "itsTotal");
-  var total = plusAmount + (totalGross - allowance) * itsPercentage / 100;
-  if (pDsep != ".") {
-    inpTotal.value = total.toString().replace(".", pDsep);
-  } else {
-    inpTotal.value = total.toString();
-  }
-  $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
+  var total = numRound(plusAmount + (totalGross - allowance) * itsPercentage / 100, pTaxDp, pTaxRm);
+  inpTotal.value = numToStr(total.toString(), pTaxDp);
   inputHasBeenChanged(inpTotal);
+  inputHasBeenChanged(pInp);
 };
 
 function clearWageTaxes(nameEntity) {
@@ -146,7 +128,7 @@ function clearWageTaxes(nameEntity) {
 };
 
 function tryToSetPercentagePlusAmount(itsPercentage, plusAmount, idDomBasePicker) {
-  var whoPicking = cnvState["Who Picking"][idDomBasePicker];
+  var whoPicking = CNVSTATE["Who Picking"][idDomBasePicker];
   var inpPercentage = document.getElementById(whoPicking["pickingEntity"] + "itsPercentage");
   if(inpPercentage != null) {
     var inpPlusAmount = document.getElementById(whoPicking["pickingEntity"] + "plusAmount");
@@ -347,250 +329,103 @@ function openCsvPathPicker() {
     }
   }
 };
-function calculatePriceTax(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
+
+function calcPriceTax(pInp, nameEntity, pPriceNm, pPriceDp, pPriceRm, pIsTaxIncluded, pTaxDp, pTaxRm) {
   var inpTotal = document.getElementById(nameEntity + "itsTotal");
-  var dec = inpTotal.value;
-  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-  var total = parseFloat(dec);
-  if (total > 0) {
-    calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
-    var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
-    dec = inpQuantity.value;
-    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-    var quantity = parseFloat(dec);
-    if (quantity > 0) {
-      var inpPrice = document.getElementById(nameEntity + "itsPrice");
-      var price = total/quantity;
-      if (pDsep != ".") {
-        inpPrice.value = price.toString().replace(".", pDsep);
-      } else {
-        inpPrice.value = price.toString();
-      }
-      var inpPriceVisible = document.getElementById(nameEntity + "itsPriceVisible");
-      if (inpPriceVisible != null) {
-        if (pDsep != ".") {
-          inpPriceVisible.value = price.toString().replace(".", pDsep);
-        } else {
-          inpPriceVisible.value = price.toString();
-        }
-        $(inpPriceVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
-        inputHasBeenChanged(inpPriceVisible);
-        inpPrice.value = inpPriceVisible.value;
-      } else {
-        $(inpPrice).autoNumeric('update', {mRound:'' + RSmRound + ''});
-        inputHasBeenChanged(inpPrice);
-      }
-    }
+  var total = strToFloat(inpTotal.value);
+  calcTax(nameEntity, total, pIsTaxIncluded, pPriceDp, pTaxRm);
+  var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
+  var quantity = strToFloat(inpQuantity.value);
+  var inpPrice = document.getElementById(nameEntity + pPriceNm);
+  var price = numRound(total/quantity, pPriceDp, pPriceRm);
+  inpPrice.value = numToStr(price.toString(), pPriceDp);
+  var inpPriceVisible = document.getElementById(nameEntity + pPriceNm + "Visible");
+  if (inpPriceVisible != null) {
+    inpPriceVisible.value = inpPrice.value;
+    inputHasBeenChanged(inpPriceVisible);
+  } else {
+    inputHasBeenChanged(inpPrice);
   }
+  inputHasBeenChanged(pInp);
 };
 
-function calculateCostTax(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
+function calcTotalTax(pInp, nameEntity, pPriceNm, pPriceDp, pPriceRm, pIsTaxIncluded, pTaxDp, pTaxRm) {
+  var inpPrice = document.getElementById(nameEntity + pPriceNm);
+  var price = strToFloat(inpPrice.value);
+  var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
+  var quantity = strToFloat(inpQuantity.value);
   var inpTotal = document.getElementById(nameEntity + "itsTotal");
-  var dec = inpTotal.value;
-  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-  var total = parseFloat(dec);
-  if (total > 0) {
-    calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
-    var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
-    dec = inpQuantity.value;
-    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-    var quantity = parseFloat(dec);
-    if (quantity > 0) {
-      var inpCost = document.getElementById(nameEntity + "itsCost");
-      var cost = total/quantity;
-      if (pDsep != ".") {
-        inpCost.value = cost.toString().replace(".", pDsep);
-      } else {
-        inpCost.value = cost.toString();
-      }
-      var inpCostVisible = document.getElementById(nameEntity + "itsCostVisible");
-      if (inpCostVisible != null) {
-        if (pDsep != ".") {
-          inpCostVisible.value = cost.toString().replace(".", pDsep);
-        } else {
-          inpCostVisible.value = cost.toString();
-        }
-        $(inpCostVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
-        inputHasBeenChanged(inpCostVisible);
-        inpCost.value = inpCostVisible.value;
-      } else {
-        $(inpCost).autoNumeric('update', {mRound:'' + RSmRound + ''});
-        inputHasBeenChanged(inpCost);
-      }
-    }
+  var total = numRound(price * quantity, pPriceDp, pPriceRm);
+  inpTotal.value = numToStr(total.toString(), pPriceDp);
+  var inpTotalVisible = document.getElementById(nameEntity + "itsTotalVisible");
+  if (inpTotalVisible != null) {
+    inpTotalVisible.value = inpTotal.value;
+    inputHasBeenChanged(inpTotalVisible);
+  } else {
+    inputHasBeenChanged(inpTotal);
   }
+  inputHasBeenChanged(pInp);
+  calcTax(nameEntity, total, pIsTaxIncluded, pPriceDp, pTaxRm);
 };
 
-function calculateTotalAndTaxForPrice(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
-  var inpPrice = document.getElementById(nameEntity + "itsPrice");
-  if (inpPrice != null) {
-    var dec = inpPrice.value;
-    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-    var price = parseFloat(dec);
-    if (price > 0) {
-      var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
-      dec = inpQuantity.value;
-      if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-      if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-      var quantity = parseFloat(dec);
-      if (quantity > 0) {
-        var inpTotal = document.getElementById(nameEntity + "itsTotal");
-        var total = price * quantity;
-        if (pDsep != ".") {
-          inpTotal.value = total.toString().replace(".", pDsep);
-        } else {
-          inpTotal.value = total.toString();
-        }
-        var inpTotalVisible = document.getElementById(nameEntity + "itsTotalVisible");
-        if (inpTotalVisible != null) {
-          if (pDsep != ".") {
-            inpTotalVisible.value = total.toString().replace(".", pDsep);
-          } else {
-            inpTotalVisible.value = total.toString();
-          }
-          $(inpTotalVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
-          inputHasBeenChanged(inpTotalVisible);
-          inpTotal.value = inpTotalVisible.value;
-        } else {
-          $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
-          inputHasBeenChanged(inpTotal);
-        }
-        calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
-      }
-    }
-  }
-};
-
-function calculateTotalAndTaxForCost(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
-  var inpCost = document.getElementById(nameEntity + "itsCost");
-  if (inpCost != null) {
-    var dec = inpCost.value;
-    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-    var cost = parseFloat(dec);
-    if (cost > 0) {
-      var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
-      dec = inpQuantity.value;
-      if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-      if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-      var quantity = parseFloat(dec);
-      if (quantity > 0) {
-        var inpTotal = document.getElementById(nameEntity + "itsTotal");
-        var total = cost * quantity;
-        if (pDsep != ".") {
-          inpTotal.value = total.toString().replace(".", pDsep);
-        } else {
-          inpTotal.value = total.toString();
-        }
-        var inpTotalVisible = document.getElementById(nameEntity + "itsTotalVisible");
-        if (inpTotalVisible != null) {
-          if (pDsep != ".") {
-            inpTotalVisible.value = total.toString().replace(".", pDsep);
-          } else {
-            inpTotalVisible.value = total.toString();
-          }
-          $(inpTotalVisible).autoNumeric('update', {mRound:'' + RSmRound + ''});
-          inputHasBeenChanged(inpTotalVisible);
-          inpTotal.value = inpTotalVisible.value;
-        } else {
-          $(inpTotal).autoNumeric('update', {mRound:'' + RSmRound + ''});
-          inputHasBeenChanged(inpTotal);
-        }
-        calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
-      }
-    }
-  }
-};
-
-function calcTaxOchRate(nameEntity, pDsep, pDgSep, pIsTaxIncluded) {
-  var inpTotal = document.getElementById(nameEntity + "itsTotal");
-  dec = inpTotal.value;
-  if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-  if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-  var total = parseFloat(dec);
-  calcTotalTax(nameEntity, total, pDsep, pDgSep, pIsTaxIncluded);
-};
-
-function setTaxCat(pTcRate, pTcNm, pIdDomBasePicker, pDsep) {
-  var whoPicking = cnvState["Who Picking"][pIdDomBasePicker];
+function setTaxCat(pTcRate, pTcNm, pIdDomBasePicker, pIsTaxIncluded, pTaxDp, pTaxRm, pPriceDp) {
+  var whoPicking = CNVSTATE["Who Picking"][pIdDomBasePicker];
   var btnTaxDestination = document.getElementById(whoPicking["pickingEntity"] + "btnTaxDestination");
   var inpTaxNm = document.getElementById(whoPicking["pickingEntity"] + "taxCategory");
   var inpTaxRate = document.getElementById(whoPicking["pickingEntity"] + "itsPercentage");
   if (btnTaxDestination == null) {
     inpTaxNm.value = pTcNm;
-    inpTaxNm.onchange();
     if (inpTaxRate != null) { // aggregate or only rate
-      if (pDsep != ".") {
-        inpTaxRate.value = pTcRate.toString().replace(".", pDsep);
-      } else {
-        inpTaxRate.value = pTcRate.toString();
-      }
-      $(inpTaxRate).autoNumeric('update', {mRound:'' + RSmRound + ''});
-      inpTaxRate.onchange();
+      inpTaxRate.value = numToStr(pTcRate.toString(), pTaxDp);
+      calcTaxFromTot(whoPicking["pickingEntity"], pIsTaxIncluded, pPriceDp, pTaxRm);
+      inputHasBeenChanged(inpTaxRate);
     }
   } else {
     btnTaxDestination.style.display="inherit";
     inpTaxNm.value = "";
-    inpTaxNm.onchange();
     if (inpTaxRate != null) { // aggregate or only rate
       inpTaxRate.value = "";
-      inpTaxRate.onchange();
+      calcTaxFromTot(whoPicking["pickingEntity"], pIsTaxIncluded, pPriceDp, pTaxRm);
+      inputHasBeenChanged(inpTaxRate);
     }
   }
+  inputHasBeenChanged(inpTaxNm);
 };
 
-function setDestTaxCat(pTcRate, pTcNm, pEntityName, pDsep) {
+function setDestTaxCat(pTcRate, pTcNm, pEntityName, pIsTaxIncluded, pTaxDp, pTaxRm, pPriceDp) {
   var inpTaxNm = document.getElementById(pEntityName + "taxCategory");
   inpTaxNm.value = pTcNm;
-  inpTaxNm.onchange();
+  inputHasBeenChanged(inpTaxNm);
   var inpTaxRate = document.getElementById(pEntityName + "itsPercentage");
   if (inpTaxRate != null) { // aggregate or only rate
-    if (pDsep != ".") {
-      inpTaxRate.value = pTcRate.toString().replace(".", pDsep);
-    } else {
-      inpTaxRate.value = pTcRate.toString();
-    }
-    $(inpTaxRate).autoNumeric('update', {mRound:'' + RSmRound + ''});
-    inpTaxRate.onchange();
+    inpTaxRate.value = numToStr(pTcRate.toString(), pTaxDp);
+    inputHasBeenChanged(inpTaxRate);
+    calcTaxFromTot(pNameEntity, pIsTaxIncluded, pPriceDp, pTaxRm);
   }
   var btnTaxDestination = document.getElementById(pEntityName + "btnTaxDestination");
   btnTaxDestination.style.display="none";
 };
 
-function calcTotalTax(pNameEntity, pTotal, pDsep, pDgSep, pIsTaxIncluded) {
-  var inpTaxRate = document.getElementById(pNameEntity + "itsPercentage");
-  var inpTaxTotal = document.getElementById(pNameEntity + "totalTaxes");
-  dec = inpTaxRate.value;
-  if (dec == "") {
-    inpTaxTotal.value = "";
-    inpTaxTotal.onchange();
-  } else {
-    if (pDgSep != "") { dec = dec.replace(pDgSep, ""); }
-    if (pDsep != ".") { dec = dec.replace(pDsep, "."); }
-    var taxRate = parseFloat(dec);
-    var taxTotal;
-    if (pIsTaxIncluded) {
-      taxTotal = pTotal-(pTotal/(1+taxRate/100.0));
-    } else {
-      taxTotal = pTotal*taxRate/100.0;
-    }
-    if (pDsep != ".") {
-      inpTaxTotal.value = taxTotal.toString().replace(".", pDsep);
-    } else {
-      inpTaxTotal.value = taxTotal.toString();
-    }
-    $(inpTaxTotal).autoNumeric('update', {mRound:'' + RSTaxRounding + ''});
-    inpTaxTotal.onchange();
-  }
+function calcTaxFromTot(nameEntity, pIsTaxIncluded, pPriceDp, pTaxRm) {
+  var inpTotal = document.getElementById(nameEntity + "itsTotal");
+  var total = strToFloat(inpTotal.value);
+  calcTax(nameEntity, total, pIsTaxIncluded, pPriceDp, pTaxRm);
 };
 
-function setAutoNumTax(pTarget, pRounding, pTaxPrecision, pPricePrecision) {
-  RSTaxRounding = pRounding;
-  $('#'+ pTarget).find('.autoNumSalTax').autoNumeric('init', {mDec: '' + pTaxPrecision + '', vMin:'0', mRound:'' + pRounding+ '', dGroup:'' + RSdGroup + ''});
-  $('#'+ pTarget).find('.autoNumSalTaxTot').autoNumeric('init', {mDec: '' + pPricePrecision + '', vMin:'0', mRound:'' + pRounding+ '', dGroup:'' + RSdGroup + ''});
+function calcTax(pNameEntity, pTotal, pIsTaxIncluded, pPriceDp, pTaxRm) {
+  var inpTaxRate = document.getElementById(pNameEntity + "itsPercentage");
+  var inpTaxTotal = document.getElementById(pNameEntity + "totalTaxes");
+  var taxTotal;
+  if (inpTaxRate.value == "") {
+    taxTotal = 0.0;
+  } else {
+    var taxRate = strToFloat(inpTaxRate.value);
+    if (pIsTaxIncluded) {
+      taxTotal = numRound(pTotal-(pTotal/(1.0+taxRate/100.0)),  pPriceDp, pTaxRm);
+    } else {
+      taxTotal = numRound(pTotal*taxRate/100.0,  pPriceDp, pTaxRm);
+    }
+  }
+  inpTaxTotal.value = numToStr(taxTotal.toString(), pPriceDp);
+  inputHasBeenChanged(inpTaxTotal);
 };
