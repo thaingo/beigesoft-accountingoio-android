@@ -88,8 +88,10 @@
     function numKeydown(e) {
       //Allow: backspace, delete, tab, esc, enter, end:
       if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1
+        //Allow Ctrl+V
+        || (e.ctrlKey && e.keyCode === 86)
         //Allow Ctrl+A, Command+A
-        || (e.keyCode === 65 && (e.keyCtrl || e.metaKey))
+        || (e.keyCode === 65 && (e.ctrlKey || e.metaKey))
         //Allow arrow navigation...:
         || (e.keyCode === 46 || e.keyCode === 8 || e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 190)
         //Allow: home, end, left, right, down, up:

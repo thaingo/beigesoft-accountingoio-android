@@ -102,6 +102,24 @@
     <url-pattern></url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>pubnotrws</servlet-name>
+    <servlet-class>
+      org.beigesoft.web.servlet.WHandlerAndJsp
+    </servlet-class>
+    <init-param>
+      <param-name>dirJsp</param-name>
+      <param-value>/WEB-INF/jsp/</param-value>
+    </init-param>
+    <init-param>
+      <param-name>handlerName</param-name>
+      <param-value>rhPbWs</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>pubnotrws</servlet-name>
+    <url-pattern>/ntr/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>service</servlet-name>
     <servlet-class>
       org.beigesoft.web.servlet.WHandlerAndJsp
@@ -715,6 +733,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.waor_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.waor_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.bnkStLn_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.bnkStLn_jsp</servlet-class>
     </servlet>
@@ -782,6 +805,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFolSavedJson_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.editEntityFolSavedJson_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.wchou_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.wchou_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -862,6 +890,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.priceListForm_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.priceListForm_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.ppl_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.ppl_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -3310,6 +3343,11 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.waor_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/waor.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.bnkStLn_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/bnkStLn.jsp</url-pattern>
     </servlet-mapping>
@@ -3377,6 +3415,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.editEntityFolSavedJson_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/editEntityFolSavedJson.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.wchou_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/wchou.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -3457,6 +3500,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.priceListForm_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/priceListForm.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.ppl_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/ppl.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
