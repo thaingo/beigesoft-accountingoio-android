@@ -48,6 +48,22 @@
       <param-value>beige-accounting.sqlite</param-value>
     </init-param>
     <init-param>
+      <param-name>wrReSpTr</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>writeTi</param-name>
+      <param-value>1</param-value>
+    </init-param>
+    <init-param>
+      <param-name>readTi</param-name>
+      <param-value>1</param-value>
+    </init-param>
+    <init-param>
+      <param-name>writeReTi</param-name>
+      <param-value>1</param-value>
+    </init-param>
+    <init-param>
       <param-name>isShowDebugMessages</param-name>
       <param-value>false</param-value>
     </init-param>

@@ -31,7 +31,6 @@ import org.beigesoft.ajetty.SrvGetUserCredentials;
 import org.beigesoft.ajetty.crypto.CryptoHelper;
 import org.beigesoft.accounting.service.ISrvAccSettings;
 import org.beigesoft.accounting.service.HndlAccVarsRequest;
-import org.beigesoft.accounting.factory.FactoryBldAccServices;
 import org.beigesoft.webstore.service.HndlTradeVarsRequest;
 import org.beigesoft.webstore.service.ISrvTradingSettings;
 import org.beigesoft.webstore.service.UtlTradeJsp;
@@ -82,6 +81,18 @@ public class InitAppFactoryAndroidHttps
     String uvdSettingsBaseFile = pFactoryAndServlet.getHttpServlet()
       .getInitParameter("uvdSettingsBaseFile");
     factoryAppBeans.setUvdSettingsBaseFile(uvdSettingsBaseFile);
+    String writeTi = pFactoryAndServlet.getHttpServlet()
+      .getInitParameter("writeTi");
+    factoryAppBeans.setWriteTi(Integer.parseInt(writeTi));
+    String readTi = pFactoryAndServlet.getHttpServlet()
+      .getInitParameter("readTi");
+    factoryAppBeans.setReadTi(Integer.parseInt(readTi));
+    String writeReTi = pFactoryAndServlet.getHttpServlet()
+      .getInitParameter("writeReTi");
+    factoryAppBeans.setWriteReTi(Integer.parseInt(writeReTi));
+    String wrReSpTr = pFactoryAndServlet.getHttpServlet()
+      .getInitParameter("wrReSpTr");
+    factoryAppBeans.setWrReSpTr(Boolean.valueOf(wrReSpTr));
     String databaseName = pFactoryAndServlet.getHttpServlet()
       .getInitParameter("databaseName");
     factoryAppBeans.setDatabaseName(databaseName);
@@ -128,18 +139,6 @@ public class InitAppFactoryAndroidHttps
       .lazyGet("ISrvAccSettings"));
     factoryAppBeans.lazyGetHndlI18nRequest()
       .setAdditionalI18nReqHndl(hndlAccVarsRequest);
-    //to create/initialize database if need:
-    factoryAppBeans.lazyGet("ISrvOrm");
-    // single user mode anyway:
-    @SuppressWarnings("unchecked")
-    FactoryBldAccServices<Cursor> fblds = (FactoryBldAccServices<Cursor>)
-      factoryAppBeans.getFactoryBldServices();
-    fblds.lazyGetHandlerEntityRequest()
-      .setChangingTranIsol(ISrvDatabase.TRANSACTION_READ_UNCOMMITTED);
-    fblds.lazyGetHndlWebAdminReq()
-      .setChangingTranIsol(ISrvDatabase.TRANSACTION_READ_UNCOMMITTED);
-    fblds.lazyGetHndlSeSellerReq()
-      .setChangingTranIsol(ISrvDatabase.TRANSACTION_READ_UNCOMMITTED);
     LstnDbChangedAndroid lstnDbChanged = new LstnDbChangedAndroid();
     lstnDbChanged.setFactoryAndServlet(pFactoryAndServlet);
     factoryAppBeans.getListenersDbChanged().add(lstnDbChanged);

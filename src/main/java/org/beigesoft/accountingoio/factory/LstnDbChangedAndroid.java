@@ -31,7 +31,6 @@ import org.beigesoft.ajetty.LstnUserPswdChanged;
 import org.beigesoft.ajetty.crypto.CryptoHelper;
 import org.beigesoft.accounting.service.ISrvAccSettings;
 import org.beigesoft.accounting.service.HndlAccVarsRequest;
-import org.beigesoft.accounting.factory.FactoryBldAccServices;
 import org.beigesoft.webstore.service.HndlTradeVarsRequest;
 import org.beigesoft.webstore.service.ISrvTradingSettings;
 import org.beigesoft.webstore.service.UtlTradeJsp;
@@ -95,17 +94,6 @@ public class LstnDbChangedAndroid implements IDelegator {
       .lazyGet("ISrvAccSettings"));
     factoryAppBeans.lazyGetHndlI18nRequest()
       .setAdditionalI18nReqHndl(hndlAccVarsRequest);
-    factoryAppBeans.lazyGet("ISrvOrm");
-    // single user mode anyway:
-    @SuppressWarnings("unchecked")
-    FactoryBldAccServices<Cursor> fblds = (FactoryBldAccServices<Cursor>)
-      factoryAppBeans.getFactoryBldServices();
-    fblds.lazyGetHandlerEntityRequest()
-      .setChangingTranIsol(ISrvDatabase.TRANSACTION_READ_UNCOMMITTED);
-    fblds.lazyGetHndlWebAdminReq()
-      .setChangingTranIsol(ISrvDatabase.TRANSACTION_READ_UNCOMMITTED);
-    fblds.lazyGetHndlSeSellerReq()
-      .setChangingTranIsol(ISrvDatabase.TRANSACTION_READ_UNCOMMITTED);
     ISrvDatabase<Cursor> srvDb = (ISrvDatabase<Cursor>)
       factoryAppBeans.lazyGet("ISrvDatabase");
     @SuppressWarnings("unchecked")
