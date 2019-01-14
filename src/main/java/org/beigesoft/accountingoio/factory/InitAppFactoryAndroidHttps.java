@@ -81,18 +81,11 @@ public class InitAppFactoryAndroidHttps
     String uvdSettingsBaseFile = pFactoryAndServlet.getHttpServlet()
       .getInitParameter("uvdSettingsBaseFile");
     factoryAppBeans.setUvdSettingsBaseFile(uvdSettingsBaseFile);
-    String writeTi = pFactoryAndServlet.getHttpServlet()
-      .getInitParameter("writeTi");
-    factoryAppBeans.setWriteTi(Integer.parseInt(writeTi));
-    String readTi = pFactoryAndServlet.getHttpServlet()
-      .getInitParameter("readTi");
-    factoryAppBeans.setReadTi(Integer.parseInt(readTi));
-    String writeReTi = pFactoryAndServlet.getHttpServlet()
-      .getInitParameter("writeReTi");
-    factoryAppBeans.setWriteReTi(Integer.parseInt(writeReTi));
-    String wrReSpTr = pFactoryAndServlet.getHttpServlet()
-      .getInitParameter("wrReSpTr");
-    factoryAppBeans.setWrReSpTr(Boolean.valueOf(wrReSpTr));
+    factoryAppBeans.setWriteTi(1);
+    factoryAppBeans.setReadTi(1);
+    factoryAppBeans.setWriteReTi(1);
+    factoryAppBeans.setWrReSpTr(false);
+    factoryAppBeans.setFastLoc(false);
     String databaseName = pFactoryAndServlet.getHttpServlet()
       .getInitParameter("databaseName");
     factoryAppBeans.setDatabaseName(databaseName);
