@@ -446,7 +446,7 @@ function fileUpChanged(pInp, pInpFileUpPathNm, pInpParamNameFileToUploadNm) {
 
 /*
  * <p>Initializes BS inputs for class "bsNum[dpm]", where dpm:
- * 0 - 0 DP; 1 - 1 DP; 2m - 2DP, nmin -999999999.99.
+ * 0 - 0 DP; 1 - 1 DP; 2m - 2DP, nmin -999 999 999 999 999.99.
  * </p>
  * @param pUsedDpm comma separated DPM
  * @param pParent ID of parent DOM
@@ -456,7 +456,7 @@ function initBsInpsNum(pUsedDpm, pParent) {
     var dp = parseInt(dpm.charAt(0));
     var ndef = {decPl: dp};
     if (dpm.length > 1) {
-      nmins = "-999999999";
+      nmins = "-999999999999999";
       if (dp > 0) {
         nmins = nmins + ".9";
         for (i = 1; i < dp; i++) {

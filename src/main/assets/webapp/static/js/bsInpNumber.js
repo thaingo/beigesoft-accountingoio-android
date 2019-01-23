@@ -28,7 +28,7 @@
       step: 1,
       decPl: 0,
       nmin: 0,
-      nmax: 9999999,
+      nmax: 999999999999999,
       adjustOnKeyUp: true
     };
     $.extend(vars, pVars);
