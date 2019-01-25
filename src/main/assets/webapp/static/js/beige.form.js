@@ -462,8 +462,10 @@ function initBsInpsNum(pUsedDpm, pParent) {
         for (i = 1; i < dp; i++) {
           nmins = nmins + "9";
         }
+        ndef.nmin = parseFloat(nmins);
+      } else {
+        ndef.nmin = parseInt(nmins);
       }
-      ndef.nmin = parseFloat(nmins);
     }
     if (pParent == null) {
       $(".bsNum" + dpm).bsInpNumber(ndef);

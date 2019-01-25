@@ -23,7 +23,7 @@ function setCartItem(pItTyp, pItId, pItNm, pPrice, pQuant, pAvQuan, pLnId, pUomI
   var itNm = document.getElementById("itNm" + pref);
   itNm.value = pItNm;
   var quant = document.getElementById("quant" + pref);
-  $(quant).bsInpNumber({step: pUStep});
+  $(quant).bsInpNumber({step: pUStep, nmax: pAvQuan});
   var price = document.getElementById("price" + pref);
   price.value = numToStr(pPrice.toString(), pPriceDp);
   var uomNm = document.getElementById("uomNm" + pref);
@@ -52,7 +52,7 @@ function refreshCartItemTotal(pPref, pPriceDp, pPriceRm) {
   total.value = numToStr(tot.toString(), pPriceDp);
 };
 
-function delCartItem(pItTyp, pItId, pItNm, pPrice, pQuant, pLnId) {
+function delCartItem(pItTyp, pItId, pItNm, pPrice, pQuant, pLnId, pPriceDp) {
   var itNm = document.getElementById("itNmDel");
   itNm.value = pItNm;
   var price = document.getElementById("priceDel");
@@ -60,7 +60,8 @@ function delCartItem(pItTyp, pItId, pItNm, pPrice, pQuant, pLnId) {
   var quant = document.getElementById("quantDel");
   quant.value = pQuant;
   var total = document.getElementById("totalDel");
-  total.value = pPrice * pQuant;
+  var tot = pPrice * pQuant;
+  total.value = numToStr(tot.toString(), pPriceDp);
   var lnId = document.getElementById("lnIdDel");
   lnId.value = pLnId;
 };

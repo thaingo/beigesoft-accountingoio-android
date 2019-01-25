@@ -993,6 +993,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstoreSERVICE1_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.webstoreSERVICE1_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.pickerCsvPathJson_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.pickerCsvPathJson_jsp</servlet-class>
     </servlet>
@@ -3620,6 +3625,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.printEntity_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/printEntity.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.webstoreSERVICE1_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/webstoreSERVICE1.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
