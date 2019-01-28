@@ -154,7 +154,7 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
    */
   @Override
   public final ILogger lazyGetLogger() throws Exception {
-    String beanName = getSecureLoggerName();
+    String beanName = getLoggerName();
     LoggerFile logger = (LoggerFile) getBeansMap().get(beanName);
     if (logger == null) {
       logger = new LoggerFile();
@@ -176,7 +176,7 @@ public class FactoryAppBeansAndroid extends AFactoryAppBeans<Cursor> {
    */
   @Override
   public final ILogger lazyGetSecureLogger() throws Exception {
-    String beanName = getLoggerName();
+    String beanName = getSecureLoggerName();
     LoggerFile logger = (LoggerFile) getBeansMap().get(beanName);
     if (logger == null) {
       logger = new LoggerFile();
