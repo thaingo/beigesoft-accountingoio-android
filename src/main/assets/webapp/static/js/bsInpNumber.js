@@ -86,14 +86,12 @@
       numMake(e.target);
     };
     function numKeydown(e) {
-      //Allow: backspace, delete, tab, esc, enter, end:
-      if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1
+      //Allow: backspace, delete, tab, esc, enter, end, arrow navigation:
+      if ($.inArray(e.keyCode, [8, 46, 9, 27, 13, 37, 39, 190]) !== -1
         //Allow Ctrl+V
         || (e.ctrlKey && e.keyCode === 86)
         //Allow Ctrl+A, Command+A
         || (e.keyCode === 65 && (e.ctrlKey || e.metaKey))
-        //Allow arrow navigation...:
-        || (e.keyCode === 46 || e.keyCode === 8 || e.keyCode === 37 || e.keyCode === 39 || e.keyCode === 190)
         //Allow: home, end, left, right, down, up:
         || (e.keyCode >= 35 && e.keyCode <= 40)) {
         return;
@@ -126,27 +124,82 @@
         return;
       }
       //new digit or DS
-      e.target.prevVal = e.target.value;
     };
     function numKeyup(e) {
       if (e.target.value != "" && e.target.value != "-" && e.target.prevVal != e.target.value) {
-        if (e.target.value.startsWith("0-")) {
-          e.target.value = e.target.value.substring(1);
-          e.target.selectionStart = 1;
-          e.target.selectionEnd = 1;
+        var isNeg = e.target.value.startsWith("-")
+        if (e.target.decPl > 0 && e.target.value.indexOf(RSNUMVS.decSep) == -1
+          && (e.target.value.length > 2 || e.target.value.length == 2 && !isNeg)) {
+          //delete decimal separator handling:
+          e.target.value = e.target.prevVal;
+          var dotIdx = e.target.value.indexOf(RSNUMVS.decSep);
+          e.target.selectionStart = dotIdx;
+          e.target.selectionEnd = dotIdx;
+        } else if (e.key === "-") {
+            if (e.target.value.startsWith("0-")) {
+              //minus at start:
+              e.target.value = e.target.value.substring(1);
+              e.target.selectionStart = 1;
+              e.target.selectionEnd = 1;
+            } else {
+              e.target.prevVal = e.target.value;
+            }
         } else {
           var ss = e.target.selectionStart;
-          if (ss == 2 && e.target.value.startsWith("0")) {
-            ss = ss - 1;
+          var isFirstDig = false;
+          //handling the first digit:
+          if (ss == 1 && !isNeg || (ss == 2 && isNeg)) {
+            var stp;
+            if (isNeg) {
+              stp = "-" + e.key + "0";
+            } else {
+              stp = e.key + "0";
+            }
+            if (e.target.decPl > 0) {
+              stp += RSNUMVS.decSep;
+              for (i = 0; i < e.target.decPl; i++) {
+                stp += "0";
+              }
+            }
+            isFirstDig = e.target.value == stp;
           }
-          var vn = strToFloat(e.target.value);
-          if (e.target.adjustOnKeyUp) {
-            vn = adjustNum(e.target, vn);
+          if (isFirstDig) {
+            if (isNeg) {
+              e.target.value = "-" + e.key;
+            } else {
+              e.target.value = e.key;
+            }
+            if (e.target.decPl > 0) {
+              e.target.value += RSNUMVS.decSep;
+              for (i = 0; i < e.target.decPl; i++) {
+                e.target.value += "0";
+              }
+            }
+            e.target.selectionStart = ss;
+            e.target.selectionEnd = ss;
+          } else {
+            if (ss == 2 && e.target.value.startsWith("0")) {
+              ss = ss - 1;
+            }
+            var vn = strToFloat(e.target.value);
+            if (e.target.adjustOnKeyUp) {
+              vn = adjustNum(e.target, vn);
+            }
+            e.target.value = numToStr(vn.toString(), e.target.decPl);
+            if (e.target.value.length - e.target.prevVal.length == 2) {
+              //adding group separator:
+              e.target.selectionStart = ss + 1;
+              e.target.selectionEnd = ss + 1;
+            } else if (ss != 0 && e.target.value.length - e.target.prevVal.length == -2) {
+              //deleting group separator except digit before zero:
+              e.target.selectionStart = ss - 1;
+              e.target.selectionEnd = ss - 1;
+            } else {
+              e.target.selectionStart = ss;
+              e.target.selectionEnd = ss;
+            }
           }
-          e.target.value = numToStr(vn.toString(), e.target.decPl);
           e.target.prevVal = e.target.value;
-          e.target.selectionStart = ss;
-          e.target.selectionEnd = ss;
         }
       }
     };

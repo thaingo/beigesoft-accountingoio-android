@@ -333,7 +333,7 @@ function openCsvPathPicker() {
 function calcPriceTax(pInp, nameEntity, pPriceNm, pPriceDp, pPriceRm, pIsTaxIncluded, pTaxDp, pTaxRm) {
   var inpTotal = document.getElementById(nameEntity + "itsTotal");
   var total = strToFloat(inpTotal.value);
-  calcTax(nameEntity, total, pIsTaxIncluded, pPriceDp, pTaxRm);
+  calcTax(nameEntity, total, pIsTaxIncluded, pTaxDp, pTaxRm);
   var inpQuantity = document.getElementById(nameEntity + "itsQuantity");
   var quantity = strToFloat(inpQuantity.value);
   var inpPrice = document.getElementById(nameEntity + pPriceNm);
@@ -365,7 +365,7 @@ function calcTotalTax(pInp, nameEntity, pPriceNm, pPriceDp, pPriceRm, pIsTaxIncl
     inputHasBeenChanged(inpTotal);
   }
   inputHasBeenChanged(pInp);
-  calcTax(nameEntity, total, pIsTaxIncluded, pPriceDp, pTaxRm);
+  calcTax(nameEntity, total, pIsTaxIncluded, pTaxDp, pTaxRm);
 };
 
 function setTaxCat(pTcRate, pTcNm, pIdDomBasePicker, pIsTaxIncluded, pTaxDp, pTaxRm, pPriceDp) {
