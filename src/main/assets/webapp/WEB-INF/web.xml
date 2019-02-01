@@ -2903,11 +2903,6 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.filterSimpleNullableTmpl_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.filterSimpleNullableTmpl_jsp</servlet-class>
     </servlet>
@@ -2970,6 +2965,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.filterString_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.filterString_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice0_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice0_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -5538,11 +5538,6 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/filters/wsFilterPrice.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.filterSimpleNullableTmpl_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/filters/filterSimpleNullableTmpl.jsp</url-pattern>
     </servlet-mapping>
@@ -5605,6 +5600,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.filterString_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/filters/filterString.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice0_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/filters/wsFilterPrice0.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

@@ -37,6 +37,11 @@ function setUom(uomId, uomName, idDomBasePicker) {
     unitOfMeasureAppearanceVisible.value = uomName;
     unitOfMeasureAppearanceVisible.onchange();
   }
+  var btnTaxDestination = document.getElementById(whoPicking["pickingEntity"] + "btnTaxDestination");
+  if (btnTaxDestination != null) {
+    //revialing dest tax cat:
+    btnTaxDestination.style.display="block";
+  }
 };
 
 
