@@ -2213,6 +2213,11 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.bur_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.toString.bur_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrQuantity_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.toString.toStrQuantity_jsp</servlet-class>
     </servlet>
@@ -4845,6 +4850,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.toStrYear_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/toString/toStrYear.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.toString.bur_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/toString/bur.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
