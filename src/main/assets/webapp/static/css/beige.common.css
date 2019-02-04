@@ -35,7 +35,7 @@ textarea {
   width: 100%;
 }
 .picked-appearence {
-  width: 70%;
+  width: 80%;
 }
 
 .input-line {
@@ -381,7 +381,7 @@ tr:hover {
 
 @media only screen and (max-width: 768px) {
   .picked-appearence {
-    width: 60%;
+    width: 75%;
   }
   .column-appearence {
     width: 80%;
