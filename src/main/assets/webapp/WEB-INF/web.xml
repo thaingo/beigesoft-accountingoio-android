@@ -2863,8 +2863,8 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterBigDecimal_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterBigDecimal_jsp</servlet-class>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterInteger0_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterInteger0_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2888,18 +2888,13 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterNumber_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterNumber_jsp</servlet-class>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterItems0_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterItems0_jsp</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.filterPriceNullable_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.filterPriceNullable_jsp</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterItems_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterItems_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2958,8 +2953,8 @@ description, distributable, and context-param elements.
     </servlet>
 
     <servlet>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterInteger_jsp</servlet-name>
-        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterInteger_jsp</servlet-class>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterNumber0_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterNumber0_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -2975,6 +2970,11 @@ description, distributable, and context-param elements.
     <servlet>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice0_jsp</servlet-name>
         <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice0_jsp</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterBigDecimal0_jsp</servlet-name>
+        <servlet-class>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterBigDecimal0_jsp</servlet-class>
     </servlet>
 
     <servlet>
@@ -5503,8 +5503,8 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterBigDecimal_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/filters/SpecificsFilterBigDecimal.jsp</url-pattern>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterInteger0_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/filters/SpecificsFilterInteger0.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -5528,18 +5528,13 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterNumber_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/filters/SpecificsFilterNumber.jsp</url-pattern>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterItems0_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/filters/SpecificsFilterItems0.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.filterPriceNullable_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/filters/filterPriceNullable.jsp</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterItems_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/filters/SpecificsFilterItems.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -5598,8 +5593,8 @@ description, distributable, and context-param elements.
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterInteger_jsp</servlet-name>
-        <url-pattern>/WEB-INF/jsp/filters/SpecificsFilterInteger.jsp</url-pattern>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterNumber0_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/filters/SpecificsFilterNumber0.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -5615,6 +5610,11 @@ description, distributable, and context-param elements.
     <servlet-mapping>
         <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.wsFilterPrice0_jsp</servlet-name>
         <url-pattern>/WEB-INF/jsp/filters/wsFilterPrice0.jsp</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>org.apache.jsp.WEB_002dINF.jsp.filters.SpecificsFilterBigDecimal0_jsp</servlet-name>
+        <url-pattern>/WEB-INF/jsp/filters/SpecificsFilterBigDecimal0.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

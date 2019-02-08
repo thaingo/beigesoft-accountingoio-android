@@ -318,20 +318,12 @@ function clearCsvPath() {
   dataPath.onchange();
 };
 
-function openCsvPathPicker() {
-  var pickerPlace = "pickersCsvPath";
-  var readerName = null;
-  var readerNameSel = document.getElementById("CsvMethodretrieverName");
-  if (readerNameSel.selectedIndex > 0) {
-    readerName = readerNameSel.options[readerNameSel.selectedIndex].value;
-  }
-  if (readerName != null) {
-    var picker = document.getElementById(pickerPlace + readerName + "Dlg");
-    if (picker != null) {
-        picker.showModal();
-    } else {
-      getHtmlByAjax('GET', 'service/?nmHnd=hndTrdTrnsReq&nmPrc=PrcCsvSampleDataRow&nmRnd=pickerCsvPathJson&nmRet=' + readerName);
-    }
+function openCsvPathPicker(pPath, pReadNm) {
+  var picker = document.getElementById("pickersCsvPath" + pReadNm + "Dlg");
+  if (picker != null) {
+      picker.showModal();
+  } else {
+    getHtmlByAjax('GET', pPath + pReadNm);
   }
 };
 
