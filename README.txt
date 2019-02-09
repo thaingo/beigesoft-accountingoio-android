@@ -18,7 +18,12 @@ Features:
 
 Web-Store is included for pricing, study, and tests purposes and you are also able to make full DB copy from cloud version.
 You can make price lists (in different price categories) and export it in CSV file to your customers or POS.
-Online Web-Store is draft yet.
+
+
+Version 1.1.8:
+*web-store first release
+*sales taxes: allowed to edit them in any invoice
+*new input number instead of auto-numeric.
 
 Version 1.1.7:
 *added multi-currency (including payments tracking).
@@ -111,7 +116,7 @@ building APK works fine on the latest 64bit Android SDK.
 multidex requires build tools 28.0.2, works OK on SDK tools 26.1.1, platform - 28.0.0
 outdated?64bit AVD works fine on the last emulator (27.1.12) and SDK platform API26,
 Google APIs system Intel x86 Atom system image(API26).
-On Debian fix emulator with:
+outdated?On Debian fix emulator with:
 ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6 ~/Android/Sdk/emulator/lib64/libstdc++/libstdc++.so.6
 
 outdated?Google APIs system Intel x86 Atom system image(API27) rises SSL error:
