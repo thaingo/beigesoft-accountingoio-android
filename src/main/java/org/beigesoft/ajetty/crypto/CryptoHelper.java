@@ -30,8 +30,8 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.CipherOutputStream;
 
-import org.spongycastle.crypto.Digest;
-import org.spongycastle.crypto.digests.SHA1Digest;
+import org.bouncycastle.crypto.Digest;
+import org.bouncycastle.crypto.digests.SHA1Digest;
 
 import org.beigesoft.ajetty.ICryptoHelper;
 
@@ -65,7 +65,7 @@ public class CryptoHelper implements ICryptoHelper {
   /**
    * <p>Crypto-provider name.</p>
    **/
-  private String cryptoProvider = "SC";
+  private String cryptoProvider = "BC";
 
   /**
    * <p>Public key of our A-Jetty for file exchange.</p>

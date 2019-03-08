@@ -47,7 +47,7 @@ import android.net.Uri;
 import android.Manifest;
 import android.util.Log;
 
-import org.spongycastle.openssl.jcajce.JcaPEMWriter;
+import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 
 import org.beigesoft.exception.ExceptionWithCode;
 import org.beigesoft.ajetty.FactoryAppBeansEmbedded;
@@ -300,7 +300,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
         this.isKeystoreCreated = true;
       }
     }
-    this.bootStrapEmbeddedHttps.setCryptoProviderName("SC");
+    this.bootStrapEmbeddedHttps.setCryptoProviderName("BC");
     this.bootStrapEmbeddedHttps.setFactoryAppBeans(this.jettyFactoryAppBeans);
     this.bootStrapEmbeddedHttps.setWebAppPath(getFilesDir().getAbsolutePath()
        + "/" + APP_BASE);
@@ -419,7 +419,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
       Certificate certCa = null;
       PublicKey fileExchPub = null;
       try {
-        pkcs12Store = KeyStore.getInstance("PKCS12", "SC");
+        pkcs12Store = KeyStore.getInstance("PKCS12", "BC");
         fis = new FileInputStream(pks12File);
         pkcs12Store.load(fis, ksPassword);
         this.isKeystoreCreated = true;
@@ -477,7 +477,7 @@ public class BeigeAccounting extends Activity implements OnClickListener {
     } else {
       FileInputStream fis = null;
       try {
-        pkcs12Store = KeyStore.getInstance("PKCS12", "SC");
+        pkcs12Store = KeyStore.getInstance("PKCS12", "BC");
         fis = new FileInputStream(pks12File);
         pkcs12Store.load(fis, ksPassword);
       } catch (Exception e) {

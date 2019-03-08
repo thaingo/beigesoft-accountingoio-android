@@ -2,24 +2,87 @@ This is Android version of Beige-Accounting based on embedded A-Jetty.
 It requires Google Chrome browser.
 
 Beige-Accounting is always in secure enabled mode (protected from scams). It requires user authentication with strong password. It uses encryption for HTTPS and file exchange - modern algorithms asymmetric RSA 2048bit key size and symmetric AES 256bit size.
+-------------------------------------------------------------------------------------------------------------
+At first you should better read article <a href="https://sites.google.com/site/beigesoftware/bobs-pizza/acc-android">Beigesoft™ Accounting on Android:</a> https://sites.google.com/site/beigesoftware/bobs-pizza/acc-android
 
-Features:
+This application never waste your time because of:
+  1. It provides sufficient functionality:  
 * Double entry accounting system including ledger and balance reports.
-* COGS FIFO/LIFO perpetual automatically for sales, sales returns, inventory losses.
+* COGS FIFO/LIFO automatically for sales, sales returns, inventory losses.
 * Automatically sales taxes accounting entries for sales, purchases and their returns.
 * Sales tax methods: item/invoice basis, destination-based, aggregate rate, price inclusive of tax.
 * Prepayments/payments tracking for sales/purchases (including invoices with foreign currency).
 * Payroll - automatically taxes calculation (by percentage tax table method) and accounting entries.
 * Manufacturing - automatically cost calculation from used materials and direct labor (and other) costs.
-* Multi-databases (organizations) support.
-* and more
-* There is Beige-Accounting version for MS Windows/Mac/*Nix and SQLite database, so you can work with the same database anywhere.
+* Multi-databases (organizations).
+* Embed Web-Store
+* There is Beigesoft™ Accounting version for MS Windows/Mac/*Nix and SQLite database, so you can work with the same database anywhere.
 
+You can check functionality without installation by reading the articles (see above).
+  
+  2. It's reliable software:
+* All its parts are under truly free licenses.
+* It's open source software, so fixing an error or customizing is not a problem.
+* It will never be downgraded or disappeared. You always can find it (binary and source code) in Central Maven Repository.
 
 Web-Store is included for pricing, study, and tests purposes and you are also able to make full DB copy from cloud version.
 You can make price lists (in different price categories) and export it in CSV file to your customers or POS.
 
+This is enterprise application, database consist of 200 tables, so it requires a time to initialize itself and to create and upgrade database.
 
+licenses:
+
+GNU General Public License version 2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+
+The Eclipse Public License, Version 1.0 - http://www.eclipse.org/legal/epl-v10.html
+
+The Apache Software License, Version 2.0 - http://www.apache.org/licenses/LICENSE-2.0.txt
+
+CDDL + GPLv2 with classpath exception - https://javaee.github.io/glassfish/LICENSE
+
+MIT License - https://github.com/twbs/bootstrap/blob/master/LICENSE
+
+DejaVu fonts by Bitstream - https://dejavu-fonts.github.io/License.html
+
+SIL OPEN FONT LICENSE Version 1.1 - http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web
+
+--------------------------------------------------------------------------------------------------------------
+Вам лучше прочесть для начала <a href="https://sites.google.com/site/beigesoftware/acc-iv">Пример использования Беижсофт Бухгалтерии:</a> https://sites.google.com/site/beigesoftware/acc-iv
+
+Преимущества Беижсофт Бухгалтерии:
+
+  Первое это функциональность:
+*Оценить функциональность можно без установки, просто читая документацию данную выше.
+*Это готовое решение для ведения коммерческого учета методом двойной записи по рыночным правилам.
+*НДС методы: по отгрузке/оплате.
+*Автоматическое вычисление себестоимости методами ФИФО/ЛИФО и по стоимости единицы.
+*Веб-магазин включен в локальные версии для изучения, тренировки и возможности копирования полной базы данных из Интернет-версии.
+...
+
+  Второе это надежность, работоспособность:
+*Лицензии всех частей гарантируют отсутствие возможных проблем в будущем.
+*Открытый код - возможность доработки, исправление ошибок.
+*Дистрибутивы и исходный код находятся в центральном Мавен репозитории. Нет риска даунгрэйда, исчезновения.
+
+База данных включает больше 200 таблиц, поэтому запуск потребует времени.
+
+Лицензии:
+
+GNU General Public License version 2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+
+The Eclipse Public License, Version 1.0 - http://www.eclipse.org/legal/epl-v10.html
+
+The Apache Software License, Version 2.0 - http://www.apache.org/licenses/LICENSE-2.0.txt
+
+CDDL + GPLv2 with classpath exception - https://javaee.github.io/glassfish/LICENSE
+
+MIT License - https://github.com/twbs/bootstrap/blob/master/LICENSE
+
+DejaVu fonts by Bitstream - https://dejavu-fonts.github.io/License.html
+
+SIL OPEN FONT LICENSE Version 1.1 - http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web
+
+--------------------------------------------------------------------------------------------------------------
 Version 1.1.8:
 *web-store first release
 *sales taxes: allowed to edit them in any invoice

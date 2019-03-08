@@ -32,38 +32,38 @@ import java.util.ResourceBundle;
 import java.security.Security;
 import javax.security.auth.x500.X500Principal;
 
-import org.spongycastle.asn1.x500.X500Name;
-import org.spongycastle.asn1.x509.GeneralName;
-import org.spongycastle.asn1.x509.GeneralNames;
-import org.spongycastle.asn1.x509.BasicConstraints;
-import org.spongycastle.asn1.x509.Extension;
-import org.spongycastle.asn1.x509.ExtendedKeyUsage;
-import org.spongycastle.asn1.x509.KeyPurposeId;
-import org.spongycastle.asn1.x509.KeyUsage;
-import org.spongycastle.asn1.x509.SubjectKeyIdentifier;
-import org.spongycastle.cert.X509v1CertificateBuilder;
-import org.spongycastle.cert.X509v3CertificateBuilder;
-import org.spongycastle.cert.jcajce.JcaX509CertificateConverter;
-import org.spongycastle.cert.jcajce.JcaX509ExtensionUtils;
-import org.spongycastle.cert.jcajce.JcaX509v1CertificateBuilder;
-import org.spongycastle.cert.jcajce.JcaX509v3CertificateBuilder;
-import org.spongycastle.operator.ContentSigner;
-import org.spongycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.spongycastle.pkcs.PKCS12PfxPdu;
-import org.spongycastle.pkcs.PKCS12PfxPduBuilder;
-import org.spongycastle.pkcs.PKCS12SafeBag;
-import org.spongycastle.pkcs.PKCS12SafeBagBuilder;
-import org.spongycastle.asn1.pkcs.PKCSObjectIdentifiers;
-import org.spongycastle.pkcs.jcajce.JcaPKCS12SafeBagBuilder;
-import org.spongycastle.pkcs.jcajce.JcePKCS12MacCalculatorBuilder;
-import org.spongycastle.pkcs.jcajce.JcePKCSPBEOutputEncryptorBuilder;
-import org.spongycastle.asn1.ASN1Encoding;
-import org.spongycastle.asn1.DERBMPString;
-import org.spongycastle.asn1.nist.NISTObjectIdentifiers;
-import org.spongycastle.operator.OutputEncryptor;
-import org.spongycastle.crypto.Digest;
-import org.spongycastle.crypto.digests.SHA1Digest;
-import org.spongycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x509.GeneralName;
+import org.bouncycastle.asn1.x509.GeneralNames;
+import org.bouncycastle.asn1.x509.BasicConstraints;
+import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.asn1.x509.ExtendedKeyUsage;
+import org.bouncycastle.asn1.x509.KeyPurposeId;
+import org.bouncycastle.asn1.x509.KeyUsage;
+import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
+import org.bouncycastle.cert.X509v1CertificateBuilder;
+import org.bouncycastle.cert.X509v3CertificateBuilder;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
+import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
+import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
+import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.bouncycastle.pkcs.PKCS12PfxPdu;
+import org.bouncycastle.pkcs.PKCS12PfxPduBuilder;
+import org.bouncycastle.pkcs.PKCS12SafeBag;
+import org.bouncycastle.pkcs.PKCS12SafeBagBuilder;
+import org.bouncycastle.asn1.pkcs.PKCSObjectIdentifiers;
+import org.bouncycastle.pkcs.jcajce.JcaPKCS12SafeBagBuilder;
+import org.bouncycastle.pkcs.jcajce.JcePKCS12MacCalculatorBuilder;
+import org.bouncycastle.pkcs.jcajce.JcePKCSPBEOutputEncryptorBuilder;
+import org.bouncycastle.asn1.ASN1Encoding;
+import org.bouncycastle.asn1.DERBMPString;
+import org.bouncycastle.asn1.nist.NISTObjectIdentifiers;
+import org.bouncycastle.operator.OutputEncryptor;
+import org.bouncycastle.crypto.Digest;
+import org.bouncycastle.crypto.digests.SHA1Digest;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * <p>It serves A-Jetty with encryption features.
@@ -193,7 +193,7 @@ public class CryptoServiceSc implements ICryptoService {
       throw new Exception("File already exist - " + pks12File.getPath());
     }
     // generate key pairs:
-    KeyPairGenerator kpGenRsa = KeyPairGenerator.getInstance("RSA", "SC");
+    KeyPairGenerator kpGenRsa = KeyPairGenerator.getInstance("RSA", "BC");
     kpGenRsa.initialize(2048, new SecureRandom());
     KeyPair kpHttps = kpGenRsa.generateKeyPair();
     kpGenRsa.initialize(2048, new SecureRandom());
@@ -224,7 +224,7 @@ public class CryptoServiceSc implements ICryptoService {
     // save to keystore:
     JcePKCSPBEOutputEncryptorBuilder jcePcEb =
       new JcePKCSPBEOutputEncryptorBuilder(NISTObjectIdentifiers.id_aes256_CBC);
-    jcePcEb.setProvider("SC");
+    jcePcEb.setProvider("BC");
     OutputEncryptor encOut = jcePcEb.build(pPassw);
     PKCS12SafeBagBuilder caCrtBagBld = new JcaPKCS12SafeBagBuilder(caCert);
     caCrtBagBld.addBagAttribute(PKCS12SafeBag.friendlyNameAttribute,
@@ -258,11 +258,11 @@ public class CryptoServiceSc implements ICryptoService {
     builder.addData(httpsKbb.build());
     builder.addData(fileExchKbb.build());
     builder.addEncryptedData(new JcePKCSPBEOutputEncryptorBuilder(
-      PKCSObjectIdentifiers.pbeWithSHAAnd128BitRC2_CBC).setProvider("SC")
+      PKCSObjectIdentifiers.pbeWithSHAAnd128BitRC2_CBC).setProvider("BC")
         .build(pPassw), new PKCS12SafeBag[] {httpsCrBgBr.build(),
           fileExchCrBgBr.build(), caCrtBagBld.build()});
     JcePKCS12MacCalculatorBuilder jmcb = new JcePKCS12MacCalculatorBuilder();
-    jmcb.setProvider("SC");
+    jmcb.setProvider("BC");
     PKCS12PfxPdu pfx = builder.build(jmcb, pPassw);
     FileOutputStream pfxOut = null;
     try {
@@ -313,9 +313,8 @@ public class CryptoServiceSc implements ICryptoService {
    */
   @Override
   public final void init() throws Exception {
-    if (Security.getProvider(getProviderName()) == null) {
-      Security.addProvider(new BouncyCastleProvider());
-    }
+    Security.removeProvider(getProviderName());
+    Security.addProvider(new BouncyCastleProvider());
   }
 
   /**
@@ -324,7 +323,7 @@ public class CryptoServiceSc implements ICryptoService {
    **/
   @Override
   public final String getProviderName() {
-    return "SC";
+    return "BC";
   }
 
   /**
@@ -355,8 +354,8 @@ public class CryptoServiceSc implements ICryptoService {
       new X500Name(pX500dn), BigInteger.valueOf(1), //#1
         pStart, pEnd, new X500Name(pX500dn), pKpRoot.getPublic());
     ContentSigner signer = new JcaContentSignerBuilder("SHA256withRSA")
-      .setProvider("SC").build(pKpRoot.getPrivate());
-    return new JcaX509CertificateConverter().setProvider("SC")
+      .setProvider("BC").build(pKpRoot.getPrivate());
+    return new JcaX509CertificateConverter().setProvider("BC")
       .getCertificate(certBldr.build(signer));
   }
 
@@ -388,8 +387,8 @@ public class CryptoServiceSc implements ICryptoService {
       .addExtension(Extension.keyUsage, true, new KeyUsage(KeyUsage
       .digitalSignature | KeyUsage.keyCertSign | KeyUsage.cRLSign));
     ContentSigner signer = new JcaContentSignerBuilder("SHA256withRSA")
-      .setProvider("SC").build(pRootSk);
-    return new JcaX509CertificateConverter().setProvider("SC")
+      .setProvider("BC").build(pRootSk);
+    return new JcaX509CertificateConverter().setProvider("BC")
       .getCertificate(certBldr.build(signer));
   }
 
@@ -417,8 +416,8 @@ public class CryptoServiceSc implements ICryptoService {
       .addExtension(Extension.keyUsage, true,
         new KeyUsage(KeyUsage.keyCertSign | KeyUsage.cRLSign));
     ContentSigner signer = new JcaContentSignerBuilder("SHA256withRSA")
-      .setProvider("SC").build(pKpCa.getPrivate());
-    return new JcaX509CertificateConverter().setProvider("SC")
+      .setProvider("BC").build(pKpCa.getPrivate());
+    return new JcaX509CertificateConverter().setProvider("BC")
       .getCertificate(certBldr.build(signer));
   }
 
@@ -449,8 +448,8 @@ public class CryptoServiceSc implements ICryptoService {
       new BasicConstraints(false)).addExtension(Extension.keyUsage, true,
       new KeyUsage(KeyUsage.digitalSignature | KeyUsage.keyEncipherment));
     ContentSigner signer = new JcaContentSignerBuilder("SHA256withRSA")
-      .setProvider("SC").build(pCaSk);
-    return new JcaX509CertificateConverter().setProvider("SC")
+      .setProvider("BC").build(pCaSk);
+    return new JcaX509CertificateConverter().setProvider("BC")
       .getCertificate(certBldr.build(signer));
   }
 
@@ -488,8 +487,8 @@ public class CryptoServiceSc implements ICryptoService {
     GeneralNames dnsIp = new GeneralNames(new GeneralName[] {dns, ip});
     certBldr.addExtension(Extension.subjectAlternativeName, false, dnsIp);
     ContentSigner signer = new JcaContentSignerBuilder("SHA256withRSA")
-      .setProvider("SC").build(pCaSk);
-    return new JcaX509CertificateConverter().setProvider("SC")
+      .setProvider("BC").build(pCaSk);
+    return new JcaX509CertificateConverter().setProvider("BC")
       .getCertificate(certBldr.build(signer));
   }
 
