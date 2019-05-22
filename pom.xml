@@ -56,7 +56,7 @@
           <plugin>
             <groupId>com.simpligility.maven.plugins</groupId>
             <artifactId>android-maven-plugin</artifactId>
-            <version>4.5.0</version>
+            <version>4.6.0</version>
             <inherited>true</inherited>
             <configuration>
               <sign>
@@ -321,26 +321,26 @@
     <finalName>${project.artifactId}</finalName>
     <resources>
       <!--Android Maven plugin will chooses these resources ordered by Maven Resource plugin
-        and removes other duplicates from jars:-->
+        and removes other duplicates from jars:
       <resource>
         <directory>src${file.separator}main${file.separator}resources</directory>
       </resource>
       <resource>
-        <directory>${user.home}${file.separator}git${file.separator}beigesoft-accounting-weboio-jar${file.separator}src${file.separator}main${file.separator}resources</directory>
+        <directory>../beigesoft-accounting-weboio-jar${file.separator}src${file.separator}main${file.separator}resources</directory>
       </resource>
       <resource>
-        <directory>${user.home}${file.separator}git${file.separator}beigesoft-webstore${file.separator}src${file.separator}main${file.separator}resources</directory>
+        <directory>../beigesoft-webstore${file.separator}src${file.separator}main${file.separator}resources</directory>
       </resource>
       <resource>
-        <directory>${user.home}${file.separator}git${file.separator}beigesoft-accounting${file.separator}src${file.separator}main${file.separator}resources</directory>
+        <directory>../beigesoft-accounting${file.separator}src${file.separator}main${file.separator}resources</directory>
       </resource>
       <resource>
-        <directory>${user.home}${file.separator}git${file.separator}beigesoft-webcrud-jar${file.separator}src${file.separator}main${file.separator}resources</directory>
+        <directory>../beigesoft-webcrud-jar${file.separator}src${file.separator}main${file.separator}resources</directory>
       </resource>
       <resource>
-        <directory>${user.home}${file.separator}git${file.separator}beigesoft-orm${file.separator}src${file.separator}main${file.separator}resources</directory>
+        <directory>../beigesoft-orm${file.separator}src${file.separator}main${file.separator}resources</directory>
       </resource>
-    </resources>
+    </resources>-->
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -355,7 +355,7 @@
       <plugin>
         <groupId>com.simpligility.maven.plugins</groupId>
         <artifactId>android-maven-plugin</artifactId>
-        <version>4.5.0</version>
+        <version>4.6.0</version>
         <configuration>
           <dex>
             <multiDex>true</multiDex>
